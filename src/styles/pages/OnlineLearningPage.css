@@ -1,0 +1,338 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Hero Section */
+.online-hero-section {
+  padding: 5rem 0;
+  background-color: rgba(241, 245, 249, 0.3);
+  text-align: center;
+}
+
+.online-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.online-hero-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.online-hero-description {
+  font-size: 1.25rem;
+  color: var(--muted-foreground);
+  margin-bottom: 2rem;
+}
+
+/* Features Section */
+.features-section {
+  padding: 4rem 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.feature-card {
+  background-color: var(--background);
+}
+
+.feature-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.video-icon::before {
+  content: "🎬";
+  font-size: 2rem;
+}
+
+.feedback-icon::before {
+  content: "👥";
+  font-size: 2rem;
+}
+
+.materials-icon::before {
+  content: "📚";
+  font-size: 2rem;
+}
+
+.feature-description {
+  color: var(--muted-foreground);
+}
+
+/* Courses Section */
+.courses-section {
+  padding: 4rem 0;
+  background-color: rgba(241, 245, 249, 0.3);
+}
+
+.courses-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-description {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.course-card {
+  overflow: hidden;
+}
+
+.course-image-container {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-meta {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.course-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.course-meta-icon {
+  color: var(--muted-foreground);
+}
+
+.clock-icon::before {
+  content: "🕒";
+  font-size: 1rem;
+}
+
+.book-icon::before {
+  content: "📚";
+  font-size: 1rem;
+}
+
+.star-icon::before {
+  content: "⭐";
+  font-size: 1rem;
+}
+
+.people-icon::before {
+  content: "👥";
+  font-size: 1rem;
+}
+
+.course-description {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.course-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.course-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--muted);
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.course-tag-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.course-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.arrow-icon::before {
+  content: "→";
+  margin-left: 0.5rem;
+}
+
+.courses-more {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  padding: 4rem 0;
+}
+
+.how-it-works-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.step-item {
+  text-align: center;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: rgba(139, 92, 246, 0.1);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.step-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.step-description {
+  color: var(--muted-foreground);
+}
+
+/* Testimonials */
+.testimonials-section {
+  padding: 4rem 0;
+  background-color: rgba(241, 245, 249, 0.3);
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.testimonial-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-stars {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-star::before {
+  content: "⭐";
+  color: #f59e0b;
+}
+
+.testimonial-text {
+  font-style: italic;
+  flex-grow: 1;
+}
+
+.testimonial-footer {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.testimonial-author {
+  font-weight: 500;
+}
+
+.testimonial-course {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* CTA Section */
+.cta-section {
+  padding: 4rem 0;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-button {
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .online-hero-title {
+    font-size: 3rem;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .courses-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+

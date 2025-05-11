@@ -1,0 +1,7 @@
+.strapi-error,
+.strapi-no-data {
+  text-align: center;
+  padding: 2rem;
+  color: var(--foreground);
+  font-family: 'Unbounded', sans-serif;
+} 

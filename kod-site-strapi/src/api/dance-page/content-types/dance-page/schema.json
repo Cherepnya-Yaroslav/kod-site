@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "dance_pages",
+  "info": {
+    "singularName": "dance-page",
+    "pluralName": "dance-pages",
+    "displayName": "Dance Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    }
+  }
+}

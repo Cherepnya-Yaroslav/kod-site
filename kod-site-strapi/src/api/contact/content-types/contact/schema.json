@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "contacts",
+  "info": {
+    "singularName": "contact",
+    "pluralName": "contacts",
+    "displayName": "Contact Form Submissions",
+    "description": "Store contact form submissions from the website"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": false
+    },
+    "email": {
+      "type": "email",
+      "required": false
+    },
+    "phone": {
+      "type": "string",
+      "required": false
+    },
+    "message": {
+      "type": "text",
+      "required": false
+    },
+    "formType": {
+      "type": "string",
+      "required": false,
+      "default": "Обратная связь"
+    },
+    "additionalData": {
+      "type": "json",
+      "required": false
+    },
+    "processed": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    }
+  }
+} 

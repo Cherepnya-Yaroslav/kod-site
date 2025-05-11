@@ -1,0 +1,476 @@
+/* Импортируем базовые стили от ProgramDetails */
+@import '../components/ProgramDetails.css';
+
+.theme-parties-page {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 35, 0.95) 50%, rgba(20, 20, 35, 0.97) 100%);
+}
+
+/* Programs Section */
+.theme-parties-page .programs-section {
+  padding: 4rem 0;
+  margin-top: 2rem;
+}
+
+.theme-parties-page .programs-section .section-title {
+  text-align: center;
+  color: var(--foreground);
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  font-weight: 600;
+}
+
+.theme-parties-page .programs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.program-card {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* Стили для изображений в карточках программ */
+.theme-parties-page .program-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.theme-parties-page .program-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.theme-parties-page .program-card:hover .program-image img {
+  transform: scale(1.05);
+}
+
+.program-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--foreground);
+  text-align: center;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Theme Categories Section */
+.theme-parties-page .theme-categories {
+  padding: 4rem 0;
+  margin-top: 2rem;
+}
+
+.theme-parties-page .themes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.theme-parties-page .theme-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: transform 0.2s ease;
+}
+
+.theme-parties-page .theme-item:hover {
+  transform: translateY(-4px);
+}
+
+.theme-parties-page .theme-item h3 {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.theme-parties-page .theme-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.theme-parties-page .theme-item li {
+  color: var(--muted-foreground);
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.theme-parties-page .theme-item li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+}
+
+/* Included Features Section */
+.theme-parties-page .included-features {
+  padding: 4rem 0;
+  margin-top: 2rem;
+}
+
+.theme-parties-page .features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.theme-parties-page .feature-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.theme-parties-page .feature-item:hover {
+  transform: translateY(-4px);
+}
+
+.theme-parties-page .feature-item h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.theme-parties-page .feature-item p {
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+/* Organization Process Section */
+.theme-parties-page .organization-process {
+  padding: 4rem 0;
+  margin-top: 2rem;
+}
+
+.theme-parties-page .process-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.theme-parties-page .process-item {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.theme-parties-page .process-item:hover {
+  transform: translateY(-4px);
+}
+
+.theme-parties-page .process-number {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0 auto 1rem;
+  color: white;
+}
+
+.process-item h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+
+.process-item p {
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+/* Section Titles */
+.theme-parties-page .section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+/* Past Events Section */
+.theme-parties-page .past-events {
+  padding: 4rem 0;
+  margin-top: 2rem;
+}
+
+.theme-parties-page .past-events .section-title {
+  text-align: center;
+  color: var(--foreground);
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.theme-parties-page .events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.theme-parties-page .event-card {
+  background: transparent;
+  border: none;
+  overflow: visible;
+  transition: transform 0.2s ease;
+  height: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-decoration: none;
+}
+
+.theme-parties-page .event-card:hover {
+  transform: translateY(-5px);
+}
+
+.theme-parties-page .event-image {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 1:1 aspect ratio for square image */
+  overflow: hidden;
+  margin: 0;
+  border-radius: 24px; /* Более заметное скругление */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.theme-parties-page .event-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.theme-parties-page .event-card:hover .event-image img {
+  transform: scale(1.05);
+}
+
+.theme-parties-page .event-card .card-header {
+  padding: 1.25rem 0.5rem 0.5rem;
+  text-align: center;
+}
+
+.theme-parties-page .event-card .card-title {
+  font-size: 1.5rem;
+  color: var(--foreground);
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Скрываем ненужные элементы */
+.theme-parties-page .event-card .card-description,
+.theme-parties-page .event-card .card-content {
+  display: none;
+}
+
+/* Дополнительные отступы для избежания перекрытия навигацией */
+.program-details .program-header {
+  padding-top: 80px; /* Увеличиваем отступ сверху для гарантированного избежания перекрытия */
+  position: relative;
+  z-index: 1; /* Повышаем z-index для корректного отображения */
+  display: block;
+  width: 100%;
+}
+
+/* Обновленные стили для кнопки назад */
+.program-details .back-button {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background-color: rgba(20, 20, 35, 0.6);
+  position: relative;
+  z-index: 10; /* Очень высокий z-index для гарантии видимости */
+}
+
+.program-details .back-button:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background-color: rgba(139, 92, 246, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для минималистичной кнопки назад */
+.back-button-minimal {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.5rem 0;
+  margin-bottom: 1.5rem;
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.back-button-minimal:hover {
+  color: var(--primary);
+}
+
+.back-button-minimal::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.back-button-minimal:hover::after {
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .theme-parties-page .programs-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .theme-parties-page .programs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .theme-parties-page .program-image {
+    width: 100%;
+    aspect-ratio: 1;
+  }
+
+  .program-name {
+    font-size: 0.9rem;
+  }
+
+  .theme-parties-page .themes-grid,
+  .theme-parties-page .features-grid,
+  .theme-parties-page .process-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+
+  .theme-parties-page .theme-categories,
+  .theme-parties-page .included-features,
+  .theme-parties-page .organization-process {
+    padding: 3rem 0;
+  }
+
+  .theme-parties-page .theme-item,
+  .theme-parties-page .feature-item,
+  .theme-parties-page .process-item {
+    padding: 1.5rem;
+  }
+
+  .theme-parties-page .section-title {
+    font-size: 1.75rem;
+  }
+
+  .theme-parties-page .events-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    padding: 0 1rem;
+  }
+
+  .theme-parties-page .event-card {
+    max-width: 100%;
+  }
+
+  .theme-parties-page .past-events .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-parties-page .programs-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding: 0 0.75rem;
+  }
+
+  .theme-parties-page .program-image {
+    border-radius: 16px;
+  }
+
+  .program-name {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+
+  .theme-parties-page .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+/* Стили для нижней навигации */
+.bottom-navigation {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bottom-navigation .back-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(139, 92, 246, 0.15);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.bottom-navigation .back-button:hover {
+  background-color: rgba(139, 92, 246, 0.25);
+  transform: translateY(-2px);
+} 

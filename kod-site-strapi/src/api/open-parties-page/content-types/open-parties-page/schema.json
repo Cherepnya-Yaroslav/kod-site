@@ -1,0 +1,38 @@
+{
+  "kind": "singleType",
+  "collectionName": "open_parties_pages",
+  "info": {
+    "singularName": "open-parties-page",
+    "pluralName": "open-parties-pages",
+    "displayName": "Open Parties Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "gallery": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": true
+    },
+    "coverImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

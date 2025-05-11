@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "games",
+  "info": {
+    "singularName": "game",
+    "pluralName": "games",
+    "displayName": "Game",
+    "description": "Collection of all available games"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "description": "Name of the game"
+    },
+    "gameType": {
+      "type": "enumeration",
+      "enum": [
+        "role",
+        "quest",
+        "show",
+        "quiz",
+        "tgame",
+        "dance"
+      ],
+      "required": true,
+      "description": "Type of the game"
+    },
+    "audienceType": {
+      "type": "enumeration",
+      "enum": [
+        "kids",
+        "adults"
+      ],
+      "required": true,
+      "description": "Target audience for the game"
+    },
+    "ageGroups": {
+      "type": "json",
+      "required": true,
+      "description": "Array of age groups like ['6+', '12+', '16+']"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "description": "Main description of the game"
+    },
+    "hasPremiumVersion": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the game has a premium version"
+    },
+    "premiumDescription": {
+      "type": "text",
+      "description": "Description of the premium version if available"
+    }
+  }
+}

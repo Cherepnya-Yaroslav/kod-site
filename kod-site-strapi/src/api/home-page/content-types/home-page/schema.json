@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "home_pages",
+  "info": {
+    "singularName": "home-page",
+    "pluralName": "home-pages",
+    "displayName": "Home page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "richtext",
+      "required": true
+    },
+    "Video_URL": {
+      "type": "string"
+    },
+    "Contact_Phone": {
+      "type": "string"
+    },
+    "Contact_Email": {
+      "type": "string"
+    },
+    "About_Title": {
+      "type": "string"
+    },
+    "About_Description": {
+      "type": "text"
+    },
+    "About_Full_Description": {
+      "type": "richtext"
+    },
+    "Gallery_Images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "Founder_Quote": {
+      "type": "text"
+    },
+    "Founder_Name": {
+      "type": "string"
+    },
+    "Founder_Images": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    }
+  }
+}

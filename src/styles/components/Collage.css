@@ -1,0 +1,94 @@
+/* Стили для компонента Collage */
+@keyframes tremble {
+  0%, 100% { 
+    transform: translate(0, 0) rotate(var(--initial-rotate, 0deg)); 
+  }
+  25% { 
+    transform: translate(-4px, 3px) rotate(calc(var(--initial-rotate, 0deg) - 0.8deg)); 
+  }
+  50% { 
+    transform: translate(3px, -4px) rotate(calc(var(--initial-rotate, 0deg) + 0.7deg)); 
+  }
+  75% { 
+    transform: translate(-2px, -3px) rotate(calc(var(--initial-rotate, 0deg) - 0.5deg)); 
+  }
+}
+
+.collage {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.collage-image {
+  position: absolute;
+  max-width: 80%;
+  border-radius: 8px;
+}
+
+.collage-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.collage-image-1 {
+  top: -50px;
+  left: 0;
+  --initial-rotate: -10deg;
+  transform: rotate(var(--initial-rotate));
+  z-index: 1;
+  animation: tremble 4.5s ease-in-out infinite;
+}
+
+.collage-image-2 {
+  top: 0px;
+  left: 100px;
+  --initial-rotate: 5deg;
+  transform: rotate(var(--initial-rotate));
+  z-index: 2;
+  animation: tremble 5s ease-in-out infinite 0.3s;
+}
+
+.collage-image-3 {
+  top: 100px;
+  left: 30px;
+  --initial-rotate: -5deg;
+  transform: rotate(var(--initial-rotate));
+  z-index: 3;
+  animation: tremble 4s ease-in-out infinite 0.6s;
+}
+
+@media (max-width: 768px) {
+  .collage {
+    height: 300px;
+  }
+  
+  .collage-image {
+    max-width: 70%;
+  }
+  
+  .collage-image-1 {
+    top: -30px;
+  }
+  
+  .collage-image-2 {
+    left: 70px;
+  }
+  
+  .collage-image-3 {
+    top: 70px;
+    left: 20px;
+  }
+}
+
+/* Скрываем только коллажи на мобильных устройствах */
+@media (max-width: 480px) {
+  .collage,
+  .overlapping-collage {
+    display: none !important;
+  }
+} 

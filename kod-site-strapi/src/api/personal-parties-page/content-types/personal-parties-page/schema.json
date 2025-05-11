@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "personal_parties_pages",
+  "info": {
+    "singularName": "personal-parties-page",
+    "pluralName": "personal-parties-pages",
+    "displayName": "Personal Parties Page",
+    "description": "Content for the Personal Parties page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "Gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "CoverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

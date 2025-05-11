@@ -1,0 +1,55 @@
+.page-header-section {
+  padding: 40px 0;
+  background-color: transparent; /* Or your desired background */
+  color: white; /* Or your desired text color */
+  position: relative; /* Needed for the pseudo-element */
+}
+
+/* Update the divider line to match the site style */
+.page-header-section::after {
+  content: '';
+  position: absolute; /* Changed from display: block */
+  bottom: 0; /* Position at the bottom of the section */
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent); /* Use gradient */
+  /* Remove margin as it's positioned absolutely */
+}
+
+.page-header-content {
+  text-align: center;
+  max-width: 800px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center the content block */
+}
+
+.page-header-title {
+  font-size: 2.5rem; /* Adjust size as needed */
+  margin-bottom: 20px;
+  font-weight: bold; /* Or adjust as needed */
+}
+
+.page-header-description {
+  font-size: 1.1rem; /* Adjust size as needed */
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8); /* Adjust color/opacity as needed */
+}
+
+.page-header-description p {
+  margin-bottom: 15px;
+}
+
+.page-header-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page-header-title {
+    font-size: 2rem;
+  }
+
+  .page-header-description {
+    font-size: 1rem;
+  }
+} 

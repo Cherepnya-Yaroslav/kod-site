@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "kids_games_pages",
+  "info": {
+    "singularName": "kids-games-page",
+    "pluralName": "kids-games-pages",
+    "displayName": "Kids Games Page",
+    "description": "Kids games page content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
+    },
+    "Description": {
+      "type": "text",
+      "required": true
+    },
+    "CoverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

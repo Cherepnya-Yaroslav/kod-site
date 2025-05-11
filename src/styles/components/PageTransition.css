@@ -1,0 +1,68 @@
+.page-transition {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--background);
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.page-overlay.loading {
+  opacity: 1;
+}
+
+.page-overlay:not(.loading) {
+  opacity: 0;
+}
+
+.page-content {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.content-visible .page-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Глобальные стили для плавных переходов */
+* {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Плавная загрузка изображений */
+img {
+  transition: opacity 0.3s ease-in-out;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* Только изображения с атрибутом data-lazy имеют начальную прозрачность 0 */
+img[data-lazy="true"] {
+  opacity: 0;
+}
+
+/* Обычные изображения видны сразу */
+img:not([data-lazy="true"]) {
+  opacity: 1;
+}
+
+/* Предотвращаем скачки контента при загрузке шрифтов */
+html {
+  font-display: optional;
+} 

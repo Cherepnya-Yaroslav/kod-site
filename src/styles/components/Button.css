@@ -1,0 +1,160 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-shadow: var(--neon-text-glow);
+  min-width: 100px;
+  text-align: center;
+}
+
+.button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Variants */
+.button-primary {
+  background: var(--primary);
+  color: white;
+  border: 1px solid transparent;
+  padding: 0.75rem 1.5rem;
+  box-shadow: var(--neon-glow);
+}
+
+.button-primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--neon-glow-intense);
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+}
+
+.button-secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: var(--neon-glow);
+}
+
+.button-outline {
+  background-color: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+.button-outline:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--foreground);
+  border: none;
+  padding: 0.75rem 1.5rem;
+}
+
+.button-ghost:hover {
+  background: var(--accent-1);
+  color: var(--primary);
+  text-shadow: var(--neon-text-glow);
+}
+
+.button-link {
+  background: transparent;
+  color: var(--primary);
+  border: none;
+  padding: 0.5rem;
+  text-decoration: none;
+}
+
+.button-link:hover {
+  text-decoration: underline;
+  color: var(--primary-light);
+}
+
+/* Sizes */
+.button-sm {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  min-width: 80px;
+}
+
+.button-lg {
+  font-size: 1.125rem;
+  padding: 1rem 2rem;
+  min-width: 120px;
+}
+
+/* Full width */
+.button-full {
+  width: 100%;
+}
+
+/* States */
+.button-loading {
+  position: relative;
+  color: transparent !important;
+}
+
+.button-loading::after {
+  content: '';
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--foreground);
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: button-spin 0.6s linear infinite;
+}
+
+@keyframes button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Icon support */
+.button-icon {
+  margin-right: 0.5rem;
+}
+
+.button-icon-only {
+  padding: 0.75rem;
+  min-width: unset;
+}
+
+/* Gradient effect on hover for primary buttons */
+.button-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue), var(--neon-pink));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.button-primary:hover::before {
+  opacity: 0.2;
+}
+

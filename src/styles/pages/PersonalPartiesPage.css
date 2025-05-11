@@ -1,0 +1,796 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hero Section */
+.personal-parties-hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 0;
+  padding-bottom: 4rem;
+}
+
+.hero-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #000;
+  z-index: 0;
+}
+
+.hero-background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hero-background.loaded img {
+  opacity: 1;
+}
+
+.hero-background.loaded {
+  transform: scale(1.1);
+  transition: transform 15s ease-out;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.4) 80%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 600px;
+}
+
+/* Services Section */
+.services-section {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  transition: transform 0.3s ease;
+  padding: 20px;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.service-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+}
+
+.service-card:hover .service-card-image img {
+  transform: scale(1.05);
+  border-radius: 10px;
+}
+
+.service-card .card-header {
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.service-card .card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.5rem;
+}
+
+.service-card .card-description {
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.service-card .card-content {
+  padding: 0.5rem 1.5rem 1.5rem;
+  margin-top: auto;
+}
+
+.service-action {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .service-card-image {
+    height: 160px;
+  }
+
+  .service-card .card-header {
+    padding: 1rem 1rem 0.5rem;
+  }
+
+  .service-card .card-title {
+    font-size: 1.1rem;
+  }
+
+  .service-card .card-description {
+    font-size: 0.85rem;
+  }
+
+  .service-card .card-content {
+    padding: 0.5rem 1rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-card-image {
+    height: 140px;
+  }
+
+  .service-card .card-header {
+    padding: 0.75rem 0.75rem 0.25rem;
+  }
+
+  .service-card .card-title {
+    font-size: 1rem;
+  }
+
+  .service-card .card-description {
+    font-size: 0.8rem;
+  }
+
+  .service-card .card-content {
+    padding: 0.25rem 0.75rem 0.75rem;
+  }
+}
+
+/* Features Section */
+.features-section {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+}
+
+/* Center feature card titles and descriptions */
+.feature-card .card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.feature-card .card-title {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.feature-card .card-description {
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.feature-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.feature-description {
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+/* Booking Section */
+.booking-section {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.booking-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.booking-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.booking-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.booking-form {
+  padding: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--foreground);
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: rgba(139, 92, 246, 0.5);
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.booking-submit {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(139, 92, 246, 0.7);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.booking-submit:hover {
+  background: rgba(139, 92, 246, 0.9);
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .booking-container {
+    padding: 0 1.5rem;
+  }
+  
+  /* Show scroll indicators on mobile */
+  .scroll-indicator {
+    display: block;
+  }
+  
+  /* Enhanced horizontal swipe for service cards on mobile */
+  .services-section {
+    position: relative;
+    padding-bottom: 4rem;
+  }
+  
+  .services-section::after {
+    content: '';
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    z-index: 2;
+  }
+  
+  .services-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+    padding: 1.5rem 0.5rem 2.5rem 0.5rem;
+    gap: 1rem;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    margin: 0 -1rem; /* Extend beyond container */
+    padding-left: 1rem;
+    position: relative;
+    overflow-y: hidden !important; /* Prevent vertical scrolling */
+  }
+  
+  .services-grid::after {
+    content: '';
+    flex: 0 0 1rem;
+    min-width: 1rem;
+  }
+  
+  .services-grid::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  
+  .service-card {
+    flex: 0 0 85%;
+    min-width: 280px;
+    margin-right: 1rem;
+    scroll-snap-align: start;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    height: auto;
+    transform: scale(0.98);
+    transition: transform 0.3s ease;
+    opacity: 0.85;
+  }
+  
+  .service-card:focus-within {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .service-card:last-child {
+    margin-right: 2rem; /* Provides space at the end for better UX */
+  }
+
+  /* Add scroll hint animation */
+  @keyframes scrollHint {
+    0% { transform: translateX(0); }
+    10% { transform: translateX(10px); }
+    20% { transform: translateX(0); }
+    100% { transform: translateX(0); }
+  }
+  
+  .services-grid::before {
+    content: none; /* Remove the arrows from the grid */
+  }
+  
+  .services-section .scroll-indicator {
+    content: '←→';
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5);
+    animation: scrollHint 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
+    width: 50px;
+    text-align: center;
+  }
+
+  /* Enhanced horizontal swipe for features (Фишки K.O.D.) on mobile */
+  .features-section {
+    position: relative;
+    padding-bottom: 4rem;
+  }
+  
+  .features-section::after {
+    content: '';
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    z-index: 2;
+  }
+  
+  .features-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    grid-template-columns: none !important;
+    grid-auto-flow: unset !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important; /* Prevent vertical scrolling */
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+    padding: 1.5rem 0.5rem 2.5rem 0.5rem;
+    gap: 1rem;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    margin: 0 -1rem; /* Extend beyond container */
+    padding-left: 1rem;
+    position: relative;
+    width: 100% !important;
+    max-width: calc(100vw - 2rem) !important;
+  }
+  
+  .features-grid::after {
+    content: '';
+    flex: 0 0 1rem;
+    min-width: 1rem;
+  }
+  
+  .features-grid::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+  
+  .features-grid::before {
+    content: none; /* Remove the arrows from the grid */
+  }
+  
+  .features-section .scroll-indicator {
+    content: '←→';
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5);
+    animation: scrollHint 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
+    width: 50px;
+    text-align: center;
+  }
+  
+  .feature-card {
+    flex: 0 0 85% !important;
+    min-width: 250px !important;
+    max-width: 300px !important;
+    width: 85% !important;
+    margin-right: 1rem !important;
+    scroll-snap-align: start;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    height: auto;
+    transform: scale(0.98);
+    transition: transform 0.3s ease;
+    opacity: 0.85;
+    display: block !important;
+  }
+  
+  .feature-card:focus-within {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .feature-card:last-child {
+    margin-right: 2rem; /* Provides space at the end for better UX */
+  }
+}
+
+@media (min-width: 768px) {
+  .faq-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+}
+
+/* Добавляем единый фон для всей страницы */
+.personal-parties-page {
+  position: relative;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 35, 0.95) 50%, rgba(20, 20, 35, 0.97) 100%);
+}
+
+.personal-parties-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Обновляем стили секций для совместимости с общим фоном */
+.personal-parties-hero, .services-section, .features-section, .booking-section, .conditions-section, .photo-collage-section {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* Добавляем плавные разделители между секциями */
+.services-section, .features-section, .booking-section, .conditions-section, .photo-collage-section {
+  position: relative;
+}
+
+.services-section::after, .features-section::after, .booking-section::after, .photo-collage-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Улучшаем отступы между секциями для более плавного перехода */
+.personal-parties-hero {
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  margin-bottom: 0;
+}
+
+.services-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.features-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.booking-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.conditions-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.photo-collage-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+/* Плавное затухание фона героя */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.4) 80%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+/* Добавляем анимацию для плавного появления контента при скролле */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.services-grid, .features-header, .booking-container, .conditions-container {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Улучшаем эффект глубины для карточек */
+.service-card, .feature-card, .booking-card, .conditions-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Update style for service action button with better text contrast on hover */
+.service-action .button {
+  min-width: 150px;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-action .button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--neon-glow);
+  color: white; /* Ensure text is white/visible on hover */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); /* Add text shadow for better readability */
+  z-index: 1;
+}
+
+.service-action .button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(139, 92, 246, 0.6), 
+    rgba(59, 130, 246, 0.6), 
+    rgba(236, 72, 153, 0.6));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.service-action .button:hover::before {
+  opacity: 0.8;
+}
+
+/* Service icons */
+.party-icon::before {
+  content: "🎭";
+}
+
+.location-icon::before {
+  content: "📍";
+}
+
+.gift-icon::before {
+  content: "🎁";
+}
+
+.team-icon::before {
+  content: "👥";
+}
+
+.venue-icon::before {
+  content: "🏛️";
+}
+
+.game-icon::before {
+  content: "🎲";
+}
+
+.service-icon::before {
+  font-size: 2rem;
+}
+
+/* Hide scroll indicators on desktop */
+.scroll-indicator {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Show scroll indicators only on mobile */
+  .scroll-indicator {
+    display: block;
+  }
+}
+
+/* Center section titles */
+.section-title {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+} 

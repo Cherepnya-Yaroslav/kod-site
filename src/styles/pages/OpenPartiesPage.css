@@ -1,0 +1,396 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Hero Section */
+.open-parties-hero {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.hero-background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hero-background.loaded img {
+  opacity: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 35%,
+    rgba(0, 0, 0, 0.2) 80%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Services Section */
+.services-section {
+  padding: 4rem 0;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.service-card {
+  height: 100%;
+}
+
+.service-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.party-icon::before {
+  content: "🎉";
+  font-size: 2rem;
+}
+
+.location-icon::before {
+  content: "📍";
+  font-size: 2rem;
+}
+
+.gift-icon::before {
+  content: "🎁";
+  font-size: 2rem;
+}
+
+.team-icon::before {
+  content: "👥";
+  font-size: 2rem;
+}
+
+.venue-icon::before {
+  content: "🏢";
+  font-size: 2rem;
+}
+
+.service-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.service-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.check-icon::before {
+  content: "✓";
+  color: var(--primary);
+}
+
+/* Schedule Section */
+.schedule-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.schedule-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.section-description {
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Games Grid */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.game-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+}
+
+.game-image-container {
+  position: relative;
+  padding-top: 60%;
+  overflow: hidden;
+}
+
+.game-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-details {
+  padding: 1.5rem;
+}
+
+.game-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.game-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.game-description {
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* FAQ Section */
+.faq-section {
+  padding: 6rem 0;
+  margin-top: 0;
+  background: var(--accent-1);
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.faq-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.faq-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  transition: transform 0.2s ease;
+}
+
+.faq-card:hover {
+  transform: translateY(-2px);
+}
+
+.faq-question {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.faq-answer {
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+/* Loading and Error states */
+.loading,
+.error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #666;
+  padding: 2rem;
+  text-align: center;
+}
+
+.error {
+  color: #dc3545;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+
+  .games-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .faq-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+}
+
+/* Добавляем плавные разделители между секциями */
+.schedule-section, .photo-gallery-section, .faq-section, .themes-section, .photo-collage-section {
+  position: relative;
+}
+
+.schedule-section::after, .photo-gallery-section::after, .themes-section::after, .photo-collage-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Улучшаем отступы между секциями для более плавного перехода */
+.parties-hero {
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  margin-bottom: 0;
+}
+
+.themes-section {
+  padding: 6rem 0;
+  margin-top: -2rem; /* Негативный отступ для плавного перехода */
+}
+
+.schedule-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.photo-gallery-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+.faq-section {
+  padding: 6rem 0;
+  margin-top: 0;
+}
+
+/* Плавное затухание фона героя */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 35%,
+    rgba(0, 0, 0, 0.2) 80%,
+    transparent 100%
+  );
+}
+
+/* Добавляем анимацию для плавного появления контента при скролле */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.themes-grid, .schedule-header, .faq-container, .photo-gallery {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Позиционирование для секции фотогалереи */
+.photo-collage-section {
+  position: relative;
+  padding: 6rem 0;
+  margin-top: 0;
+} 

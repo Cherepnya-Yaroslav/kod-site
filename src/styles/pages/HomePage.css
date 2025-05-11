@@ -1,0 +1,598 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  margin-bottom: 0;
+}
+
+/* Базовые стили для фона, общие для всех страниц */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #000;
+  transition: all 0.5s ease-in-out;
+  z-index: 1;
+  transform-origin: center center;
+}
+
+.hero-background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  margin: 0;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Общий класс для загруженного состояния */
+.hero-background.loaded img {
+  opacity: 1;
+}
+
+/* Уникальные масштабы для каждой страницы */
+.home-page .hero-background.loaded {
+  transform: scale(1.0) !important;
+}
+
+.dance-page .hero-background.loaded {
+  transform: scale(1.1) !important;
+}
+
+.kids-page .hero-background.loaded {
+  transform: scale(1.1) !important;
+}
+
+.parties-page .hero-background.loaded {
+  transform: scale(1.1) !important;
+}
+
+.adult-games-page .hero-background.loaded {
+  transform: scale(1.1) !important;
+}
+.personal-parties-page .hero-background.loaded {
+  transform: scale(1.1) !important;
+ 
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 35%,
+    rgba(0, 0, 0, 0.2) 80%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  z-index: 3;
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+  max-width: 600px;
+  width: 45%;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+  position: relative;
+  z-index: 3;
+}
+
+.hero-content::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(45deg,
+    rgba(139, 92, 246, 0.3),
+    rgba(59, 130, 246, 0.3),
+    rgba(236, 72, 153, 0.3)
+  );
+  border-radius: var(--radius);
+  z-index: -1;
+  transition: all 0.3s ease;
+  opacity: 0.3;
+  filter: blur(8px);
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  margin-left: auto;
+}
+
+.panda-illustration {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 2rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: 2px solid var(--primary);
+}
+
+.hero-secondary-button {
+  background-color: transparent;
+  color: var(--foreground);
+  border: 2px solid var(--foreground);
+}
+
+/* Video Section */
+.video-section {
+  padding: 6rem 2rem;
+  background: transparent;
+  position: relative;
+  margin-top: -2rem;
+}
+
+.video-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.video-placeholder {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-placeholder-text {
+  color: var(--muted-foreground);
+  font-size: 1.125rem;
+}
+
+.video-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-content {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.section-description {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: var(--foreground);
+  opacity: 0.9;
+  text-align: center;
+}
+
+.testimonials {
+  margin-top: 1rem;
+}
+
+.testimonials-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.testimonial-card {
+  height: 100%;
+}
+
+.testimonial-text {
+  font-style: italic;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.testimonial-author {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* About Section */
+.about-section {
+  padding: 6rem 2rem;
+  background: transparent;
+  position: relative;
+  margin-top: 0;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: -1;
+}
+
+.about-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.photo-item {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.photo-item::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(45deg,
+    rgba(139, 92, 246, 0.5),
+    rgba(59, 130, 246, 0.5),
+    rgba(236, 72, 153, 0.5)
+  );
+  border-radius: var(--radius);
+  z-index: -1;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+  filter: blur(8px);
+}
+
+.photo-item:hover {
+  transform: translateY(-4px);
+}
+
+.photo-item:hover::before {
+  opacity: 0.7;
+  filter: blur(12px);
+}
+
+.photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1 !important;
+  transition: transform 0.3s ease;
+}
+
+/* Founder Section */
+.founder-section {
+  padding: 6rem 2rem;
+  background: transparent;
+  margin-top: 0;
+}
+
+.founder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.founder-quote {
+  position: relative;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.founder-quote::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(45deg,
+    rgba(139, 92, 246, 0.5),
+    rgba(59, 130, 246, 0.5),
+    rgba(236, 72, 153, 0.5)
+  );
+  border-radius: var(--radius);
+  z-index: -1;
+  transition: all 0.3s ease;
+  opacity: 0.3;
+  filter: blur(8px);
+}
+
+.quote-icon {
+  position: absolute;
+  top: -1rem;
+  left: -1rem;
+  font-size: 3rem;
+  color: var(--primary);
+  opacity: 0.2;
+}
+
+.quote-text {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+}
+
+.quote-author {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.founder-photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.founder-photo {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  transition: transform 0.3s ease;
+}
+
+.founder-image {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .video-grid, .founder-grid { 
+    grid-template-columns: 1fr;
+  }
+  
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .founder-photos {
+    grid-template-columns: repeat(2, 1fr); /* Оставляем 2 фото в ряд на планшете */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto; /* Убираем мин высоту на мобилке */
+    padding: 3rem 1rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+  }
+  
+  .video-section,
+  .about-section,
+  .founder-section {
+    padding: 3rem 1rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-description {
+    font-size: 1rem;
+  }
+
+  .photo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .founder-photos {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-background {
+    left: -10%;
+    right: -10%;
+  }
+  
+  .hero-background img {
+    width: 120%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 4rem; /* Возвращаем/увеличиваем размер для десктопа */
+  }
+}
+
+/* Добавляем единый фон для всей страницы */
+.home-page {
+  position: relative;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 35, 0.95) 50%, rgba(20, 20, 35, 0.97) 100%);
+}
+
+.home-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.05) 50%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Обновляем стили секций для совместимости с общим фоном */
+.hero-section, .video-section, .about-section, .founder-section {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* Убираем или делаем прозрачным индивидуальный фон секций */
+.about-section::before {
+  display: none;
+}
+
+/* Добавляем легкие тени для визуального разделения секций */
+.video-section, .about-section, .founder-section {
+  position: relative;
+}
+
+.video-section::after, .about-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+/* Обновление стилей для карточек и блоков, чтобы они гармонировали с единым фоном */
+.photo-item, .founder-quote, .contact-details {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Добавляем анимацию для плавного появления контента при скролле */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.video-content, .about-header, .photo-grid, .founder-quote {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+

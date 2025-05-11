@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "adult_games_pages",
+  "info": {
+    "singularName": "adult-games-page",
+    "pluralName": "adult-games-pages",
+    "displayName": "Adult Games Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "Gallery": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "CoverImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
