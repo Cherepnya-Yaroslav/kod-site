@@ -18,9 +18,10 @@ module.exports = [
     name: 'strapi::cors',
     config: {
       enabled: true,
-      origin: ['*'],
+      origin: ['http://localhost:3000', 'https://kod-site.vercel.app', 'http://localhost:8000'],
       headers: ['*'],
       methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+      credentials: true,
     },
   },
   'strapi::poweredBy',
