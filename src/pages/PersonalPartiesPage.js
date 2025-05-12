@@ -2,13 +2,11 @@ import SiteHeader from "../components/SiteHeader"
 import SiteFooter from "../components/SiteFooter"
 import Button from "../components/Button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/Card"
-import Collage from "../components/Collage"
 import React, { useState, useEffect } from "react"
 import { fetchData, getMediaUrl, getMediaUrls, processComponentMedia } from '../api/strapi'
 import { Link } from "react-router-dom"
 import ProgramDetails from "../components/ProgramDetails"
 import PageHeaderSection from "../components/PageHeaderSection"
-import FeedbackForm from '../components/FeedbackForm'
 
 // Обновляем импорт CSS
 import "../styles/pages/PersonalPartiesPage.css"

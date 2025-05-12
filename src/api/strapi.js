@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Базовый URL для API Strapi
-const API_URL = process.env.REACT_APP_STRAPI_API_URL || 'http://localhost:1337';
+const API_URL = "https://kod-site.onrender.com"
+// || 'http://localhost:1337';
 
 console.log('Strapi API URL:', API_URL);
 
