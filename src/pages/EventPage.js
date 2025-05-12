@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 import Button from '../components/Button';
-import { fetchData } from '../api/strapi';
+import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/pages/EventPage.css';
 
 const STRAPI_URL = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
@@ -30,13 +30,9 @@ const EventPage = () => {
         if (response && response.data && response.data.length > 0) {
           // Поддержка как трансформированного, так и нетрансформированного ответа
           const eventData = response.data[0].attributes || response.data[0];
-          const coverImageUrl = eventData.coverImage?.url 
-            ? `${STRAPI_URL}${eventData.coverImage.url}`
-            : null;
+          const coverImageUrl = eventData.coverImage ? getMediaUrl(eventData.coverImage) : null;
             
-          const galleryImages = eventData.gallery?.map(img => (
-            img?.url ? `${STRAPI_URL}${img.url}` : null
-          )).filter(Boolean) || [];
+          const galleryImages = eventData.gallery?.data?.map(img => getMediaUrl(img)) || [];
           
           const formattedEvent = {
             id: response.data[0].id,

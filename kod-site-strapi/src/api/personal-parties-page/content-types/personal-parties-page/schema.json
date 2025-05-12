@@ -16,6 +16,11 @@
       "type": "string",
       "required": true
     },
+    "pageHeader": {
+      "type": "component",
+      "component": "shared.page-header",
+      "required": true
+    },
     "Description": {
       "type": "text",
       "required": true
@@ -35,6 +40,13 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "programs": {
+      "type": "component",
+      "component": "programs.program",
+      "repeatable": true,
+      "required": true,
+      "min": 1
     }
   }
 }

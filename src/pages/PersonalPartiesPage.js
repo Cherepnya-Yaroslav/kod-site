@@ -4,7 +4,7 @@ import Button from "../components/Button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/Card"
 import Collage from "../components/Collage"
 import React, { useState, useEffect } from "react"
-import { fetchData } from '../api/strapi'
+import { fetchData, getMediaUrl, getMediaUrls, processComponentMedia } from '../api/strapi'
 import { Link } from "react-router-dom"
 import ProgramDetails from "../components/ProgramDetails"
 import PageHeaderSection from "../components/PageHeaderSection"
@@ -19,15 +19,16 @@ const PersonalPartiesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProgram, setSelectedProgram] = useState(null);
+  const [dynamicPrograms, setDynamicPrograms] = useState([]);
 
-  // Данные о программах
-  const programsData = {
+  // Статичные данные о программах
+  const staticProgramsData = {
     themeParties: {
       title: "ТЕМАТИЧЕСКИЕ ВЕЧЕРИНКИ",
       description: [
-        "Тематическая вечеринка - это эмоциональный взрыв! Это - событие, когда гости целиком погружаются в атмосферу выбранной вами темы/идеи. Наша команда - эксперты в организации тематических вечеринок 'под ключ', а наше пространство позволяет воссоздать любую атмосферу! Что вам интересно? Властелин колец? Люди в черном? Французский шик? Игра престолов? Единороги и принцессы? Пираты? Зомби? Анимэ?     Сделаем вашу вечеринку эмоциональной  до каждой милисекунды!   Создадим атмосферу крутым декором! Встретим гостей волкам зоной, Озвучим профессиональным диджеем и караоке-баром! Разнообразим яркой дискотекой! Украсим неоновым светом!   Дополним тематическим сценарием, проведем с крутым ведущим!                                                                               Идеально для: - детский ДР - подростковый ДР - взрослый ДР - девичник - гендерпати - выпускной - корпоратив.                                                                 "
+        "Тематическая вечеринка - это эмоциональный взрыв! Это - событие, когда гости целиком погружаются в атмосферу выбранной вами темы/идеи. Наша команда - эксперты в организации тематических вечеринок 'под ключ', а наше пространство позволяет воссоздать любую атмосферу! Что вам интересно? Властелин колец? Люди в черном? Французский шик? Игра престолов? Единороги и принцессы? Пираты? Зомби? Анимэ?     Сделаем вашу вечеринку эмоциональной  до каждой милисекунды!   Создадим атмосферу крутым декором! Встретим гостей волкам зоной, Озвучим профессиональным диджеем и караоке-баром! Разнообразим яркой дискотекой! Украсим неоновым светом!   Дополним тематическим сценарием, проведем с крутым ведущим!                                                                               Идеально для: - детский ДР - подростковый ДР - взрослый ДР - девичник - гендерпати - выпускной - корпоратив."
       ],
-      mainImage: "/placeholder-theme-party.jpg",
+      mainImage: "/theme-parties.jpg",
       galleryImages: [
         "/placeholder-gallery-1.jpg",
         "/placeholder-gallery-2.jpg",
@@ -35,43 +36,17 @@ const PersonalPartiesPage = () => {
         "/placeholder-gallery-4.jpg"
       ]
     },
-    offSiteEvents: {
-      title: "ВЫЕЗДНЫЕ МЕРОПРИЯТИЯ",
+    gamingParties: {
+      title: "ИГРОВЫЕ ВЕЧЕРИНКИ",
       description: [
-        "Задумали мероприятие? Детский или взрослый День Рождения? Корпоратив? Выпускной? ДЕВИЧНИК? ТИМБИЛДИНГ?  Выездное мероприятие - отличная идея  Если вдруг:Желанная дата уже занята в нашем пространстве - У вас уже есть локация мечты (кафе/пространство), но нет ресурсов организовать все детально и самостоятельно - наша команда быстро и круто сделает это для вас.  Из чего выбрать? Ролевые игры Игры -квесты Шоу - игры Квиз - игры Т-игры Музыкальные игры."
+        "Увлекательные игровые форматы для любого возраста"
       ],
-      mainImage: "/placeholder-offsite-event.jpg",
+      mainImage: "/gaming-parties.jpg",
       galleryImages: [
         "/placeholder-gallery-5.jpg",
         "/placeholder-gallery-6.jpg",
         "/placeholder-gallery-7.jpg",
         "/placeholder-gallery-8.jpg"
-      ]
-    },
-    graduations: {
-      title: "ВЫПУСКНЫЕ",
-      description: [
-        "Официальная часть. Выпускного - история понятная! А вот торжественная часть - самая долгожданная! Окунуться в искренние эмоции от прожитого вместе! Вспомнить победы и поражения! Посмеяться в компании друзей и родителей…Мы трепетно относимся к таким моментам, умеем аккумулировать крутые эмоции, которые западут в души и запомнятся навсегда!  Команда KOD  предлагает организацию вечеринки для выпускников под ключ На территории пространствами организуем вечеринки до 30 человек! В выездном формате мы организуем вечеринки для неограниченного количества гостей                                                            Форматы выпускных: - шоу/квиз/квест игры - тематические вечеринки ."
-      ],
-      mainImage: "/placeholder-graduation.jpg",
-      galleryImages: [
-        "/placeholder-gallery-9.jpg",
-        "/placeholder-gallery-10.jpg",
-        "/placeholder-gallery-11.jpg",
-        "/placeholder-gallery-12.jpg"
-      ]
-    },
-    teamBuilding: {
-      title: "ТИМБИЛДИНГИ",
-      description: [
-        "Компания начинается с идеи, но развивается, расширяется и масштабируется только при условии вдохновленной, увлеченной, замотивированной и сплоченной команды! Здоровая и организованная корпоративная культура всегда была двигателем прогресса и вряд ли Ктото поспорит с этим!  Мы предлагаем организовать Тим-билдинг в форме - бизнес-игр - т-игр - тематических вечеринок с учетом ваших целей и задач! ."
-      ],
-      mainImage: "/placeholder-teambuilding.jpg",
-      galleryImages: [
-        "/placeholder-gallery-13.jpg",
-        "/placeholder-gallery-14.jpg",
-        "/placeholder-gallery-15.jpg",
-        "/placeholder-gallery-16.jpg"
       ]
     },
     venueRental: {
@@ -104,9 +79,97 @@ const PersonalPartiesPage = () => {
     const loadPageData = async () => {
       try {
         setLoading(true);
-        const response = await fetchData('personal-parties-page', { populate: '*' });
-        console.log('Page data:', response);
+        
+        // Изменяем формат запроса populate, чтобы гарантированно получить programs
+        const response = await fetchData('personal-parties-page', { 
+          populate: ['programs.mainImage', 'programs.galleryImages', 'pageHeader'] 
+        });
+        
+        console.log('Personal parties page data from Strapi:', response);
+        console.log('Full response structure:', JSON.stringify(response, null, 2));
+        
         setPageData(response.data);
+        
+        // Проверка данных о программах
+        const programs = response.data?.programs || response.data?.attributes?.programs;
+        console.log('Programs raw data:', programs);
+        
+        if (programs && Array.isArray(programs) && programs.length > 0) {
+          console.log('Found programs:', programs.length);
+          
+          // Обрабатываем программы
+          const formattedPrograms = programs.map(program => {
+            console.log('Processing program:', program.title);
+            
+            // Проверяем доступность mainImage
+            console.log('Program mainImage:', program.mainImage);
+            
+            // Получение URL изображения
+            const mainImageUrl = program.mainImage ? getMediaUrl(program.mainImage) : null;
+            console.log('Main image URL:', mainImageUrl);
+            
+            // Обработка галереи
+            let galleryUrls = [];
+            if (program.galleryImages) {
+              if (Array.isArray(program.galleryImages)) {
+                galleryUrls = program.galleryImages.map(img => {
+                  const url = getMediaUrl(img);
+                  console.log('Gallery image URL:', url);
+                  return url;
+                });
+              } else {
+                const url = getMediaUrl(program.galleryImages);
+                console.log('Single gallery image URL:', url);
+                galleryUrls = [url];
+              }
+            }
+            
+            return {
+              title: program.title,
+              description: [program.description],
+              mainImage: mainImageUrl,
+              galleryImages: galleryUrls,
+              slug: program.slug,
+              shortDescription: program.shortDescription
+            };
+          });
+          
+          console.log('Formatted programs:', formattedPrograms);
+          setDynamicPrograms(formattedPrograms);
+        } else {
+          // Если программы не найдены, попробуем другой формат запроса
+          console.warn('No programs found in the first API response, trying another request format');
+          
+          const alternativeResponse = await fetchData('personal-parties-page', {
+            populate: 'deep'  // Использовать глубокий populate для получения всех связанных данных
+          });
+          
+          console.log('Alternative response:', alternativeResponse);
+          
+          const altPrograms = alternativeResponse.data?.programs || 
+                             alternativeResponse.data?.attributes?.programs;
+          
+          if (altPrograms && Array.isArray(altPrograms) && altPrograms.length > 0) {
+            console.log('Found programs in alternative request:', altPrograms.length);
+            // Process programs similar to above...
+            const formattedPrograms = altPrograms.map(program => ({
+              title: program.title,
+              description: [program.description],
+              mainImage: program.mainImage ? getMediaUrl(program.mainImage) : null,
+              galleryImages: program.galleryImages ? 
+                (Array.isArray(program.galleryImages) ? 
+                  program.galleryImages.map(img => getMediaUrl(img)) : 
+                  [getMediaUrl(program.galleryImages)]
+                ) : [],
+              slug: program.slug,
+              shortDescription: program.shortDescription
+            }));
+            
+            setDynamicPrograms(formattedPrograms);
+          } else {
+            console.error('Unable to fetch programs from Strapi API');
+          }
+        }
       } catch (err) {
         console.error('Error loading page data:', err);
         setError(err.message);
@@ -119,8 +182,8 @@ const PersonalPartiesPage = () => {
   }, []);
 
   // Обработчик нажатия на кнопку "Подробнее"
-  const handleProgramSelect = (programKey) => {
-    setSelectedProgram(programsData[programKey]);
+  const handleProgramSelect = (program) => {
+    setSelectedProgram(program);
     window.scrollTo(0, 0);
   };
 
@@ -167,9 +230,6 @@ const PersonalPartiesPage = () => {
     );
   }
 
-  // Детальное описание для PageHeaderSection
-  const pageHeaderDescription = "                                                                         Собрать для вас крутую вечеринку - наш профессиональный навык. Мы умеем создавать события, которые западают в души и сердца людей! Наши постоянные клиенты дети и взрослые бронируют пространство на год вперед, зная что мы никогда не повторяемся и их вечеринка станет особенной снова!";
-
   return (
     <div className="page-container personal-parties-page">
       <SiteHeader />
@@ -192,20 +252,21 @@ const PersonalPartiesPage = () => {
 
         {/* PageHeaderSection */}
         <PageHeaderSection 
-          title="Персональные вечеринки"
-          description={pageHeaderDescription}
+          title={pageData?.pageHeader?.title || "Персональные вечеринки"}
+          description={pageData?.pageHeader?.description || "Собрать для вас крутую вечеринку - наш профессиональный навык. Мы умеем создавать события, которые западают в души и сердца людей! Наши постоянные клиенты дети и взрослые бронируют пространство на год вперед, зная что мы никогда не повторяемся и их вечеринка станет особенной снова!"}
         />
 
         {/* Services Section */}
         <section className="services-section">
           <div className="container">
             <div className="services-grid">
+              {/* Статичные карточки */}
               <Card className="service-card">
                 <div className="service-card-image">
-                  <img src="theme-parties.jpg" alt="Тематические вечеринки" />
+                  <img src={staticProgramsData.themeParties.mainImage} alt="Тематические вечеринки" />
                 </div>
                 <CardHeader>
-                  <CardTitle>Тематические вечеринки</CardTitle>
+                  <CardTitle>{staticProgramsData.themeParties.title}</CardTitle>
                   <CardDescription>
                     Организуем праздник в любой тематике: от супергероев до ретро-вечеринок
                   </CardDescription>
@@ -213,11 +274,7 @@ const PersonalPartiesPage = () => {
                 <CardContent>
                   <div className="service-action">
                     <Link to="/theme-parties">
-                      <Button 
-                        variant="secondary"
-                      >
-                        ПОДРОБНЕЕ
-                      </Button>
+                      <Button variant="secondary">ПОДРОБНЕЕ</Button>
                     </Link>
                   </div>
                 </CardContent>
@@ -225,20 +282,16 @@ const PersonalPartiesPage = () => {
 
               <Card className="service-card">
                 <div className="service-card-image">
-                  <img src="/gaming-parties.jpg" alt="Игровые вечеринки" />
+                  <img src={staticProgramsData.gamingParties.mainImage} alt="Игровые вечеринки" />
                 </div>
                 <CardHeader>
-                  <CardTitle>Игровые вечеринки дети/взрослые</CardTitle>
+                  <CardTitle>{staticProgramsData.gamingParties.title}</CardTitle>
                   <CardDescription>Увлекательные игровые форматы для любого возраста</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="service-action">
                     <Link to="/gaming-parties">
-                      <Button 
-                        variant="secondary"
-                      >
-                        ПОДРОБНЕЕ
-                      </Button>
+                      <Button variant="secondary">ПОДРОБНЕЕ</Button>
                     </Link>
                   </div>
                 </CardContent>
@@ -246,17 +299,17 @@ const PersonalPartiesPage = () => {
 
               <Card className="service-card">
                 <div className="service-card-image">
-                  <img src="/venue-rental.jpg" alt="Аренда пространства" />
+                  <img src={staticProgramsData.venueRental.mainImage} alt="Аренда пространства" />
                 </div>
                 <CardHeader>
-                  <CardTitle>Аренда пространства</CardTitle>
+                  <CardTitle>{staticProgramsData.venueRental.title}</CardTitle>
                   <CardDescription>Сдаем наше пространство для ваших мероприятий</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="service-action">
                     <Button 
                       variant="secondary" 
-                      onClick={() => handleProgramSelect('venueRental')}
+                      onClick={() => handleProgramSelect(staticProgramsData.venueRental)}
                     >
                       ПОДРОБНЕЕ
                     </Button>
@@ -264,72 +317,36 @@ const PersonalPartiesPage = () => {
                 </CardContent>
               </Card>
 
-              <Card className="service-card">
-                <div className="service-card-image">
-                  <img src="/images/offsite-events.jpg" alt="Выездные мероприятия" />
-                </div>
-                <CardHeader>
-                  <CardTitle>Выездные мероприятия</CardTitle>
-                  <CardDescription>Привезем праздник в любую локацию: дом, офис, парк или ресторан</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="service-action">
-                    <Button 
-                      variant="secondary" 
-                      onClick={() => handleProgramSelect('offSiteEvents')}
-                    >
-                      ПОДРОБНЕЕ
-                    </Button>
+              {/* Динамические карточки из Strapi */}
+              {dynamicPrograms.map((program, index) => (
+                <Card key={program.slug || index} className="service-card">
+                  <div className="service-card-image">
+                    <img 
+                      src={program.mainImage || '/placeholder.jpg'} 
+                      alt={program.title}
+                      onError={(e) => {
+                        console.error('Image failed to load:', program.mainImage);
+                        e.target.onerror = null; 
+                        e.target.src = '/placeholder.jpg';
+                      }}
+                    />
                   </div>
-                </CardContent>
-              </Card>
-
-              <Card className="service-card">
-                <div className="service-card-image">
-                  <img src="/images/graduation.jpg" alt="Выпускные" />
-                </div>
-                <CardHeader>
-                  <CardTitle>Выпускные</CardTitle>
-                  <CardDescription>Особенные праздники для выпускников детских садов, школ и вузов</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="service-action">
-                    <Button 
-                      variant="secondary" 
-                      onClick={() => handleProgramSelect('graduations')}
-                    >
-                      ПОДРОБНЕЕ
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="service-card">
-                <div className="service-card-image">
-                  <img src="/images/team-building.jpg" alt="Тимбилдинги" />
-                </div>
-                <CardHeader>
-                  <CardTitle>Тимбилдинги</CardTitle>
-                  <CardDescription>
-                    Корпоративные мероприятия для сплочения команды и повышения мотивации
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="service-action">
-                    <Button 
-                      variant="secondary" 
-                      onClick={() => handleProgramSelect('teamBuilding')}
-                    >
-                      ПОДРОБНЕЕ
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              
-
-              
-              
+                  <CardHeader>
+                    <CardTitle>{program.title}</CardTitle>
+                    <CardDescription>{program.shortDescription}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="service-action">
+                      <Button 
+                        variant="secondary" 
+                        onClick={() => handleProgramSelect(program)}
+                      >
+                        ПОДРОБНЕЕ
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
             <div className="scroll-indicator">←→</div>
           </div>

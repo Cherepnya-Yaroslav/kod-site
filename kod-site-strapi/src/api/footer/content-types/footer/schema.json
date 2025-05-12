@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "footers",
+  "info": {
+    "singularName": "footer",
+    "pluralName": "footers",
+    "displayName": "footer",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "number": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "adress": {
+      "type": "string"
+    },
+    "rutubeLink": {
+      "type": "string"
+    },
+    "telegramLink": {
+      "type": "string"
+    }
+  }
+}

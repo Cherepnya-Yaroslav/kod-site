@@ -12,8 +12,13 @@ const ProgramDetails = ({
   returnPath = "/",
   onBackClick = null
 }) => {
-  const [currentImage, setCurrentImage] = useState(mainImage);
+  // Устанавливаем дефолтное изображение, если основное изображение не предоставлено
+  const defaultImage = '/placeholder.jpg';
+  const [currentImage, setCurrentImage] = useState(mainImage || defaultImage);
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  // Фильтруем изображения галереи, удаляя null и undefined
+  const validGalleryImages = galleryImages.filter(img => !!img);
 
   // Split description into paragraphs if it's a string
   const paragraphs = typeof description === 'string' 
@@ -33,6 +38,18 @@ const ProgramDetails = ({
   // Function to handle thumbnail click
   const handleThumbnailClick = (image) => {
     setCurrentImage(image);
+  };
+
+  // Обработчик ошибок загрузки изображений
+  const handleImageError = (e) => {
+    console.error('Image failed to load:', e.target.src);
+    e.target.onerror = null;
+    e.target.src = defaultImage;
+    
+    // Если это основное изображение, также обновляем состояние
+    if (e.target.classList.contains('program-main-image') && currentImage !== defaultImage) {
+      setCurrentImage(defaultImage);
+    }
   };
 
   const rentalQuestions = [
@@ -114,6 +131,7 @@ const ProgramDetails = ({
               src={currentImage} 
               alt={title} 
               className="program-main-image"
+              onError={handleImageError}
             />
           </div>
           
@@ -130,24 +148,34 @@ const ProgramDetails = ({
               </Button>
             </div>
             
-              {paragraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
-        </div>
-
-        {galleryImages.length > 0 && (
-          <div className="program-gallery">
-            {[mainImage, ...galleryImages].map((image, index) => (
-              <div 
-                key={index} 
-                className={`gallery-thumbnail ${currentImage === image ? 'active' : ''}`}
-                onClick={() => handleThumbnailClick(image)}
-              >
-                <img src={image} alt={`${title} - фото ${index + 1}`} />
-              </div>
+            {paragraphs.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
             ))}
           </div>
-        )}
+
+          {validGalleryImages.length > 0 && (
+            <div className="program-gallery">
+              {[mainImage || defaultImage, ...validGalleryImages]
+                .filter((image, index, self) => 
+                  // Удаляем дубликаты
+                  image && self.indexOf(image) === index
+                )
+                .map((image, index) => (
+                  <div 
+                    key={index} 
+                    className={`gallery-thumbnail ${currentImage === image ? 'active' : ''}`}
+                    onClick={() => handleThumbnailClick(image)}
+                  >
+                    <img 
+                      src={image} 
+                      alt={`${title} - фото ${index + 1}`} 
+                      onError={handleImageError}
+                    />
+                  </div>
+                ))
+              }
+            </div>
+          )}
         </div>
 
         <FeedbackForm 

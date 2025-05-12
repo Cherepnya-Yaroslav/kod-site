@@ -250,7 +250,7 @@
 /* Testimonials */
 .testimonials-section {
   padding: 4rem 0;
-  background-color: rgba(241, 245, 249, 0.3);
+  background: transparent;
 }
 
 .testimonials-header {

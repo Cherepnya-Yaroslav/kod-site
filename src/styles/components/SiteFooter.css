@@ -111,6 +111,14 @@
   content: "📍";
 }
 
+.icon-rutube::before {
+  content: "📺";
+}
+
+.icon-telegram::before {
+  content: "✈️";
+}
+
 .icon-instagram::before {
   content: "📷";
 }

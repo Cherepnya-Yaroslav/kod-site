@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchData } from '../api/strapi';
+import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/components/EventCalendar.css';
 
 const EventCalendar = ({ eventType }) => {
@@ -358,9 +358,7 @@ const EventCalendar = ({ eventType }) => {
             title: eventData.title,
             date: eventData.date,
             shortDescription: eventData.shortDescription || 'Описание отсутствует',
-            coverImage: eventData.coverImage?.url 
-              ? `${process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337'}${eventData.coverImage.url}`
-              : null,
+            coverImage: eventData.coverImage ? getMediaUrl(eventData.coverImage) : null,
             slug: eventData.slug,
             location: eventData.location || 'ГЭС-2',
             duration: eventData.duration || '1 час',

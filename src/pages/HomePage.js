@@ -35,7 +35,7 @@ const HomePage = () => {
       <>
       <SiteHeader />
         <section className="hero-section">
-          <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
+          <div className={`hero-background home-page ${bgLoaded ? 'loaded' : ''}`}>
             <img
               src="/collage-bg/collage-1.png"
               alt=""
@@ -58,7 +58,6 @@ const HomePage = () => {
         <section className="video-section">
           <div className="container">
             <div className="video-grid">
-              
               <div className="video-content">
                 <h2 className="section-title">О нас</h2>
                 <p className="section-description video-p">

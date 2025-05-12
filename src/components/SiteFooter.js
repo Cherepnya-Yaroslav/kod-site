@@ -1,15 +1,31 @@
 import { Link } from "react-router-dom"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "../styles/components/SiteFooter.css"
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_STRAPI_API_URL || 'http://localhost:1337';
+const API_URL =process.env.REACT_APP_STRAPI_URL;
 
 const SiteFooter = () => {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const [footerData, setFooterData] = useState(null);
+
+  useEffect(() => {
+    const fetchFooterData = async () => {
+      try {
+        console.log('Fetching footer data from:', `${API_URL}/api/footer`);
+        const response = await axios.get(`${API_URL}/api/footer`);
+        console.log('Footer data received:', response.data);
+        setFooterData(response.data.data);
+      } catch (error) {
+        console.error('Error fetching footer data:', error);
+      }
+    };
+
+    fetchFooterData();
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -28,7 +44,6 @@ const SiteFooter = () => {
     setSubmitStatus(null);
     
     try {
-      // Send subscription data to Strapi
       const response = await axios.post(`${API_URL}/api/contact/submit`, {
         email,
         formType: 'Подписка на рассылку',
@@ -38,11 +53,9 @@ const SiteFooter = () => {
       console.log('Subscription response:', response.data);
       setSubmitStatus('success');
       
-      // Reset form after success
       setEmail("");
       setConsent(false);
       
-      // Clear success message after 3 seconds
       setTimeout(() => {
         setSubmitStatus(null);
       }, 3000);
@@ -62,33 +75,43 @@ const SiteFooter = () => {
             <h3 className="footer-title">K.O.D.</h3>
             <p className="footer-description">Пространство для творчества, развлечений и незабываемых впечатлений</p>
             <div className="footer-social">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-link">
-                <i className="icon-instagram"></i>
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-link">
-                <i className="icon-facebook"></i>
-              </a>
+              {footerData?.rutubeLink && (
+                <a href={footerData.rutubeLink} target="_blank" rel="noopener noreferrer" className="social-link">
+                  <i className="icon-rutube"></i>
+                </a>
+              )}
+              {footerData?.telegramLink && (
+                <a href={footerData.telegramLink} target="_blank" rel="noopener noreferrer" className="social-link">
+                  <i className="icon-telegram"></i>
+                </a>
+              )}
             </div>
           </div>
           <div className="footer-section">
             <h3 className="footer-title">Контакты</h3>
             <div className="contact-list">
-              <div className="contact-item">
-                <i className="icon-phone"></i>
-                <a href="tel:+71234567890" className="contact-link">
-                  +7 (123) 456-7890
-                </a>
-              </div>
-              <div className="contact-item">
-                <i className="icon-mail"></i>
-                <a href="mailto:info@kod.ru" className="contact-link">
-                  info@kod.ru
-                </a>
-              </div>
-              <div className="contact-item">
-                <i className="icon-map"></i>
-                <span className="contact-text">г. Москва, ул. Примерная, д. 123</span>
-              </div>
+              {footerData?.number && (
+                <div className="contact-item">
+                  <i className="icon-phone"></i>
+                  <a href={`tel:${footerData.number}`} className="contact-link">
+                    {footerData.number}
+                  </a>
+                </div>
+              )}
+              {footerData?.email && (
+                <div className="contact-item">
+                  <i className="icon-mail"></i>
+                  <a href={`mailto:${footerData.email}`} className="contact-link">
+                    {footerData.email}
+                  </a>
+                </div>
+              )}
+              {footerData?.adress && (
+                <div className="contact-item">
+                  <i className="icon-map"></i>
+                  <span className="contact-text">{footerData.adress}</span>
+                </div>
+              )}
             </div>
           </div>
           <div className="footer-section">

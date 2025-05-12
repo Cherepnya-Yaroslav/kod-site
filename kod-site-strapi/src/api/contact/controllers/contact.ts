@@ -66,7 +66,7 @@ export default factories.createCoreController('api::contact.contact' as any, ({ 
             message,
             formType,
             additionalData: JSON.stringify(additionalFields),
-            publishedAt: new Date(),
+            publishedAt: new Date().toISOString(),
           },
         });
         

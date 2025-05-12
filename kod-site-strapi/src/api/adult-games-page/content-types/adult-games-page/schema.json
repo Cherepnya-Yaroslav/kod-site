@@ -4,37 +4,47 @@
   "info": {
     "singularName": "adult-games-page",
     "pluralName": "adult-games-pages",
-    "displayName": "Adult Games Page"
+    "displayName": "Adult Games Page",
+    "description": "Adult games page content"
   },
   "options": {
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "Title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "Description": {
-      "type": "text"
-    },
-    "Gallery": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      "type": "text",
+      "required": true
     },
     "CoverImage": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "pageHeader": {
+      "type": "component",
+      "component": "shared.page-header",
+      "required": true
+    },
+    "faq": {
+      "type": "component",
+      "component": "shared.faq-item",
+      "repeatable": true
     }
   }
 }

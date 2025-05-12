@@ -4,7 +4,7 @@ import SiteFooter from "../components/SiteFooter"
 import Button from "../components/Button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../components/Card"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "../components/Tabs"
-import { fetchData } from '../api/strapi'
+import { fetchData, getMediaUrl } from '../api/strapi'
 import "../styles/pages/OpenPartiesPage.css"
 import EventCalendar from '../components/EventCalendar'
 import PhotoGallery from "../components/PhotoGallery"
@@ -27,9 +27,27 @@ const OpenPartiesPage = () => {
     const loadPageData = async () => {
       try {
         setLoading(true);
-        const response = await fetchData('open-parties-page', { populate: '*' });
-        console.log('Page data:', response);
-        setPageData(response.data);
+        const response = await fetchData('open-parties-page', { 
+          populate: {
+            coverImage: true,
+            gallery: true,
+            pageHeader: true,
+            faq: true
+          }
+        });
+        console.log('Raw API response:', response);
+        console.log('Response data structure:', {
+          hasData: !!response?.data,
+          dataKeys: response?.data ? Object.keys(response.data) : [],
+          gallery: response?.data?.gallery,
+          faq: response?.data?.faq
+        });
+        
+        if (response?.data) {
+          setPageData(response.data);
+        } else {
+          throw new Error('Неверный формат данных');
+        }
       } catch (err) {
         console.error('Error loading page data:', err);
         setError(err.message);
@@ -68,8 +86,17 @@ const OpenPartiesPage = () => {
     );
   }
 
-  const { title, description, gallery = [], coverImage } = pageData;
-  const coverImageUrl = coverImage?.url ? `${STRAPI_URL}${coverImage.url}` : '';
+  const { 
+    title, 
+    description,
+    gallery,
+    coverImage,
+    pageHeader,
+    faq
+  } = pageData || {};
+
+  // Обработка галереи
+  const galleryImages = gallery?.data || [];
 
   // Детальное описание для PageHeaderSection
   const pageHeaderDescription = `Мы регулярно организуем не только частные мероприятия но и открытые вечеринки для детей, подростков и взрослых! Вдохновляясь фильмами, музыкой, книгами, мы хотим делиться эмоциями со всеми. На территории пространства KOD регулярно проходят кайфовые развлекательно - смысловые вечеринки в виде кинопросмотров, игр, фотосессий и других форматов! Ближайшие мероприятия вы можете посмотреть в нашем календаре! `;
@@ -112,8 +139,8 @@ const OpenPartiesPage = () => {
 
         {/* PageHeaderSection */}
         <PageHeaderSection 
-          title="Открытые вечеринки"
-          description={pageHeaderDescription}
+          title={pageHeader?.title}
+          description={pageHeader?.description}
         />
 
         {/* Schedule Section */}
@@ -130,19 +157,16 @@ const OpenPartiesPage = () => {
         </section>
 
         {/* Photo Gallery */}
-        {gallery.length > 0 && (
+        {galleryImages.length > 0 && (
           <PhotoGallery 
-            photos={gallery} 
+            photos={galleryImages.map(image => getMediaUrl(image))} 
             title="Фотогалерея прошедших мероприятий" 
             description="Атмосфера наших вечеринок в фотографиях"
           />
         )}
 
         {/* FAQ Section */}
-        <FAQ 
-          title="Часто задаваемые вопросы" 
-          questions={faqQuestions} 
-        />
+        <FAQ questions={faq?.data || []} />
       </main>
       <SiteFooter />
     </div>

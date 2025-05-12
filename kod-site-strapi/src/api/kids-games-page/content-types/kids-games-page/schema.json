@@ -35,6 +35,21 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "pageHeader": {
+      "type": "component",
+      "component": "shared.page-header",
+      "required": true
+    },
+    "faq": {
+      "type": "component",
+      "component": "shared.faq-item",
+      "repeatable": true
+    },
+    "testimonials": {
+      "type": "component",
+      "component": "shared.testimonial",
+      "repeatable": true
     }
   }
 }

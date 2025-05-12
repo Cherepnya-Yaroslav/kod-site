@@ -20,25 +20,44 @@ export const fetchData = async (endpoint, options = {}) => {
     let url = `/api/${endpoint}`;
     const queryParams = new URLSearchParams();
 
-    // Добавляем populate
-    if (options.populate) {
-      if (typeof options.populate === 'object' && !Array.isArray(options.populate)) {
-        // Если populate - объект, добавляем каждый ключ как отдельный параметр
-        Object.keys(options.populate).forEach(key => {
-          queryParams.append('populate', key);
+    // Рекурсивная функция для обработки вложенных populate
+    const processPopulate = (populate, parentKey = '') => {
+      if (typeof populate === 'object' && !Array.isArray(populate)) {
+        // Если populate - объект, обрабатываем вложенные поля
+        Object.entries(populate).forEach(([key, value]) => {
+          const currentKey = parentKey ? `${parentKey}[${key}]` : key;
+          
+          if (typeof value === 'object' && !Array.isArray(value)) {
+            // Если значение тоже объект, рекурсивно обрабатываем вложенность
+            processPopulate(value, `${currentKey}[populate]`);
+          } else if (value === true) {
+            // Если значение true, добавляем как populate[key]=true
+            queryParams.append(`populate[${currentKey}]`, 'true');
+          } else if (Array.isArray(value)) {
+            // Если значение массив
+            value.forEach(item => {
+              queryParams.append(`populate[${currentKey}]`, item);
+            });
+          } else {
+            // Другие случаи (строка, число и т.д.)
+            queryParams.append(`populate[${currentKey}]`, value);
+          }
         });
-        console.log('Processed object populate:', Object.keys(options.populate));
-      } else if (Array.isArray(options.populate)) {
+      } else if (Array.isArray(populate)) {
         // Если populate - массив строк
-        options.populate.forEach(populateOption => {
-          queryParams.append('populate', populateOption);
+        populate.forEach(item => {
+          queryParams.append('populate', item);
         });
-        console.log('Processed array populate:', options.populate);
       } else {
         // Если populate - строка (например, '*')
-        queryParams.append('populate', options.populate);
-        console.log('Processed string populate:', options.populate);
+        queryParams.append('populate', populate);
       }
+    };
+
+    // Добавляем populate
+    if (options.populate) {
+      processPopulate(options.populate);
+      console.log('Processed populate:', options.populate);
     } else {
       // Добавляем populate=* по умолчанию, если не указан другой populate
       queryParams.append('populate', '*');
@@ -47,15 +66,9 @@ export const fetchData = async (endpoint, options = {}) => {
 
     // Добавляем фильтры
     if (options.filters) {
-      // Log the incoming filters
       console.log('Incoming filters:', options.filters);
-      
-      // Ensure filters is an object
       const filters = options.filters;
-      
-      // Log the processed filters
       console.log('Processed filters:', filters);
-      
       queryParams.append('filters', JSON.stringify(filters));
     }
 
@@ -151,6 +164,12 @@ export const getMediaUrl = (media) => {
       console.log('Case 5c: Found URL in formats.thumbnail.url:', imageUrl);
     }
   }
+  // Case 6: Direct media ID
+  else if (typeof media === 'number') {
+    // Если передан только ID медиа, пробуем сконструировать URL
+    console.log('Case 6: Media ID only:', media);
+    return `${API_URL}/api/upload/files/${media}`;
+  }
 
   if (imageUrl) {
     // Check if it's a relative URL
@@ -177,6 +196,47 @@ export const getMediaUrl = (media) => {
 
   console.log('Could not extract URL from media object:', media);
   return null;
+};
+
+// Функция для обработки массива медиафайлов
+export const getMediaUrls = (mediaArray) => {
+  if (!mediaArray || !Array.isArray(mediaArray)) return [];
+  
+  return mediaArray.map(media => getMediaUrl(media));
+};
+
+// Функция для преобразования структуры медиафайлов, получаемых напрямую из компонентов Strapi
+export const processComponentMedia = (mediaObject) => {
+  if (!mediaObject) return null;
+  
+  console.log('Processing component media:', mediaObject);
+  
+  // Если это массив, обрабатываем каждый элемент
+  if (Array.isArray(mediaObject)) {
+    return mediaObject.map(item => getMediaUrl(item));
+  }
+  
+  // Проверяем формат Strapi v4, где медиа может быть в .data.attributes
+  if (mediaObject.data) {
+    if (Array.isArray(mediaObject.data)) {
+      // Если data это массив объектов
+      return mediaObject.data.map(item => {
+        if (item.attributes) {
+          return getMediaUrl(item.attributes);
+        }
+        return getMediaUrl(item);
+      });
+    } else if (mediaObject.data.attributes) {
+      // Если data содержит один объект с attributes
+      return getMediaUrl(mediaObject.data.attributes);
+    } else {
+      // Если data просто содержит объект
+      return getMediaUrl(mediaObject.data);
+    }
+  }
+  
+  // Обрабатываем одиночный медиафайл
+  return getMediaUrl(mediaObject);
 };
 
 export default strapiAPI; 

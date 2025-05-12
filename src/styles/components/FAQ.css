@@ -20,12 +20,17 @@
 .section-title {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
-.faq-list {
+.faq-grid {
   display: grid;
   gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+  padding: 0 1rem;
 }
 
 .faq-card {
@@ -33,33 +38,113 @@
   border-radius: var(--radius);
   transition: transform 0.2s ease;
   overflow: hidden;
+  width: 100%;
 }
 
 .faq-card:hover {
   transform: translateY(-2px);
 }
 
-.faq-card .card-header {
+.faq-card-header {
   padding: 1.5rem;
   cursor: pointer;
+  user-select: none;
+}
+
+.faq-question-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .faq-question {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--foreground);
-  padding-right: 2rem;
-  line-height: 1.4;
+  margin: 0;
+  flex: 1;
+}
+
+.faq-answer-container {
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
 }
 
 .faq-answer {
   color: var(--muted-foreground);
   line-height: 1.6;
-  padding: 0 1.5rem 1.5rem 1.5rem;
-  transition: opacity 0.3s ease 0.1s, transform 0.4s ease;
-  animation: fadeInContent 0.5s ease forwards;
+  margin: 0;
+  padding: 0 1.5rem 1.5rem;
 }
 
+.faq-answer-open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.faq-answer-closed {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.faq-toggle-btn {
+  background: none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.faq-toggle-btn:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.faq-toggle-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+/* Animation for content appearance */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Responsive Grid */
+@media (max-width: 767px) {
+  .section-title {
+    font-size: 1.75rem;
+    padding: 0 1rem;
+  }
+}
+
+/* Add neon glow effect */
+.faq-card .card-header:hover .faq-question {
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Animation for content appearance */
 @keyframes fadeInContent {
   from {
     opacity: 0;
@@ -68,79 +153,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/* Collapsible FAQ styles */
-.faq-toggle-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--foreground);
-  background-color: rgba(255, 255, 255, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  margin-left: 1rem;
-}
-
-.faq-toggle-btn:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-.faq-answer-container {
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: max-height, opacity, transform;
-}
-
-.faq-answer-open {
-  max-height: 500px;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.faq-answer-closed {
-  max-height: 0;
-  opacity: 0;
-  transform: translateY(-10px);
-  padding: 0;
-}
-
-/* Add neon glow effect */
-.faq-card .card-header:hover .faq-question {
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-
-.faq-toggle-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
-}
-
-/* Animation for content appearance */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive styles */
-@media (min-width: 768px) {
-  .faq-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
   }
 } 

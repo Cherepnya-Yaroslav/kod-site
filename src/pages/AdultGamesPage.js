@@ -6,12 +6,12 @@ import PhotoGallery from "../components/PhotoGallery"
 import EventCalendar from "../components/EventCalendar"
 import PageHeaderSection from '../components/PageHeaderSection';
 import FAQ from '../components/FAQ';
-import { fetchData } from '../api/strapi'
+import { fetchData, getMediaUrl } from '../api/strapi'
 // Обновляем импорт CSS
 import "../styles/pages/AdultGamesPage.css"
 
 // Константы
-const STRAPI_URL = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = 'http://localhost:1337';
 
 // Create FAQ Item component for collapsible functionality
 const FAQItem = ({ question, answer }) => {
@@ -108,8 +108,16 @@ const AdultGamesPage = () => {
     );
   }
 
-  const { Title, Description, Gallery = [], CoverImage } = pageData;
-  const coverImageUrl = CoverImage?.url ? `${STRAPI_URL}${CoverImage.url}` : '';
+  const { 
+    Title, 
+    Description, 
+    Gallery = [], 
+    CoverImage,
+    pageHeader = {},
+    faq = []
+  } = pageData || {};
+
+  const coverImageUrl = getMediaUrl(CoverImage);
 
   // Пример данных для игр
   const games = [
@@ -203,7 +211,6 @@ const AdultGamesPage = () => {
   ];
 
   return (
-    
     <div className="page-container adult-games-page">
       <SiteHeader />
       <main className="main-content">
@@ -218,15 +225,15 @@ const AdultGamesPage = () => {
           </div>
           <div className="hero-overlay" />
           <div className="hero-content">
-            <h1>{pageData?.Title || "Игры для взрослых"}</h1>
-            <p>{pageData?.Description || "Увлекательные игры для взрослой аудитории"}</p>
+            <h1>{Title || "Игры для взрослых"}</h1>
+            <p>{Description || "Увлекательные игры для взрослой аудитории"}</p>
           </div>
         </section>
 
-        {/* Use the new PageHeaderSection component */}
+        {/* PageHeaderSection */}
         <PageHeaderSection 
-          title="Взрослые игры" 
-          description={pageHeaderDescription} 
+          title={pageHeader.title}
+          description={pageHeader.description}
         />
 
         {/* Schedule Section */}
@@ -245,22 +252,14 @@ const AdultGamesPage = () => {
         {/* Photo Gallery */}
         {Gallery && Gallery.length > 0 && (
           <PhotoGallery 
-            photos={Gallery} 
+            photos={Gallery.map(photo => getMediaUrl(photo))} 
             title="Фотогалерея игровых вечеров" 
             description="Атмосфера наших игровых встреч"
-            collageImages={{
-              // image1: "/collage-2-1.PNG",
-              // image2: "/collage-2-2.PNG",
-              // image3: "/collage-2-3.PNG",
-              alt1: "Игровой вечер 1",
-              alt2: "Игровой вечер 2",
-              alt3: "Игровой вечер 3"
-            }}
           />
         )}
 
         {/* FAQ Section */}
-        <FAQ questions={faqItems} />
+        <FAQ questions={faq} />
       </main>
       <SiteFooter />
     </div>

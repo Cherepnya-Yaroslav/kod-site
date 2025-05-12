@@ -5,12 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import EventCalendar from "../components/EventCalendar"
 import PhotoGallery from "../components/PhotoGallery"
 import PageHeaderSection from "../components/PageHeaderSection"
-import { fetchData } from '../api/strapi'
+import { fetchData, getMediaUrl } from '../api/strapi'
+import Testimonials from "../components/Testimonials"
+import FAQ from "../components/FAQ"
 // Обновляем импорт CSS
 import "../styles/pages/KidsGamesPage.css"
 
 // Константы
-const STRAPI_URL = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = 'http://localhost:1337';
 
 const KidsGamesPage = () => {
   // Состояния для данных страницы
@@ -88,8 +90,15 @@ const KidsGamesPage = () => {
     );
   }
 
-  const { Title, Description, Gallery = [], CoverImage } = pageData;
-  const coverImageUrl = CoverImage?.url ? `${STRAPI_URL}${CoverImage.url}` : '';
+  const { 
+    Title, 
+    Description, 
+    Gallery = [], 
+    CoverImage,
+    pageHeader = {},
+    faq = [],
+    testimonials = []
+  } = pageData || {};
 
   // Пример данных для игр
   const games = [
@@ -159,18 +168,18 @@ const KidsGamesPage = () => {
 
         {/* PageHeaderSection */}
         <PageHeaderSection 
-          title="Игры для детей"
-          description={pageHeaderDescription}
+          title={pageHeader.title}
+          description={pageHeader.description}
         />
 
         {/* Calendar Section */}
         <section className="kids-schedule-section">
-        <div className="schedule-header">
-              <h2 className="section-title">Расписание игр</h2>
-              <p className="section-description">
-                Выберите удобную дату и присоединяйтесь к нашим игровым вечерам
-              </p>
-            </div>
+          <div className="schedule-header">
+            <h2 className="section-title">Расписание игр</h2>
+            <p className="section-description">
+              Выберите удобную дату и присоединяйтесь к нашим игровым вечерам
+            </p>
+          </div>
           <div className="container">
             <EventCalendar eventType="kids" />
           </div>
@@ -179,53 +188,17 @@ const KidsGamesPage = () => {
         {/* Photo Gallery */}
         {Gallery && Gallery.length > 0 && (
           <PhotoGallery 
-            photos={Gallery} 
+            photos={Gallery.map(photo => getMediaUrl(photo))} 
             title="Фотогалерея детских игр" 
             description="Яркие моменты из наших детских игровых дней"
-            collageImages={{
-              image1: "/collage-2-1.PNG",
-              image2: "/collage-2-2.PNG",
-              image3: "/collage-2-3.PNG",
-              alt1: "Детские игры 1",
-              alt2: "Детские игры 2",
-              alt3: "Детские игры 3"
-            }}
           />
         )}
 
+        {/* FAQ Section */}
+        <FAQ questions={faq} />
+
         {/* Testimonials */}
-        <section className="kids-testimonials-section">
-          <div className="container">
-            <div className="kids-testimonials-header">
-              <h2 className="section-title">Отзывы родителей</h2>
-            </div>
-            <div className="kids-testimonials-grid">
-              {[
-                {
-                  text: "Мой сын в восторге от квестов! Каждый раз с нетерпением ждет новых приключений. Организаторы отлично работают с детьми и создают безопасную, но увлекательную атмосферу.",
-                  author: "Елена, мама Миши (8 лет)",
-                },
-                {
-                  text: "Научное шоу превзошло все ожидания! Дочка не только весело провела время, но и узнала много нового. Теперь дома постоянно проводит 'эксперименты' и интересуется наукой.",
-                  author: "Андрей, папа Алисы (10 лет)",
-                },
-                {
-                  text: "Отличное место для детского досуга. Профессиональные ведущие, интересные программы и внимательное отношение к каждому ребенку. Рекомендую всем родителям!",
-                  author: "Мария, мама Димы (6 лет) и Кати (9 лет)",
-                },
-              ].map((testimonial, index) => (
-                <Card key={index} className="kids-testimonial-card">
-                  <CardContent>
-                    <p className="kids-testimonial-text">"{testimonial.text}"</p>
-                  </CardContent>
-                  <CardFooter>
-                    <p className="kids-testimonial-author">— {testimonial.author}</p>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Testimonials testimonials={testimonials} />
       </main>
       <SiteFooter />
     </div>

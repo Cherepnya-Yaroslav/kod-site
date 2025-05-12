@@ -3,7 +3,7 @@ import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 import Button from '../components/Button';
 import PageHeaderSection from '../components/PageHeaderSection';
-import { fetchData } from '../api/strapi';
+import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/pages/CoffeePage.css';
 
 // Определим URL Strapi API
@@ -12,7 +12,7 @@ const STRAPI_API_URL = 'http://localhost:1337';
 // Проверка доступности сервера Strapi
 const checkStrapiAvailable = async () => {
   try {
-    const response = await fetch(STRAPI_API_URL);
+    const response = await fetch(`${STRAPI_API_URL}/api/_health`);
     return response.ok;
   } catch (error) {
     console.error('Strapi server not available:', error);
@@ -99,40 +99,14 @@ const CoffeePage = () => {
   const content = pageData || fallbackContent;
 
   // Helper function to get full URL for media files
-  const getMediaUrl = (media) => {
+  const getFullMediaUrl = (media) => {
     if (!media) return '';
     
     // Если это строка, используем как есть
     if (typeof media === 'string') return media;
     
-    // Проверяем, есть ли свойство url у объекта media
-    if (!media.url) {
-      console.log('Media object without URL:', media);
-      return '';
-    }
-    
-    // Если URL уже является абсолютным или начинается с '/', считаем его локальным файлом
-    if (media.url.startsWith('http')) {
-      return media.url;
-    }
-    
-    // Если Strapi сервер недоступен, возвращаем запасной локальный путь
-    if (!strapiAvailable) {
-      // Извлекаем имя файла из пути
-      const fileName = media.url.split('/').pop();
-      if (fileName.includes('Klassicheskoe')) {
-        return '/Меню_Классическое.pdf';
-      } else if (fileName.includes('Sezonnoe')) {
-        return '/Меню_Сезонное-2.pdf';
-      }
-      return '/coffee/coffee-1.jpg'; // Запасное изображение
-    }
-    
-    // Для URL из Strapi убираем начальный слеш для избежания двойного слеша
-    const cleanUrl = media.url.startsWith('/') ? media.url.substring(1) : media.url;
-    const result = `${STRAPI_API_URL}/${cleanUrl}`;
-    console.log('Constructed image URL:', result);
-    return result;
+    // Используем getMediaUrl из strapi.js
+    return getMediaUrl(media) || '';
   };
 
   // Parse gallery images from Strapi response
@@ -143,12 +117,12 @@ const CoffeePage = () => {
     if (content.galleryImages) {
       if (Array.isArray(content.galleryImages)) {
         galleryImages = content.galleryImages.map(img => {
-          const url = getMediaUrl(img);
+          const url = getFullMediaUrl(img);
           console.log('Processing gallery image:', img, 'URL:', url);
           return url;
         });
       } else {
-        const url = getMediaUrl(content.galleryImages);
+        const url = getFullMediaUrl(content.galleryImages);
         console.log('Processing single gallery image:', content.galleryImages, 'URL:', url);
         galleryImages = [url];
       }
@@ -168,7 +142,7 @@ const CoffeePage = () => {
   try {
     console.log('Classic menu file data:', content.classicMenuFile);
     if (content.classicMenuFile) {
-      classicMenuPDF = getMediaUrl(content.classicMenuFile);
+      classicMenuPDF = getFullMediaUrl(content.classicMenuFile);
       console.log('Classic menu PDF URL:', classicMenuPDF);
     }
   } catch (err) {
@@ -179,7 +153,7 @@ const CoffeePage = () => {
   try {
     console.log('Seasonal menu file data:', content.seasonalMenuFile);
     if (content.seasonalMenuFile && content.seasonalMenuFile.length > 0) {
-      seasonalMenuPDF = getMediaUrl(content.seasonalMenuFile[0]);
+      seasonalMenuPDF = getFullMediaUrl(content.seasonalMenuFile[0]);
       console.log('Seasonal menu PDF URL:', seasonalMenuPDF);
     }
   } catch (err) {

@@ -373,6 +373,7 @@ export interface ApiAdultGamesPageAdultGamesPage
   extends Struct.SingleTypeSchema {
   collectionName: 'adult_games_pages';
   info: {
+    description: 'Adult games page content';
     displayName: 'Adult Games Page';
     pluralName: 'adult-games-pages';
     singularName: 'adult-games-page';
@@ -381,25 +382,23 @@ export interface ApiAdultGamesPageAdultGamesPage
     draftAndPublish: true;
   };
   attributes: {
-    CoverImage: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
+    CoverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Description: Schema.Attribute.Text;
-    Gallery: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    faq: Schema.Attribute.Component<'shared.faq-item', true>;
+    Gallery: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::adult-games-page.adult-games-page'
     > &
       Schema.Attribute.Private;
+    pageHeader: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    Title: Schema.Attribute.String;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -575,6 +574,39 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFooterFooter extends Struct.SingleTypeSchema {
+  collectionName: 'footers';
+  info: {
+    description: '';
+    displayName: 'footer';
+    pluralName: 'footers';
+    singularName: 'footer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    adress: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::footer.footer'
+    > &
+      Schema.Attribute.Private;
+    number: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    rutubeLink: Schema.Attribute.String;
+    telegramLink: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGameGame extends Struct.CollectionTypeSchema {
   collectionName: 'games';
   info: {
@@ -668,6 +700,7 @@ export interface ApiKidsGamesPageKidsGamesPage extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    faq: Schema.Attribute.Component<'shared.faq-item', true>;
     Gallery: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -675,7 +708,10 @@ export interface ApiKidsGamesPageKidsGamesPage extends Struct.SingleTypeSchema {
       'api::kids-games-page.kids-games-page'
     > &
       Schema.Attribute.Private;
+    pageHeader: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    testimonials: Schema.Attribute.Component<'shared.testimonial', true>;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -687,6 +723,7 @@ export interface ApiOpenPartiesPageOpenPartiesPage
   extends Struct.SingleTypeSchema {
   collectionName: 'open_parties_pages';
   info: {
+    description: 'Open parties page content';
     displayName: 'Open Parties Page';
     pluralName: 'open-parties-pages';
     singularName: 'open-parties-page';
@@ -699,14 +736,17 @@ export interface ApiOpenPartiesPageOpenPartiesPage
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.RichText & Schema.Attribute.Required;
-    gallery: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    faq: Schema.Attribute.Component<'shared.faq-item', true>;
+    gallery: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::open-parties-page.open-parties-page'
     > &
       Schema.Attribute.Private;
+    pageHeader: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -740,6 +780,16 @@ export interface ApiPersonalPartiesPagePersonalPartiesPage
       'api::personal-parties-page.personal-parties-page'
     > &
       Schema.Attribute.Private;
+    pageHeader: Schema.Attribute.Component<'shared.page-header', false> &
+      Schema.Attribute.Required;
+    programs: Schema.Attribute.Component<'programs.program', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     publishedAt: Schema.Attribute.DateTime;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -1300,6 +1350,7 @@ declare module '@strapi/strapi' {
       'api::contact.contact': ApiContactContact;
       'api::dance-page.dance-page': ApiDancePageDancePage;
       'api::event.event': ApiEventEvent;
+      'api::footer.footer': ApiFooterFooter;
       'api::game.game': ApiGameGame;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::kids-games-page.kids-games-page': ApiKidsGamesPageKidsGamesPage;

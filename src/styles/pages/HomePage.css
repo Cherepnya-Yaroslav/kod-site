@@ -59,10 +59,10 @@
 
 /* Уникальные масштабы для каждой страницы */
 .home-page .hero-background.loaded {
-  transform: scale(1.0) !important;
+  transform: scale(1) !important;
 }
 
-.dance-page .hero-background.loaded {
+/* .dance-page .hero-background.loaded {
   transform: scale(1.1) !important;
 }
 
@@ -80,7 +80,7 @@
 .personal-parties-page .hero-background.loaded {
   transform: scale(1.1) !important;
  
-}
+} */
 
 .hero-overlay {
   position: absolute;
