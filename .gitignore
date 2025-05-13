@@ -11,6 +11,9 @@ build/
 dist/
 package-lock.json
 
+#docker
+Dockerfile
+
 # Misc
 .DS_Store
 .env.local

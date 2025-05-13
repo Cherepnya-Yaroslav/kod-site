@@ -11,7 +11,6 @@ import { fetchData, getMediaUrl } from '../api/strapi'
 import "../styles/pages/AdultGamesPage.css"
 
 // Константы
-const STRAPI_URL = 'http://localhost:1337';
 
 // Create FAQ Item component for collapsible functionality
 const FAQItem = ({ question, answer }) => {
