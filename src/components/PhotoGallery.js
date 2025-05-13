@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Collage from './Collage';
 import '../styles/components/PhotoGallery.css';
 
-const STRAPI_URL = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = process.env.REACT_APP_STRAPI_URL
 
 const PhotoGallery = ({ 
   photos = [], 

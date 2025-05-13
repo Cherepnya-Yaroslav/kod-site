@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/components/FeedbackForm.css';
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_STRAPI_API_URL || 'http://localhost:1337';
+const API_URL = process.env.REACT_APP_STRAPI_URL 
 
 const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType = 'Обратная связь', answers: initialAnswers = {} }) => {
   const [answers, setAnswers] = useState(initialAnswers);

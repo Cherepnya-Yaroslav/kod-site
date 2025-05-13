@@ -7,7 +7,7 @@ import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/pages/CoffeePage.css';
 
 // Определим URL Strapi API
-const STRAPI_API_URL = 'http://localhost:1337';
+const STRAPI_API_URL = process.env.REACT_APP_STRAPI_URL;
 
 // Проверка доступности сервера Strapi
 const checkStrapiAvailable = async () => {

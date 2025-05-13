@@ -6,7 +6,7 @@ import Button from '../components/Button';
 import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/pages/EventPage.css';
 
-const STRAPI_URL = process.env.REACT_APP_STRAPI_URL || 'http://localhost:1337';
+const STRAPI_URL = process.env.REACT_APP_STRAPI_URL
 
 const EventPage = () => {
   const { slug } = useParams();

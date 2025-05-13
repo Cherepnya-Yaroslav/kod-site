@@ -12,7 +12,6 @@ import FAQ from "../components/FAQ"
 import "../styles/pages/KidsGamesPage.css"
 
 // Константы
-const STRAPI_URL = 'http://localhost:1337';
 
 const KidsGamesPage = () => {
   // Состояния для данных страницы

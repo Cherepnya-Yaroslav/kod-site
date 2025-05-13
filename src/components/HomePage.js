@@ -5,12 +5,13 @@ const HomePage = () => {
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const API_URL = process.env.REACT_APP_STRAPI_URL;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Добавляем параметр populate=* чтобы получить все связанные данные
-        const response = await axios.get('http://localhost:1337/api/home-pages?populate=*');
+        const response = await axios.get(`${API_URL}/api/home-pages?populate=*`);
         console.log('Raw API Response:', response.data); // Логируем весь ответ
 
         if (response.data.data && response.data.data.length > 0) {
@@ -29,7 +30,7 @@ const HomePage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [API_URL]);
 
   if (loading) return <div>Загрузка...</div>;
   if (error) return <div>Ошибка: {error}</div>;

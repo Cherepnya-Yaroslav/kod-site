@@ -6,8 +6,8 @@ import SiteFooter from "../components/SiteFooter";
 import ProgramDetails from "../components/ProgramDetails";
 import '../styles/pages/ThemePartiesPage.css';
 
-// Базовый URL для API (замените на ваш Strapi API URL)
-const API_URL = 'http://localhost:1337';
+// Базовый URL для API
+const API_URL = process.env.REACT_APP_STRAPI_URL;
 
 const ThemePartiesPage = () => {
   const [themeEvents, setThemeEvents] = useState([]);
