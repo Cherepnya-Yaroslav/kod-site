@@ -7,6 +7,7 @@ import { fetchData, getMediaUrl, getMediaUrls, processComponentMedia } from '../
 import { Link } from "react-router-dom"
 import ProgramDetails from "../components/ProgramDetails"
 import PageHeaderSection from "../components/PageHeaderSection"
+import Testimonials from "../components/Testimonials"
 
 // Обновляем импорт CSS
 import "../styles/pages/PersonalPartiesPage.css"
@@ -71,6 +72,23 @@ const PersonalPartiesPage = () => {
       ]
     }
   };
+
+  // Статичные отзывы
+  const testimonials = [
+    {
+      text: "Организовывали день рождения дочери в стиле K-POP.",
+      author: "Анна Михайлова"
+    },
+    {
+      text: "Отмечали корпоратив в тематике 'Игра престолов'. ",
+      author: "Дмитрий Волков, CEO TechStart"
+    },
+    {
+      text: "Праздновали выпускной 11 класса. Формат квеста с элементами тематической вечеринки - это было гениально!",
+      author: "Елена Сергеевна"
+    },
+   
+  ];
 
   // Загрузка данных страницы
   useEffect(() => {
@@ -260,14 +278,18 @@ const PersonalPartiesPage = () => {
             <div className="services-grid">
               {/* Статичные карточки */}
               <Card className="service-card">
-                <div className="service-card-image">
-                  <img src={staticProgramsData.themeParties.mainImage} alt="Тематические вечеринки" />
-                </div>
+                
                 <CardHeader>
-                  <CardTitle>{staticProgramsData.themeParties.title}</CardTitle>
-                  <CardDescription>
-                    Организуем праздник в любой тематике: от супергероев до ретро-вечеринок
-                  </CardDescription>
+                      <CardTitle>{staticProgramsData.themeParties.title}</CardTitle>
+                      <CardDescription>
+                        Вы можете позволить себе всё!
+                      </CardDescription>
+                      <CardDescription>
+                        Организуем любой тематический празник от супергероев до ретро-вечеринок 
+                      </CardDescription>
+                          <div className="service-card-image">
+                            <img src={staticProgramsData.themeParties.mainImage} alt="Тематические вечеринки" />
+                          </div> 
                 </CardHeader>
                 <CardContent>
                   <div className="service-action">
@@ -284,6 +306,7 @@ const PersonalPartiesPage = () => {
                 </div>
                 <CardHeader>
                   <CardTitle>{staticProgramsData.gamingParties.title}</CardTitle>
+                  <CardDescription>Вы можете позволить себе все игры!</CardDescription>
                   <CardDescription>Увлекательные игровые форматы для любого возраста</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -383,6 +406,14 @@ const PersonalPartiesPage = () => {
                   title: "Кейтеринг",
                   description: "Организация питания любой сложности от фуршета до банкета",
                 },
+                {
+                  title: "Бесценный опыт",
+                  description: "Описание",
+                },
+                {
+                  title: "Неограниченные возвожности",
+                  description: "Описание",
+                },
               ].map((feature, index) => (
                 <Card key={index} className="feature-card">
                   <CardHeader>
@@ -396,64 +427,7 @@ const PersonalPartiesPage = () => {
           </div>
         </section>
 
-        {/* Booking Form
-        <section className="booking-section">
-          <div className="container">
-            <FeedbackForm 
-              title="Забронировать пространство"
-              description="Заполните форму, и мы свяжемся с вами для обсуждения деталей"
-              questions={[
-                {
-                  id: 'eventType',
-                  text: 'Какое мероприятие планируете проводить?',
-                  type: 'text',
-                  placeholder: 'Например: день рождения, корпоратив, выпускной',
-                  required: true
-                },
-                {
-                  id: 'guestCount',
-                  text: 'Сколько человек планируется на мероприятии?',
-                  type: 'number',
-                  placeholder: '10',
-                  min: 1,
-                  max: 100,
-                  required: true
-                },
-                {
-                  id: 'eventDate',
-                  text: 'Какую дату рассматриваете?',
-                  type: 'date',
-                  required: true
-                },
-                {
-                  id: 'name',
-                  text: 'Как к вам обращаться?',
-                  type: 'text',
-                  placeholder: 'Ваше имя',
-                  required: true
-                },
-                {
-                  id: 'phone',
-                  text: 'Укажите ваш номер телефона',
-                  type: 'tel',
-                  placeholder: '+7 (___) ___-__-__',
-                  required: true
-                },
-                {
-                  id: 'contactMethod',
-                  text: 'Какой способ связи для вас удобнее?',
-                  type: 'radio',
-                  options: [
-                    { value: 'phone', label: 'Телефонный звонок' },
-                    { value: 'whatsapp', label: 'WhatsApp' },
-                    { value: 'telegram', label: 'Telegram' }
-                  ],
-                  required: true
-                }
-              ]}
-            />
-          </div>
-        </section> */}
+        <Testimonials testimonials={testimonials} />
 
         {/* Booking Conditions */}
         <section className="conditions-section">

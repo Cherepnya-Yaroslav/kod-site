@@ -111,12 +111,18 @@
   content: "📍";
 }
 
-.icon-rutube::before {
-  content: "📺";
+.icon-vk::before {
+  content: "VK";
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .icon-telegram::before {
-  content: "✈️";
+  content: "TG";
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .icon-instagram::before {

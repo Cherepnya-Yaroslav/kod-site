@@ -1,68 +1,53 @@
-version: '3'
+version: '3.8'
 
 services:
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-      args:
-        - REACT_APP_STRAPI_URL=${REACT_APP_STRAPI_URL:-http://localhost:1337}
-    image: kod-frontend:latest
     container_name: kod-frontend
     ports:
       - "3000:3000"
-    depends_on:
-      - strapi
+    environment:
+      - REACT_APP_STRAPI_URL=http://89.111.152.178/api
+      - NODE_OPTIONS=--openssl-legacy-provider
     restart: unless-stopped
     networks:
       - kod-network
+    depends_on:
+      - strapi
 
   strapi:
     build:
       context: ./kod-site-strapi
       dockerfile: Dockerfile
-      args:
-        - DATABASE_CLIENT=${DATABASE_CLIENT:-postgres}
-        - DATABASE_HOST=${DATABASE_HOST:-postgres}
-        - DATABASE_PORT=${DATABASE_PORT:-5432}
-        - DATABASE_NAME=${DATABASE_NAME:-strapi}
-        - DATABASE_USERNAME=${DATABASE_USERNAME:-strapi}
-        - DATABASE_PASSWORD=${DATABASE_PASSWORD:-strapi_password}
-        - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET:-randomString1}
-        - JWT_SECRET=${JWT_SECRET:-randomString2}
-        - APP_KEYS=${APP_KEYS:-randomString3,randomString4,randomString5,randomString6}
-        - API_TOKEN_SALT=${API_TOKEN_SALT:-randomString7}
-    image: kod-strapi:latest
     container_name: kod-strapi
     ports:
       - "1337:1337"
-    depends_on:
-      - postgres
     environment:
-      - DATABASE_CLIENT=${DATABASE_CLIENT:-postgres}
-      - DATABASE_HOST=${DATABASE_HOST:-postgres}
-      - DATABASE_PORT=${DATABASE_PORT:-5432}
-      - DATABASE_NAME=${DATABASE_NAME:-strapi}
-      - DATABASE_USERNAME=${DATABASE_USERNAME:-strapi}
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD:-strapi_password}
+      - DATABASE_CLIENT=postgres
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=strapi
+      - DATABASE_USERNAME=strapi
+      - DATABASE_PASSWORD=strapi_password
       - NODE_ENV=production
-      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET:-randomString1}
-      - JWT_SECRET=${JWT_SECRET:-randomString2}
-      - APP_KEYS=${APP_KEYS:-randomString3,randomString4,randomString5,randomString6}
-      - API_TOKEN_SALT=${API_TOKEN_SALT:-randomString7}
     volumes:
+      - ./kod-site-strapi:/app
       - strapi-uploads:/app/public/uploads
     restart: unless-stopped
     networks:
       - kod-network
+    depends_on:
+      - postgres
 
   postgres:
-    image: postgres:14-alpine
+    image: postgres:14-bullseye
     container_name: kod-postgres
     environment:
-      - POSTGRES_USER=${DATABASE_USERNAME:-strapi}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD:-strapi_password}
-      - POSTGRES_DB=${DATABASE_NAME:-strapi}
+      - POSTGRES_USER=strapi
+      - POSTGRES_PASSWORD=strapi_password
+      - POSTGRES_DB=strapi
     volumes:
       - postgres-data:/var/lib/postgresql/data
     restart: unless-stopped

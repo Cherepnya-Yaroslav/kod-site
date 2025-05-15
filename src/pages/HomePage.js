@@ -53,24 +53,56 @@ const HomePage = () => {
               </p>
             </div>
           </div>
+          
         </section>
 
         <section className="video-section">
           <div className="container">
             <div className="video-grid">
               <div className="video-content">
-                <h2 className="section-title">О нас</h2>
+                <h2 className="section-title">Добро пожаловать в K.O.D</h2>
                 <p className="section-description video-p">
-                  K.O.D - это арт-пространство для детей, подростков и взрослых с акцентом на развитие эмоционального и физического интеллекта для лидеров нового поколения.
+                  {homePageData.About_Description}            
                 </p>
-                <p className="section-description video-p">
+                {/* <p className="section-description video-p">
                   Мы формируем и развиваем навыки soft skills (гибкие навыки мышления) и физический интеллект через игру и танцы.
-                </p>
+                </p> */}
                 
               </div>
             </div>
           </div>
         </section>
+
+        
+
+        <div className="photo-grid">
+              {homePageData.Gallery_Images?.map((image, index) => {
+                const imageUrl = getMediaUrl(image);
+                console.log(`Rendering image ${index} with URL:`, imageUrl);
+                
+                return (
+                  <div key={image.id || index} className="photo-item">
+                    <img
+                      src={imageUrl}
+                      alt={image.alternativeText || `K.O.D. фото ${index + 1}`}
+                      className="photo-image loaded"
+                      loading="lazy"
+                    />
+                  </div>
+                );
+              }) || (
+                [...Array(3)].map((_, index) => (
+                  <div key={index} className="photo-item">
+                    <img
+                      src={`/placeholder.svg?height=600&width=600&text=Фото ${index + 1}`}
+                      alt={`K.O.D. фото ${index + 1}`}
+                      className="photo-image loaded"
+                      loading="lazy"
+                    />
+                  </div>
+                ))
+              )}
+            </div>
 
         <section id="about" className="about-section debug-info">
           <div className="container">
@@ -114,7 +146,7 @@ const HomePage = () => {
 
         <section className="founder-section">
           <div className="founder-grid">
-            <div className="founder-quote">
+          <div className="founder-quote">
               <div className="quote-icon">❝</div>
               <blockquote className="quote-text">
                 {homePageData.Founder_Quote || 
@@ -122,14 +154,16 @@ const HomePage = () => {
               </blockquote>
               <p className="quote-author">— {homePageData.Founder_Name || "Основатель K.O.D."}</p>
             </div>
-            
-            <div className="founder-image">
+          <div className="founder-image">
               <img 
-                src="/founder.jpg" 
+                src={getMediaUrl(homePageData.Founder_Images[0])}
                 alt={homePageData.Founder_Name || "Основатель K.O.D."} 
                 className="founder-photo"
               />
             </div>
+            
+            
+            
           </div>
         </section>
       </>

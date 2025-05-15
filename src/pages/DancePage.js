@@ -4,6 +4,7 @@ import SiteFooter from "../components/SiteFooter"
 import Button from "../components/Button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../components/Card"
 import FAQ from "../components/FAQ"
+import FeedbackForm from "../components/FeedbackForm"
 import { fetchData } from '../api/strapi'
 // Обновляем импорт CSS
 import "../styles/pages/DancePage.css"
@@ -13,6 +14,8 @@ const DancePage = () => {
   const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedDance, setSelectedDance] = useState(null);
 
   // Загрузка данных страницы
   useEffect(() => {
@@ -103,9 +106,72 @@ const DancePage = () => {
     }
   ];
 
+  const handleDanceRegistration = (danceStyle) => {
+    setSelectedDance(danceStyle);
+    setIsFormOpen(true);
+  };
+
+  const formQuestions = [
+    {
+      id: 'name',
+      text: 'Ваше имя',
+      type: 'text',
+      required: true,
+      placeholder: 'Введите ваше имя'
+    },
+    {
+      id: 'phone',
+      text: 'Номер телефона',
+      type: 'tel',
+      required: true,
+      placeholder: '+7 (___) ___-__-__'
+    },
+    {
+      id: 'email',
+      text: 'Email',
+      type: 'email',
+      required: true,
+      placeholder: 'your@email.com'
+    },
+    {
+      id: 'age',
+      text: 'Возраст танцора',
+      type: 'text',
+      required: true,
+      placeholder: 'Возраст танцора'
+    },
+    {
+      id: 'level',
+      text: 'Уровень подготовки танцора',
+      type: 'text',
+      required: true,
+      placeholder: 'Уровень подготовки танцора'
+    },
+    {
+      id: 'message',
+      text: 'Комментарий',
+      type: 'textarea',
+      required: false,
+      placeholder: 'Дополнительная информация'
+    }
+  ];
+
   return (
     <div className="page-container dance-page">
       <SiteHeader />
+      {isFormOpen && (
+        <FeedbackForm
+          isOpen={isFormOpen}
+          onClose={() => setIsFormOpen(false)}
+          questions={formQuestions}
+          title="Запись на пробное занятие"
+          description={`Запись на ${selectedDance?.title || 'танцевальное'} направление`}
+          formType="dance-registration"
+          answers={{
+            message: `Хочу записаться на ${selectedDance?.title || 'танцы'}. Расписание: ${selectedDance?.schedule || ''}`
+          }}
+        />
+      )}
       <main className="main-content">
         <section className="dance-hero-section">
           <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
@@ -134,7 +200,8 @@ const DancePage = () => {
                   playsInline
                   preload="auto"
                   muted
-                  autoPlay={false}
+                  autoPlay
+                  loop
                   onError={(e) => {
                     console.error('Error loading video:', e);
                   }}
@@ -177,7 +244,7 @@ const DancePage = () => {
                   </div>
                   <CardHeader>
                     <CardTitle>{style.title}</CardTitle>
-                    <CardDescription>
+                    {/* <CardDescription>
                       <div className="dance-style-detail">
                         <span className="dance-style-icon calendar-icon"></span>
                         <span>{style.schedule}</span>
@@ -190,13 +257,18 @@ const DancePage = () => {
                         <span className="dance-style-icon clock-icon"></span>
                         <span>Уровень: {style.level}</span>
                       </div>
-                    </CardDescription>
+                    </CardDescription> */}
                   </CardHeader>
                   <CardContent>
                     <p className="dance-style-description">{style.description}</p>
                   </CardContent>
                   <CardFooter>
-                    <Button className="dance-style-button">Записаться на пробное занятие</Button>
+                    <Button 
+                      className="dance-style-button"
+                      onClick={() => handleDanceRegistration(style)}
+                    >
+                      Записаться на пробное занятие
+                    </Button>
                   </CardFooter>
                 </Card>
               ))}

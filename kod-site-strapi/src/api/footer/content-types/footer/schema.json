@@ -5,7 +5,7 @@
     "singularName": "footer",
     "pluralName": "footers",
     "displayName": "footer",
-    "description": ""
+    "description": "Footer configuration with contact information and social media links"
   },
   "options": {
     "draftAndPublish": true
@@ -20,11 +20,17 @@
     "adress": {
       "type": "string"
     },
-    "rutubeLink": {
-      "type": "string"
+    "vkLink": {
+      "type": "string",
+      "description": "Full URL to VK page (e.g. https://vk.com/...)"
     },
     "telegramLink": {
-      "type": "string"
+      "type": "string",
+      "description": "Full URL to Telegram channel (e.g. https://t.me/...)"
+    },
+    "rutubeLink": {
+      "type": "string",
+      "description": "Full URL to Rutube channel (e.g. https://rutube.ru/...)"
     }
   }
 }

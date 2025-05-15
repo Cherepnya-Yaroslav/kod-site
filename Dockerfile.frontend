@@ -1,25 +1,25 @@
-FROM node:18-alpine
+FROM node:18-slim
 
 WORKDIR /app
 
-# Копируем package.json и устанавливаем зависимости
-COPY package*.json ./
+# Copy package files and install dependencies
+COPY package.json package-lock.json* ./
 RUN npm install
 
-# Копируем остальные файлы проекта
+# Copy the rest of the application
 COPY . .
 
-# Установка переменных окружения из ARG (будут переданы при сборке)
-ARG REACT_APP_STRAPI_URL
-ENV REACT_APP_STRAPI_URL=${REACT_APP_STRAPI_URL}
+# Set environment variables
 ENV NODE_OPTIONS=--openssl-legacy-provider
-ENV PORT=3000
 
-# Сборка проекта
+# Build the app
 RUN npm run build
 
-# Установка serve для раздачи статики
+# Install serve to serve the static files
 RUN npm install -g serve
 
+# Expose port 3000
 EXPOSE 3000
+
+# Start the application with serve
 CMD ["serve", "-s", "build", "-l", "3000"]

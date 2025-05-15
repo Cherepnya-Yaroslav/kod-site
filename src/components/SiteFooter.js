@@ -76,8 +76,8 @@ const SiteFooter = () => {
             <p className="footer-description">Пространство для творчества, развлечений и незабываемых впечатлений</p>
             <div className="footer-social">
               {footerData?.rutubeLink && (
-                <a href={footerData.rutubeLink} target="_blank" rel="noopener noreferrer" className="social-link">
-                  <i className="icon-rutube"></i>
+                <a href={footerData.vkLink} target="_blank" rel="noopener noreferrer" className="social-link">
+                  <i className="icon-vk"></i>
                 </a>
               )}
               {footerData?.telegramLink && (
@@ -100,17 +100,17 @@ const SiteFooter = () => {
               )}
               {footerData?.email && (
                 <div className="contact-item">
-                  <i className="icon-mail"></i>
-                  <a href={`mailto:${footerData.email}`} className="contact-link">
-                    {footerData.email}
-                  </a>
-                </div>
+                <i className="icon-map"></i>
+                <span className="contact-text">{footerData.adress}</span>
+              </div>
               )}
               {footerData?.adress && (
                 <div className="contact-item">
-                  <i className="icon-map"></i>
-                  <span className="contact-text">{footerData.adress}</span>
-                </div>
+                <i className="icon-mail"></i>
+                <a href={`mailto:${footerData.email}`} className="contact-link">
+                  {footerData.email}
+                </a>
+              </div>
               )}
             </div>
           </div>

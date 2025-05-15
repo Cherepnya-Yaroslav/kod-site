@@ -131,6 +131,7 @@
   border-radius: var(--radius);
   transition: transform 0.3s ease;
   padding: 20px;
+  text-align: center;
 }
 
 .service-card:hover {
@@ -159,6 +160,10 @@
 
 .service-card .card-header {
   padding: 1.5rem 1.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .service-card .card-title {
@@ -166,22 +171,29 @@
   font-weight: 600;
   color: var(--foreground);
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .service-card .card-description {
   color: var(--muted-foreground);
   font-size: 0.9rem;
   line-height: 1.5;
+  text-align: center;
+  width: 100%;
 }
 
 .service-card .card-content {
   padding: 0.5rem 1.5rem 1.5rem;
   margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .service-action {
   margin-top: 1rem;
   text-align: center;
+  width: 100%;
 }
 
 /* Responsive styles */
@@ -269,6 +281,9 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+.card-header{
+  align-items: center !important;
 }
 
 .feature-card .card-title {
