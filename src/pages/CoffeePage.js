@@ -3,6 +3,7 @@ import SiteHeader from '../components/SiteHeader';
 import SiteFooter from '../components/SiteFooter';
 import Button from '../components/Button';
 import PageHeaderSection from '../components/PageHeaderSection';
+import FeedbackForm from "../components/FeedbackForm.jsx"
 import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/pages/CoffeePage.css';
 
@@ -28,6 +29,88 @@ const CoffeePage = () => {
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [showMenuViewer, setShowMenuViewer] = useState(false);
   const [strapiAvailable, setStrapiAvailable] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formAnswers, setFormAnswers] = useState({});
+
+  // Вопросы для формы заказа кофе (скопировано из DancePage.js)
+  const coffeeFormQuestions = [
+    {
+      id: 'coffeeOrders',
+      text: 'Напишите какие напитки вы бы хотели:',
+      type: 'custom',
+      required: true,
+      customItems: [
+        { id: 'cappuccino', label: 'Капучино', type: 'number', placeholder: 'шт' },
+        { id: 'latte', label: 'Латте', type: 'number', placeholder: 'шт' },
+        { id: 'americano', label: 'Американо', type: 'number', placeholder: 'шт' },
+        { id: 'flatWhite', label: 'Флэт Уайт', type: 'number', placeholder: 'шт' },
+        { id: 'espresso', label: 'Эспрессо', type: 'number', placeholder: 'шт' },
+        { id: 'iceCoffee', label: 'Айс кофе', type: 'number', placeholder: 'шт' },
+        { id: 'creamyCappuccino', label: 'Сливочный капучино', type: 'number', placeholder: 'шт' },
+        { id: 'custom1', label: 'Другой напиток', type: 'text', placeholder: 'Название и количество' },
+        { id: 'custom2', label: 'Другой напиток', type: 'text', placeholder: 'Название и количество' },
+        { id: 'custom3', label: 'Другой напиток', type: 'text', placeholder: 'Название и количество' }
+      ]
+    },
+    {
+      id: 'volume',
+      text: 'Какой объем:',
+      type: 'radio',
+      required: true,
+      options: [
+        { value: '200ml', label: '200 мл' },
+        { value: '300ml', label: '300 мл' },
+        { value: '400ml', label: '400 мл' }
+      ]
+    },
+    {
+      id: 'milk',
+      text: 'На каком молоке?',
+      type: 'radio',
+      required: true,
+      options: [
+        { value: 'classic', label: 'Классическое' },
+        { value: 'coconut', label: 'Кокосовое' },
+        { value: 'banana', label: 'Банановое' },
+        { value: 'almond', label: 'Миндальное' },
+        { value: 'other', label: 'Другое (укажите в комментарии)' }
+      ]
+    },
+    {
+      id: 'date',
+      text: 'На какую дату вы бы хотели сделать заказ?',
+      type: 'date',
+      required: true
+    },
+    {
+      id: 'time',
+      text: 'На какое время вы бы хотели сделать заказ?',
+      type: 'text',
+      required: true,
+      placeholder: 'Например, 14:00'
+    },
+    {
+      id: 'wishes',
+      text: 'Напишите ваши пожелания в свободной форме',
+      type: 'textarea',
+      required: false,
+      placeholder: 'Ваши пожелания'
+    },
+    {
+      id: 'name',
+      text: 'Как вас зовут?',
+      type: 'text',
+      required: true,
+      placeholder: 'Введите ваше имя'
+    },
+    {
+      id: 'phone',
+      text: 'Ваш номер телефона',
+      type: 'tel',
+      required: true,
+      placeholder: '+7 (___) ___-__-__'
+    }
+  ];
 
   useEffect(() => {
     const init = async () => {
@@ -206,6 +289,18 @@ const CoffeePage = () => {
   return (
     <div className="page-container coffee-page">
       <SiteHeader />
+      {/* Модальное окно формы заказа кофе */}
+      {isFormOpen && (
+        <FeedbackForm
+          isOpen={isFormOpen}
+          onClose={() => setIsFormOpen(false)}
+          questions={coffeeFormQuestions}
+          title="Заказ кофе"
+          description="Заполните форму для заказа кофе на мероприятие или для себя"
+          formType="coffee-order"
+          answers={formAnswers}
+        />
+      )}
       <main className="main-content">
         {/* Hero Section with Collage Background */}
         <section className="coffee-hero-section">
@@ -290,6 +385,24 @@ const CoffeePage = () => {
                 </a>
               </div>
             </div> */}
+          </div>
+        </section>
+        
+        {/* Секция заказа кофе */}
+        <section className="coffee-order-section">
+          <div className="container">
+            <div className="coffee-order-header">
+              <h2 className="section-title">Закажите кофе</h2>
+              <p className="section-description">Если вы уже знаете дату своего мероприятия, то можете со скидкой заказать кофе сейчас</p>
+            </div>
+            <div className="coffee-order-content">
+              <Button
+                className="coffee-order-button"
+                onClick={() => setIsFormOpen(true)}
+              >
+                Заказать кофе
+              </Button>
+            </div>
           </div>
         </section>
       </main>

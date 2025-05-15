@@ -5,7 +5,7 @@ import Button from "../components/Button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../components/Card"
 import FAQ from "../components/FAQ"
 import FeedbackForm from "../components/FeedbackForm"
-import { fetchData } from '../api/strapi'
+import { fetchData, getMediaUrl } from '../api/strapi'
 // Обновляем импорт CSS
 import "../styles/pages/DancePage.css"
 
@@ -16,18 +16,110 @@ const DancePage = () => {
   const [error, setError] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedDance, setSelectedDance] = useState(null);
+  const [faqData, setFaqData] = useState([]);
+  const [danceTypesData, setDanceTypesData] = useState([]);
+  const [aboutUsData, setAboutUsData] = useState(null);
+  const [pageHeaderData, setPageHeaderData] = useState(null);
+  const [pricesData, setPricesData] = useState([]);
+  const [trainersData, setTrainersData] = useState([]);
 
-  // Загрузка данных страницы
+  // Статические данные для танцевальных направлений (как запасной вариант)
+  const defaultDanceStyles = [
+    {
+      id: 1,
+      title: "HIP - HOP",
+      description:
+        "Hip - hop культура разбивает все ограничения! Рожденная на улицах, она сочетает в себе музыкальную стилистику, более 15 танцевальных стилей, свободный образ мышления, фристайл и самоидентичность.",
+      image: "/hip-hop-cover.webp",
+    },
+    {
+      id: 2,
+      title: "BREAKING",
+      description: "Когда брейкер выходит на танцпол - публика замирает, открыв рот…Эти мощные, физически одаренные, красивые прокаченные парни и даже девушки - яркий пример того, что нет ничего невозможного!",
+      image: "/breaking-dance-cover.webp",
+    },
+    {
+      id: 3,
+      title: "K-POP COVER DANCE",
+      description: "K-Pop превратился в масштабную музыкальную субкультуру с миллионами поклонников во всём мире. Это направление вскружило голову молодежи своими яркими образами и эпатажностью в одежде.",
+      image: "/k-pop-dance-cover.webp",
+    }
+  ];
+
   useEffect(() => {
     const loadPageData = async () => {
       try {
         setLoading(true);
-        const response = await fetchData('dance-page', { populate: '*' });
-        console.log('Page data:', response);
-        setPageData(response.data);
+        const response = await fetchData('dance-page', {
+          populate: [
+            'danceTypes.CoverImage',
+            'questions',
+            'aboutUs',
+            'prices.points',
+            'trainer.mainImage'
+          ]
+        });
+        
+        const data = response.data;
+        setPageData(data);
+
+        // PRICES
+        const prices = data.prices || [];
+        setPricesData(prices);
+
+        // TRAINERS
+        const trainers = data.trainer || [];
+        console.log('Raw trainers data:', trainers);
+        const formattedTrainers = trainers.map(trainer => {
+          // Получаем первое изображение из массива mainImage
+          const mainImage = trainer.mainImage?.[0];
+          const imageUrl = mainImage
+            ? getMediaUrl(mainImage)
+            : "/placeholder.svg";
+          
+          console.log('Trainer image URL:', imageUrl);
+          
+          return {
+            name: trainer.name,
+            role: trainer.description,
+            bio: trainer.description,
+            image: imageUrl
+          };
+        });
+        console.log('Formatted trainers:', formattedTrainers);
+        setTrainersData(formattedTrainers);
+
+        // FAQ
+        const questions = data.questions || [];
+        if (questions.length > 0) {
+          setFaqData(questions.map(q => ({ question: q.question, answer: q.answer })));
+        }
+
+        // DANCE TYPES
+        const danceTypes = data.danceTypes || [];
+        const formattedDanceTypes = danceTypes.map(dance => {
+          const imageUrl = dance.CoverImage ? getMediaUrl(dance.CoverImage) : null;
+          return {
+            id: dance.id,
+            title: dance.title,
+            description: dance.description,
+            image: imageUrl,
+          };
+        });
+        setDanceTypesData(formattedDanceTypes);
+
+        // ABOUT US
+        const aboutUs = data.aboutUs || [];
+        if (aboutUs.length > 0) {
+          setAboutUsData({
+            title: aboutUs[0].title,
+            description: aboutUs[0].description
+          });
+        }
       } catch (err) {
         console.error('Error loading page data:', err);
         setError(err.message);
+        setDanceTypesData(defaultDanceStyles);
       } finally {
         setLoading(false);
       }
@@ -54,58 +146,6 @@ const DancePage = () => {
     );
   }
   
-  // Пример данных для танцевальных направлений
-  const danceStyles = [
-    {
-      id: 1,
-      title: "HIP - HOP",
-      description:
-        "Hip - hop культура разбивает все ограничения! Рожденная на улицах, она сочетает в себе музыкальную стилистику, более 15 танцевальных стилей, свободный образ мышления, фристайл и самоидентичность. То как одеваются хоперы, то как они двигаются и чувствуют ритм - это про СВОБОДУ! То как они умеют импровизировать и самовыражаться - это про УМЕНИЕ ЖИТЬ в балансе с миром и собой!",
-      schedule: "Вторник, Четверг: 19:00-20:30",
-      instructor: "Кристина, Cофия",
-      level: "Начинающий / Средний",
-      image: "/hip-hop-cover.webp",
-    },
-    {
-      id: 2,
-      title: "BREAKING",
-      description:"Когда брейкер выходит на танцпол - публика замирает, открыв рот…Эти мощные, физически одаренные, красивые прокаченные парни и даже девушки - яркий пример того, что нет ничего невозможного! Стоять на голове, крутить, фризовать, танцевать на руках и замирать в воздухе…Этому может научиться каждый, кто любит чувствовать свое тело, свои неограниченные возможности! чувствует.",
-      schedule: "Понедельник, Среда: 20:00-21:30",
-      instructor: "Александр",
-      level: "Все уровни",
-      image: "/breaking-dance-cover.webp",
-    },
-    {
-      id: 3,
-      title: "K-POP COVER DANCE",
-      description: "K-Pop превратился в масштабную музыкальную субкультуру с миллионами поклонников во всём мире. Это направление вскружило голову молодежи своими яркими образами и эпатажностью в одежде. Стильные образы, умение передавать публике свое настроение, эмоции и мысли через синхронные и слаженные движения, подвижную мимику лица, ecОдновременное смешение в танце стилей  Hip-хоп Popping Locking Waacking Vogue Jazz Contemporary - это все про K-POP COVER DANCE.",
-      schedule: "Вторник, Пятница: 18:00-19:30",
-      instructor: "Юлия",
-      level: "Начинающий / Средний",
-      image: "/k-pop-dance-cover.webp",
-    }
-  ]
-
-  // FAQ data
-  const faqItems = [
-    {
-      question: "С какого возраста можно начать заниматься танцами?",
-      answer: "Мы принимаем учеников с 14 лет. Для каждого направления у нас есть группы разного уровня подготовки, поэтому вы сможете начать в любом возрасте."
-    },
-    {
-      question: "Какая одежда нужна для занятий?",
-      answer: "Рекомендуем удобную спортивную одежду, не стесняющую движений, и сменную обувь (кроссовки с чистой подошвой). Для хип-хопа подойдут свободные штаны и футболка, для K-POP можно выбрать более обтягивающую одежду."
-    },
-    {
-      question: "Нужна ли предварительная подготовка?",
-      answer: "Нет, специальная подготовка не требуется. Мы набираем группы разных уровней, включая начинающих. Наши преподаватели помогут освоить базовые движения и постепенно перейти к более сложным элементам."
-    },
-    {
-      question: "Как проходит пробное занятие?",
-      answer: "На пробном занятии вы познакомитесь с преподавателем, разучите базовые движения выбранного стиля и сможете оценить свои силы. Длительность занятия - 90 минут. После пробного занятия вы сможете решить, какой абонемент выбрать."
-    }
-  ];
-
   const handleDanceRegistration = (danceStyle) => {
     setSelectedDance(danceStyle);
     setIsFormOpen(true);
@@ -143,9 +183,13 @@ const DancePage = () => {
     {
       id: 'level',
       text: 'Уровень подготовки танцора',
-      type: 'text',
+      type: 'radio',
       required: true,
-      placeholder: 'Уровень подготовки танцора'
+      options: [
+        { value: 'beginner', label: 'Начинающий' },
+        { value: 'amateur', label: 'Любитель' },
+        { value: 'professional', label: 'Профессионал' }
+      ]
     },
     {
       id: 'message',
@@ -156,6 +200,135 @@ const DancePage = () => {
     }
   ];
 
+  const coffeeFormQuestions = [
+    {
+      id: 'coffeeOrders',
+      text: 'Напишите какие напитки вы бы хотели:',
+      type: 'custom',
+      required: true,
+      customItems: [
+        {
+          id: 'cappuccino',
+          label: 'Капучино',
+          type: 'number',
+          placeholder: 'шт'
+        },
+        {
+          id: 'latte',
+          label: 'Латте',
+          type: 'number',
+          placeholder: 'шт'
+        },
+        {
+          id: 'americano',
+          label: 'Американо',
+          type: 'number',
+          placeholder: 'шт'
+        },
+        {
+          id: 'flatWhite',
+          label: 'Флэт Уайт',
+          type: 'number',
+          placeholder: 'шт'
+        },
+        {
+          id: 'espresso',
+          label: 'Эспрессо',
+          type: 'number',
+          placeholder: 'шт'
+        },
+        {
+          id: 'iceCoffee',
+          label: 'Айс кофе',
+          type: 'number',
+          placeholder: 'шт'
+        },
+        {
+          id: 'creamyCappuccino',
+          label: 'Сливочный капучино',
+          type: 'number',
+          placeholder: 'шт'
+        },
+        {
+          id: 'custom1',
+          label: 'Другой напиток',
+          type: 'text',
+          placeholder: 'Название и количество'
+        },
+        {
+          id: 'custom2',
+          label: 'Другой напиток',
+          type: 'text',
+          placeholder: 'Название и количество'
+        },
+        {
+          id: 'custom3',
+          label: 'Другой напиток',
+          type: 'text',
+          placeholder: 'Название и количество'
+        }
+      ]
+    },
+    {
+      id: 'volume',
+      text: 'Какой объем:',
+      type: 'radio',
+      required: true,
+      options: [
+        { value: '200ml', label: '200 мл' },
+        { value: '300ml', label: '300 мл' },
+        { value: '400ml', label: '400 мл' }
+      ]
+    },
+    {
+      id: 'milk',
+      text: 'На каком молоке?',
+      type: 'radio',
+      required: true,
+      options: [
+        { value: 'classic', label: 'Классическое' },
+        { value: 'coconut', label: 'Кокосовое' },
+        { value: 'banana', label: 'Банановое' },
+        { value: 'almond', label: 'Миндальное' },
+        { value: 'other', label: 'Другое (укажите в комментарии)' }
+      ]
+    },
+    {
+      id: 'date',
+      text: 'На какую дату вы бы хотели сделать заказ?',
+      type: 'date',
+      required: true
+    },
+    {
+      id: 'time',
+      text: 'На какое время вы бы хотели сделать заказ?',
+      type: 'text',
+      required: true,
+      placeholder: 'Например, 14:00'
+    },
+    {
+      id: 'wishes',
+      text: 'Напишите ваши пожелания в свободной форме',
+      type: 'textarea',
+      required: false,
+      placeholder: 'Ваши пожелания'
+    },
+    {
+      id: 'name',
+      text: 'Как вас зовут?',
+      type: 'text',
+      required: true,
+      placeholder: 'Введите ваше имя'
+    },
+    {
+      id: 'phone',
+      text: 'Ваш номер телефона',
+      type: 'tel',
+      required: true,
+      placeholder: '+7 (___) ___-__-__'
+    }
+  ];
+
   return (
     <div className="page-container dance-page">
       <SiteHeader />
@@ -163,13 +336,13 @@ const DancePage = () => {
         <FeedbackForm
           isOpen={isFormOpen}
           onClose={() => setIsFormOpen(false)}
-          questions={formQuestions}
-          title="Запись на пробное занятие"
-          description={`Запись на ${selectedDance?.title || 'танцевальное'} направление`}
-          formType="dance-registration"
-          answers={{
-            message: `Хочу записаться на ${selectedDance?.title || 'танцы'}. Расписание: ${selectedDance?.schedule || ''}`
-          }}
+          questions={selectedDance ? formQuestions : coffeeFormQuestions}
+          title={selectedDance ? "Запись на пробное занятие" : "Заказ кофе"}
+          description={selectedDance ? `Запись на ${selectedDance.title || 'танцевальное'} направление` : "Заполните форму для заказа кофе"}
+          formType={selectedDance ? "dance-registration" : "coffee-order"}
+          answers={selectedDance ? {
+            message: `Хочу записаться на ${selectedDance.title || 'танцы'}`
+          } : {}}
         />
       )}
       <main className="main-content">
@@ -189,7 +362,7 @@ const DancePage = () => {
           </div>
         </section>
 
-        {/* Video Section */}
+        {/* Video Section with aboutUs data */}
         <section className="dance-video-section">
           <div className="container">
             <div className="dance-video-grid">
@@ -202,9 +375,6 @@ const DancePage = () => {
                   muted
                   autoPlay
                   loop
-                  onError={(e) => {
-                    console.error('Error loading video:', e);
-                  }}
                 >
                   <source src="/video-dance.mov" type="video/quicktime" />
                   <source src="/video-dance.mov" type="video/mp4" />
@@ -212,24 +382,21 @@ const DancePage = () => {
                 </video>
               </div>
               <div className="dance-video-content">
-                <h2 className="section-title">Танцы в K.O.D.</h2>
+                <h2 className="section-title">{aboutUsData?.title || "Танцы в K.O.D."}</h2>
                 <p className="section-description video-p">
-                С 2020 года в арт-пространстве K.O.D. собираются фанаты своих физических возможностей, и они же стремятся к non-stop развитию своего физического интеллекта через танец.
-                    Доказано: люди с развитым физическим интеллектом отлично скоординированы, выносливы, грациозны, обладают ловкостью, легкостью и здоровым отношением к своему телу. 
-                    Такие люди прекрасно ориентируются в пространстве и легче избавляются от телесных и ментальных блоков. 
-                    «Физический интеллект — это способность человека ощущать, понимать и эффективно управлять своим телом. Он тесно связан с общим состоянием здоровья, чувством комфорта и возможностью физически реализовать свои стремления и цели.»
-                    Присоединяйтесь к нашей команде физически - одаренных и мощных людей!
+                  {aboutUsData?.description?.split('\n').map((line, index) => (
+                    <React.Fragment key={index}>
+                      {line}
+                      <br />
+                    </React.Fragment>
+                  )) || "С 2020 года в арт-пространстве K.O.D. собираются фанаты своих физических возможностей..."}
                 </p>
-                
-                <div className="dance-cta">
-                  
-                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Dance Styles Section */}
+        {/* Dance Types Section */}
         <section id="dance-styles" className="dance-styles-section">
           <div className="container">
             <div className="dance-styles-header">
@@ -237,27 +404,21 @@ const DancePage = () => {
               <p className="section-description">Выберите направление, которое вам по душе</p>
             </div>
             <div className="dance-styles-grid">
-              {danceStyles.map((style) => (
-                <Card key={style.id} className="dance-style-card">
+              {(danceTypesData.length > 0 ? danceTypesData : defaultDanceStyles).map((style) => (
+                <Card key={style.id || style.title} className="dance-style-card">
                   <div className="dance-style-image-container">
-                    <img src={style.image || "/placeholder.svg"} alt={style.title} className="dance-style-image" />
+                    <img 
+                      src={style.image || "/placeholder.svg"} 
+                      alt={style.title}
+                      className="dance-style-image"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/placeholder.svg";
+                      }}
+                    />
                   </div>
                   <CardHeader>
                     <CardTitle>{style.title}</CardTitle>
-                    {/* <CardDescription>
-                      <div className="dance-style-detail">
-                        <span className="dance-style-icon calendar-icon"></span>
-                        <span>{style.schedule}</span>
-                      </div>
-                      <div className="dance-style-detail">
-                        <span className="dance-style-icon people-icon"></span>
-                        <span>Преподаватель: {style.instructor}</span>
-                      </div>
-                      <div className="dance-style-detail">
-                        <span className="dance-style-icon clock-icon"></span>
-                        <span>Уровень: {style.level}</span>
-                      </div>
-                    </CardDescription> */}
                   </CardHeader>
                   <CardContent>
                     <p className="dance-style-description">{style.description}</p>
@@ -276,6 +437,9 @@ const DancePage = () => {
           </div>
         </section>
 
+      
+        
+
         {/* Pricing Section */}
         <section className="pricing-section">
           <div className="container">
@@ -284,97 +448,113 @@ const DancePage = () => {
               <p className="section-description">Выберите подходящий вам формат</p>
             </div>
             <div className="pricing-grid">
-              <Card className="pricing-card">
-                <CardHeader>
-                  <CardTitle>Разовое посещение</CardTitle>
-                  <CardDescription>Для тех, кто хочет попробовать</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="pricing-price">800 ₽</div>
-                  <ul className="pricing-features">
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Одно занятие любого направления</span>
-                    </li>
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Длительность 90 минут</span>
-                    </li>
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Без обязательств</span>
-                    </li>
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button className="pricing-button">Записаться</Button>
-                </CardFooter>
-              </Card>
+              {pricesData.length > 0 ? (
+                pricesData.map((item, idx) => (
+                  <Card key={idx} className={`pricing-card${idx === 1 ? ' pricing-card-featured' : ''}`}>
+                    <CardHeader className={idx === 1 ? "pricing-card-featured-header" : ""}>
+                      <CardTitle>{item.title}</CardTitle>
+                      <CardDescription>{item.shortDescription}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="pricing-price">{item.price} ₽</div>
+                      <ul className="pricing-features">
+                        {item.points && item.points.length > 0 && item.points.map((pt, i) => (
+                          <li className="pricing-feature" key={i}>
+                            <span className="check-icon"></span>
+                            <span>{pt.point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <>
+                  <Card className="pricing-card">
+                    <CardHeader>
+                      <CardTitle>Разовое посещение</CardTitle>
+                      <CardDescription>Для тех, кто хочет попробовать</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="pricing-price">800 ₽</div>
+                      <ul className="pricing-features">
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Одно занятие любого направления</span>
+                        </li>
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Длительность 90 минут</span>
+                        </li>
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Без обязательств</span>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
 
-              <Card className="pricing-card pricing-card-featured">
-                <CardHeader className="pricing-card-featured-header">
-                  <CardTitle>Абонемент на месяц</CardTitle>
-                  <CardDescription>Самый популярный вариант</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="pricing-price">3500 ₽</div>
-                  <ul className="pricing-features">
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>8 занятий в месяц</span>
-                    </li>
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Любое направление</span>
-                    </li>
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Заморозка на 7 дней</span>
-                    </li>
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Экономия 30%</span>
-                    </li>
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button className="pricing-button">Оформить абонемент</Button>
-                </CardFooter>
-              </Card>
+                  <Card className="pricing-card pricing-card-featured">
+                    <CardHeader className="pricing-card-featured-header">
+                      <CardTitle>Абонемент на месяц</CardTitle>
+                      <CardDescription>Самый популярный вариант</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="pricing-price">3500 ₽</div>
+                      <ul className="pricing-features">
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>8 занятий в месяц</span>
+                        </li>
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Любое направление</span>
+                        </li>
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Заморозка на 7 дней</span>
+                        </li>
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Экономия 30%</span>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
 
-              <Card className="pricing-card">
-                <CardHeader>
-                  <CardTitle>Абонемент на 3 месяца</CardTitle>
-                  <CardDescription>Для постоянных клиентов</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="pricing-price">9000 ₽</div>
-                  <ul className="pricing-features">
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>24 занятия (8 в месяц)</span>
-                    </li>
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Любое направление</span>
-                    </li>
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Заморозка на 14 дней</span>
-                    </li>
-                    <li className="pricing-feature">
-                      <span className="check-icon"></span>
-                      <span>Экономия 40%</span>
-                    </li>
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button className="pricing-button">Оформить абонемент</Button>
-                </CardFooter>
-              </Card>
+                  <Card className="pricing-card">
+                    <CardHeader>
+                      <CardTitle>Абонемент на 3 месяца</CardTitle>
+                      <CardDescription>Для постоянных клиентов</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="pricing-price">9000 ₽</div>
+                      <ul className="pricing-features">
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>24 занятия (8 в месяц)</span>
+                        </li>
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Любое направление</span>
+                        </li>
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Заморозка на 14 дней</span>
+                        </li>
+                        <li className="pricing-feature">
+                          <span className="check-icon"></span>
+                          <span>Экономия 40%</span>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </>
+              )}
             </div>
           </div>
         </section>
+       
 
         {/* Instructors Section */}
         <section className="instructors-section">
@@ -384,7 +564,7 @@ const DancePage = () => {
               <p className="section-description">Профессионалы своего дела с многолетним опытом</p>
             </div>
             <div className="instructors-grid">
-              {[
+              {(trainersData.length > 0 ? trainersData : [
                 {
                   name: "Кристина",
                   role: "Педагог - хореограф по направлению Hip-Hop",
@@ -408,23 +588,25 @@ const DancePage = () => {
                   role: "Педагог - хореограф по направлению K-POP",
                   bio: "Хореограф с педагогическим образованием. Специализируется на работе с детьми.",
                   image: "/yulia-dance.png",
-                },
-              ].map((instructor, index) => (
+                }
+              ]).map((instructor, index) => (
                 <Card key={index} className="instructor-card">
                   <div className="instructor-image-container">
                     <img
-                      src={instructor.image || "/placeholder.svg"}
+                      src={instructor.image}
                       alt={instructor.name}
                       className="instructor-image"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/placeholder.svg";
+                      }}
                     />
                   </div>
                   <CardHeader>
                     <CardTitle>{instructor.name}</CardTitle>
                     <CardDescription>{instructor.role}</CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <p className="instructor-bio">{instructor.bio}</p>
-                  </CardContent>
+                  
                 </Card>
               ))}
             </div>
@@ -432,10 +614,9 @@ const DancePage = () => {
         </section>
 
         {/* FAQ Section */}
-        <FAQ 
-          title="Вопросы о танцевальных занятиях" 
-          questions={faqItems} 
-        />
+        {faqData.length > 0 && (
+          <FAQ questions={faqData} />
+        )}
       </main>
       <SiteFooter />
     </div>

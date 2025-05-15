@@ -482,5 +482,54 @@
   }
 }
 
+/* Coffee Order Section */
+.coffee-order-section {
+  padding: 60px 0;
+  background-color: rgba(20, 20, 35, 0.97);
+  position: relative;
+  overflow: hidden;
+}
+
+.coffee-order-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(165, 113, 100, 0.1));
+  z-index: 0;
+}
+
+.coffee-order-header {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.coffee-order-content {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.coffee-order-button {
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.8), rgba(165, 113, 100, 0.8));
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.coffee-order-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(139, 69, 19, 0.3);
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.9), rgba(165, 113, 100, 0.9));
+}
+
 
 

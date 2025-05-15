@@ -76,7 +76,7 @@ const HomePage = () => {
         
 
         <div className="photo-grid">
-              {homePageData.Gallery_Images?.map((image, index) => {
+              {homePageData.Gallery_Images1?.map((image, index) => {
                 const imageUrl = getMediaUrl(image);
                 console.log(`Rendering image ${index} with URL:`, imageUrl);
                 
@@ -114,7 +114,7 @@ const HomePage = () => {
               </p>
             </div>
             <div className="photo-grid">
-              {homePageData.Gallery_Images?.map((image, index) => {
+              {homePageData.Gallery_Images2?.map((image, index) => {
                 const imageUrl = getMediaUrl(image);
                 console.log(`Rendering image ${index} with URL:`, imageUrl);
                 

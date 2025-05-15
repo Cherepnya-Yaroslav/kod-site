@@ -8,6 +8,7 @@ import { Link } from "react-router-dom"
 import ProgramDetails from "../components/ProgramDetails"
 import PageHeaderSection from "../components/PageHeaderSection"
 import Testimonials from "../components/Testimonials"
+import FAQ from "../components/FAQ"
 
 // Обновляем импорт CSS
 import "../styles/pages/PersonalPartiesPage.css"
@@ -19,34 +20,35 @@ const PersonalPartiesPage = () => {
   const [error, setError] = useState(null);
   const [selectedProgram, setSelectedProgram] = useState(null);
   const [dynamicPrograms, setDynamicPrograms] = useState([]);
-
-  // Статичные данные о программах
-  const staticProgramsData = {
+  const [faqData, setFaqData] = useState([]);
+  const [testimonialData, setTestimonialData] = useState([]);
+  const [fishkiData, setFishkiData] = useState([]);
+  const [staticProgramsData, setStaticProgramsData] = useState({
     themeParties: {
       title: "ТЕМАТИЧЕСКИЕ ВЕЧЕРИНКИ",
       description: [
         "Тематическая вечеринка - это эмоциональный взрыв! Это - событие, когда гости целиком погружаются в атмосферу выбранной вами темы/идеи. Наша команда - эксперты в организации тематических вечеринок 'под ключ', а наше пространство позволяет воссоздать любую атмосферу! Что вам интересно? Властелин колец? Люди в черном? Французский шик? Игра престолов? Единороги и принцессы? Пираты? Зомби? Анимэ?     Сделаем вашу вечеринку эмоциональной  до каждой милисекунды!   Создадим атмосферу крутым декором! Встретим гостей волкам зоной, Озвучим профессиональным диджеем и караоке-баром! Разнообразим яркой дискотекой! Украсим неоновым светом!   Дополним тематическим сценарием, проведем с крутым ведущим!                                                                               Идеально для: - детский ДР - подростковый ДР - взрослый ДР - девичник - гендерпати - выпускной - корпоратив."
       ],
-      mainImage: "/theme-parties.jpg",
-      galleryImages: [
-        "/placeholder-gallery-1.jpg",
-        "/placeholder-gallery-2.jpg",
-        "/placeholder-gallery-3.jpg",
-        "/placeholder-gallery-4.jpg"
-      ]
+      // mainImage: "/theme-parties.jpg",
+      // galleryImages: [
+      //   "/placeholder-gallery-1.jpg",
+      //   "/placeholder-gallery-2.jpg",
+      //   "/placeholder-gallery-3.jpg",
+      //   "/placeholder-gallery-4.jpg"
+      // ]
     },
     gamingParties: {
       title: "ИГРОВЫЕ ВЕЧЕРИНКИ",
       description: [
         "Увлекательные игровые форматы для любого возраста"
       ],
-      mainImage: "/gaming-parties.jpg",
-      galleryImages: [
-        "/placeholder-gallery-5.jpg",
-        "/placeholder-gallery-6.jpg",
-        "/placeholder-gallery-7.jpg",
-        "/placeholder-gallery-8.jpg"
-      ]
+      // mainImage: "/gaming-parties.jpg",
+      // galleryImages: [
+      //   "/placeholder-gallery-5.jpg",
+      //   "/placeholder-gallery-6.jpg",
+      //   "/placeholder-gallery-7.jpg",
+      //   "/placeholder-gallery-8.jpg"
+      // ]
     },
     venueRental: {
       title: "АРЕНДА ПРОСТРАНСТВА",
@@ -63,32 +65,15 @@ const PersonalPartiesPage = () => {
         "- Барная зона"
       ],
       mainImage: "/rent-main.jpg",
-      galleryImages: [
-        "/rent-1.jpg",
-        "/rent-2.jpg",
-        "/rent-3.jpg",
-        "/rent-4.jpg",
-        "/rent-5.jpg"
-      ]
+      // galleryImages: [
+      //   "/rent-1.jpg",
+      //   "/rent-2.jpg",
+      //   "/rent-3.jpg",
+      //   "/rent-4.jpg",
+      //   "/rent-5.jpg"
+      // ]
     }
-  };
-
-  // Статичные отзывы
-  const testimonials = [
-    {
-      text: "Организовывали день рождения дочери в стиле K-POP.",
-      author: "Анна Михайлова"
-    },
-    {
-      text: "Отмечали корпоратив в тематике 'Игра престолов'. ",
-      author: "Дмитрий Волков, CEO TechStart"
-    },
-    {
-      text: "Праздновали выпускной 11 класса. Формат квеста с элементами тематической вечеринки - это было гениально!",
-      author: "Елена Сергеевна"
-    },
-   
-  ];
+  });
 
   // Загрузка данных страницы
   useEffect(() => {
@@ -96,16 +81,83 @@ const PersonalPartiesPage = () => {
       try {
         setLoading(true);
         
-        // Изменяем формат запроса populate, чтобы гарантированно получить programs
         const response = await fetchData('personal-parties-page', { 
-          populate: ['programs.mainImage', 'programs.galleryImages', 'pageHeader'] 
+          populate: [
+            'programs.mainImage', 
+            'programs.galleryImages', 
+            'pageHeader', 
+            'questions', 
+            'testimonial', 
+            'fishki',
+            'rentGallery',
+            'gameGallery',
+            'themeGallery'
+          ] 
         });
         
         console.log('Personal parties page data from Strapi:', response);
-        console.log('Full response structure:', JSON.stringify(response, null, 2));
         
         setPageData(response.data);
+
+        // Обработка галерей для статических карточек
+        const themeGallery = response.data?.themeGallery || [];
+        const gameGallery = response.data?.gameGallery || [];
+        const rentGallery = response.data?.rentGallery || [];
+
+        // Обновляем staticProgramsData с данными из Strapi
+        setStaticProgramsData(prev => ({
+          themeParties: {
+            ...prev.themeParties,
+            mainImage: themeGallery.length > 0 ? getMediaUrl(themeGallery[0]) : prev.themeParties.mainImage,
+            galleryImages: themeGallery.map(img => getMediaUrl(img))
+          },
+          gamingParties: {
+            ...prev.gamingParties,
+            mainImage: gameGallery.length > 0 ? getMediaUrl(gameGallery[0]) : prev.gamingParties.mainImage,
+            galleryImages: gameGallery.map(img => getMediaUrl(img))
+          },
+          venueRental: {
+            ...prev.venueRental,
+            mainImage: rentGallery.length > 0 ? getMediaUrl(rentGallery[0]) : prev.venueRental.mainImage,
+            galleryImages: rentGallery.map(img => getMediaUrl(img))
+          }
+        }));
         
+        // Обработка отзывов
+        const testimonials = response.data?.testimonial || response.data?.attributes?.testimonial || [];
+        console.log('Testimonials data:', testimonials);
+        
+        // Преобразуем данные в формат, необходимый для компонента Testimonials
+        const formattedTestimonials = testimonials.map(t => ({
+          text: t.text,
+          author: t.author
+        }));
+        
+        setTestimonialData(formattedTestimonials);
+
+        // Обработка FAQ данных
+        const questions = response.data?.questions || response.data?.attributes?.questions || [];
+        console.log('FAQ data:', questions);
+        
+        // Преобразуем данные в формат, необходимый для компонента FAQ
+        const formattedQuestions = questions.map(q => ({
+          question: q.question,
+          answer: q.answer
+        }));
+        
+        setFaqData(formattedQuestions);
+
+        // Обработка фишек
+        const fishki = response.data?.fishki || response.data?.attributes?.fishki || [];
+        console.log('Fishki data:', fishki);
+        
+        const formattedFishki = fishki.map(f => ({
+          title: f.Title,
+          description: f.Description
+        }));
+        
+        setFishkiData(formattedFishki);
+
         // Проверка данных о программах
         const programs = response.data?.programs || response.data?.attributes?.programs;
         console.log('Programs raw data:', programs);
@@ -278,8 +330,13 @@ const PersonalPartiesPage = () => {
             <div className="services-grid">
               {/* Статичные карточки */}
               <Card className="service-card">
+              <div className="service-card-image">
+                            <img src={staticProgramsData.themeParties.mainImage} alt="Тематические вечеринки" />
+                          </div>
                 
                 <CardHeader>
+
+               
                       <CardTitle>{staticProgramsData.themeParties.title}</CardTitle>
                       <CardDescription>
                         Вы можете позволить себе всё!
@@ -287,9 +344,7 @@ const PersonalPartiesPage = () => {
                       <CardDescription>
                         Организуем любой тематический празник от супергероев до ретро-вечеринок 
                       </CardDescription>
-                          <div className="service-card-image">
-                            <img src={staticProgramsData.themeParties.mainImage} alt="Тематические вечеринки" />
-                          </div> 
+                           
                 </CardHeader>
                 <CardContent>
                   <div className="service-action">
@@ -373,62 +428,6 @@ const PersonalPartiesPage = () => {
           </div>
         </section>
 
-        {/* Features */}
-        <section className="features-section">
-          <div className="container">
-            <div className="features-header">
-              <h2 className="section-title">Фишки K.O.D.</h2>
-              <p className="section-description">Что делает наши мероприятия особенными</p>
-            </div>
-            <div className="features-grid">
-              {[
-                {
-                  title: "Уникальные сценарии",
-                  description: "Индивидуальный подход к каждому мероприятию с учетом всех пожеланий",
-                },
-                {
-                  title: "Профессиональные ведущие",
-                  description: "Опытные аниматоры и ведущие, умеющие работать с любой аудиторией",
-                },
-                {
-                  title: "Современное оборудование",
-                  description: "Качественный звук, свет и спецэффекты для создания нужной атмосферы",
-                },
-                {
-                  title: "Тематическое оформление",
-                  description: "Полное преображение пространства в соответствии с выбранной темой",
-                },
-                {
-                  title: "Фото и видеосъемка",
-                  description: "Профессиональная съемка для сохранения воспоминаний о мероприятии",
-                },
-                {
-                  title: "Кейтеринг",
-                  description: "Организация питания любой сложности от фуршета до банкета",
-                },
-                {
-                  title: "Бесценный опыт",
-                  description: "Описание",
-                },
-                {
-                  title: "Неограниченные возвожности",
-                  description: "Описание",
-                },
-              ].map((feature, index) => (
-                <Card key={index} className="feature-card">
-                  <CardHeader>
-                    <CardTitle>{feature.title}</CardTitle>
-                    <CardDescription>{feature.description}</CardDescription>
-                  </CardHeader>
-                </Card>
-              ))}
-            </div>
-            <div className="scroll-indicator">←→</div>
-          </div>
-        </section>
-
-        <Testimonials testimonials={testimonials} />
-
         {/* Booking Conditions */}
         <section className="conditions-section">
           <div className="container">
@@ -443,17 +442,17 @@ const PersonalPartiesPage = () => {
                       Для гарантированного бронирования даты мы рекомендуем обращаться не менее чем за 2 месяца до
                       планируемого мероприятия.
                     </p>
-                    <ul className="conditions-list">
+                    <ul className="conditions-list" style={{ listStyle: 'none', padding: 0 }}>
                       <li className="conditions-item">
-                        <span className="check-icon"></span>
+                        <span className="check-icon">✓</span>
                         <span>Предоплата 50% для фиксации даты</span>
                       </li>
                       <li className="conditions-item">
-                        <span className="check-icon"></span>
+                        <span className="check-icon">✓</span>
                         <span>Полная оплата не позднее 3 дней до мероприятия</span>
                       </li>
                       <li className="conditions-item">
-                        <span className="check-icon"></span>
+                        <span className="check-icon">✓</span>
                         <span>Возможность переноса даты при уведомлении не менее чем за 7 дней</span>
                       </li>
                     </ul>
@@ -464,6 +463,33 @@ const PersonalPartiesPage = () => {
           </div>
         </section>
 
+        {/* Features */}
+        <section className="features-section">
+          <div className="container">
+            <div className="features-header">
+              <h2 className="section-title">Фишки K.O.D.</h2>
+              <p className="section-description">Что делает наши мероприятия особенными</p>
+            </div>
+            <div className="features-grid">
+              {fishkiData.map((feature, index) => (
+                <Card key={index} className="feature-card">
+                  <CardHeader>
+                    <CardTitle>{feature.title}</CardTitle>
+                    <CardDescription>{feature.description}</CardDescription>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+            <div className="scroll-indicator">←→</div>
+          </div>
+        </section>
+
+        {testimonialData.length > 0 && <Testimonials testimonials={testimonialData} />}
+
+        
+
+        {/* FAQ Section */}
+        {faqData.length > 0 && <FAQ questions={faqData} />}
         
       </main>
       <SiteFooter />

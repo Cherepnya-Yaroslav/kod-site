@@ -96,26 +96,24 @@ const OpenPartiesPage = () => {
   } = pageData || {};
 
   // Обработка галереи
-  const galleryImages = gallery?.data || [];
+  const galleryImages = gallery || [];
 
   // Детальное описание для PageHeaderSection
   const pageHeaderDescription = `Мы регулярно организуем не только частные мероприятия но и открытые вечеринки для детей, подростков и взрослых! Вдохновляясь фильмами, музыкой, книгами, мы хотим делиться эмоциями со всеми. На территории пространства KOD регулярно проходят кайфовые развлекательно - смысловые вечеринки в виде кинопросмотров, игр, фотосессий и других форматов! Ближайшие мероприятия вы можете посмотреть в нашем календаре! `;
 
-  // FAQ questions for the page
-  const faqQuestions = [
-    {
-      question: "Нужна ли предварительная регистрация на открытые мероприятия?",
-      answer: "Да, для участия в открытых мероприятиях необходима предварительная регистрация и оплата. Количество мест ограничено, поэтому рекомендуем бронировать заранее."
-    },
-    {
-      question: "Можно ли прийти на мероприятие одному?",
-      answer: "Конечно! Наши открытые мероприятия отлично подходят для тех, кто хочет познакомиться с новыми людьми. Ведущие помогут вам влиться в компанию."
-    },
-    {
-      question: "Есть ли возрастные ограничения?",
-      answer: "Для каждого мероприятия установлены свои возрастные ограничения. Эта информация указана в описании конкретного события."
-    }
-  ];
+  // FAQ из Strapi
+  let faqQuestions = [];
+  if (faq && Array.isArray(faq)) {
+    faqQuestions = faq.map(item => ({
+      question: item.question,
+      answer: item.answer
+    }));
+  } else if (faq && faq.data && Array.isArray(faq.data)) {
+    faqQuestions = faq.data.map(item => ({
+      question: item.attributes?.question || item.question,
+      answer: item.attributes?.answer || item.answer
+    }));
+  }
 
   return (
     <div className="page-container parties-page">
@@ -166,7 +164,7 @@ const OpenPartiesPage = () => {
         )}
 
         {/* FAQ Section */}
-        <FAQ questions={faq?.data || []} />
+        <FAQ questions={faqQuestions} />
       </main>
       <SiteFooter />
     </div>

@@ -194,6 +194,41 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
           />
         );
 
+      case 'custom':
+        if (question.customItems && question.id === 'coffeeOrders') {
+          return (
+            <div className="coffee-order-items">
+              {question.customItems.map((item, idx) => (
+                <div key={idx} className="coffee-order-item">
+                  <label className="coffee-item-label">{item.label}</label>
+                  {item.type === 'number' ? (
+                    <div className="coffee-item-quantity">
+                      <input
+                        type="number"
+                        className="coffee-quantity-input"
+                        value={answers[item.id] || ''}
+                        onChange={(e) => handleAnswerChange(item.id, e.target.value)}
+                        placeholder={item.placeholder}
+                        min="0"
+                      />
+                      <span className="quantity-label">шт</span>
+                    </div>
+                  ) : (
+                    <input
+                      type="text"
+                      className="form-input"
+                      value={answers[item.id] || ''}
+                      onChange={(e) => handleAnswerChange(item.id, e.target.value)}
+                      placeholder={item.placeholder}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          );
+        }
+        return null;
+
       default:
         return null;
     }

@@ -18,6 +18,11 @@ const SiteFooter = () => {
         console.log('Fetching footer data from:', `${API_URL}/api/footer`);
         const response = await axios.get(`${API_URL}/api/footer`);
         console.log('Footer data received:', response.data);
+        console.log('Social links:', {
+          vk: response.data.data?.vkLink,
+          telegram: response.data.data?.telegramLink,
+          rutube: response.data.data?.rutubeLink
+        });
         setFooterData(response.data.data);
       } catch (error) {
         console.error('Error fetching footer data:', error);
@@ -75,14 +80,19 @@ const SiteFooter = () => {
             <h3 className="footer-title">K.O.D.</h3>
             <p className="footer-description">Пространство для творчества, развлечений и незабываемых впечатлений</p>
             <div className="footer-social">
-              {footerData?.rutubeLink && (
+              {footerData && footerData.vkLink && (
                 <a href={footerData.vkLink} target="_blank" rel="noopener noreferrer" className="social-link">
                   <i className="icon-vk"></i>
                 </a>
               )}
-              {footerData?.telegramLink && (
+              {footerData && footerData.telegramLink && (
                 <a href={footerData.telegramLink} target="_blank" rel="noopener noreferrer" className="social-link">
                   <i className="icon-telegram"></i>
+                </a>
+              )}
+              {footerData && footerData.rutubeLink && (
+                <a href={footerData.rutubeLink} target="_blank" rel="noopener noreferrer" className="social-link">
+                  <i className="icon-rutube"></i>
                 </a>
               )}
             </div>
@@ -98,19 +108,19 @@ const SiteFooter = () => {
                   </a>
                 </div>
               )}
-              {footerData?.email && (
-                <div className="contact-item">
-                <i className="icon-map"></i>
-                <span className="contact-text">{footerData.adress}</span>
-              </div>
-              )}
               {footerData?.adress && (
                 <div className="contact-item">
-                <i className="icon-mail"></i>
-                <a href={`mailto:${footerData.email}`} className="contact-link">
-                  {footerData.email}
-                </a>
-              </div>
+                  <i className="icon-map"></i>
+                  <span className="contact-text">{footerData.adress}</span>
+                </div>
+              )}
+              {footerData?.email && (
+                <div className="contact-item">
+                  <i className="icon-mail"></i>
+                  <a href={`mailto:${footerData.email}`} className="contact-link">
+                    {footerData.email}
+                  </a>
+                </div>
               )}
             </div>
           </div>

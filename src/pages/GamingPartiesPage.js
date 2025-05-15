@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import FeedbackForm from "../components/FeedbackForm";
-import { fetchData } from '../api/strapi';
+import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/pages/GamingPartiesPage.css';
 
 const GamingPartiesPage = () => {
@@ -18,12 +18,58 @@ const GamingPartiesPage = () => {
   const [selectedGame, setSelectedGame] = useState(null);
   const [currentImage, setCurrentImage] = useState(null);
   const [answers, setAnswers] = useState({});
+  const [pageData, setPageData] = useState({
+    title: "Игровые вечеринки дети/взрослые",
+    description: [
+      "Игровые вечеринки в KOD - это особое удовольствие! В нашей коллекции более 50 патигеймов для детских, взрослых и смешанных компаний! Задумали вечеринку, но не знаете как ее обыграть? Мы знаем все правила, поэтому с легкостью организуем для вас игру в День рождения, корпоратив, тимбилдинг или семейную встречу! Сделаем вашу игропати эмоциональной до каждой милисекунды!"
+    ],
+    mainImage: "/gaming-parties-main.jpg",
+    galleryImages: [
+      "/gaming-parties-1.jpg",
+      "/gaming-parties-2.jpg",
+      "/gaming-parties-3.jpg",
+      "/gaming-parties-4.jpg"
+    ]
+  });
 
   useEffect(() => {
     // Set initial current image when component mounts
     if (pageData.mainImage) {
       setCurrentImage(pageData.mainImage);
     }
+  }, [pageData.mainImage]);
+
+  // Загрузка галереи из Strapi
+  useEffect(() => {
+    const fetchGameGallery = async () => {
+      try {
+        const response = await fetchData('personal-parties-page', { 
+          populate: ['gameGallery'] 
+        });
+        
+        console.log('Game gallery data from Strapi:', response);
+        
+        if (response && response.data && response.data.gameGallery && response.data.gameGallery.length > 0) {
+          const gameGallery = response.data.gameGallery;
+          
+          // Обновляем pageData с данными из Strapi
+          setPageData(prev => {
+            const updatedData = {
+              ...prev,
+              mainImage: gameGallery.length > 0 ? getMediaUrl(gameGallery[0]) : prev.mainImage,
+              galleryImages: gameGallery.map(img => getMediaUrl(img))
+            };
+            // Устанавливаем текущее изображение как первое из галереи
+            setCurrentImage(updatedData.mainImage);
+            return updatedData;
+          });
+        }
+      } catch (err) {
+        console.error('Error loading game gallery:', err);
+      }
+    };
+
+    fetchGameGallery();
   }, []);
 
   // Function to handle thumbnail click
@@ -73,20 +119,6 @@ const GamingPartiesPage = () => {
 
     loadGames();
   }, [activeAudience, activeGameType]);
-
-  const pageData = {
-    title: "Игровые вечеринки дети/взрослые",
-    description: [
-      "Игровые вечеринки в KOD - это особое удовольствие! В нашей коллекции более 50 патигеймов для детских, взрослых и смешанных компаний! Задумали вечеринку, но не знаете как ее обыграть? Мы знаем все правила, поэтому с легкостью организуем для вас игру в День рождения, корпоратив, тимбилдинг или семейную встречу! Сделаем вашу игропати эмоциональной до каждой милисекунды!"
-    ],
-    mainImage: "/gaming-parties-main.jpg",
-    galleryImages: [
-      "/gaming-parties-1.jpg",
-      "/gaming-parties-2.jpg",
-      "/gaming-parties-3.jpg",
-      "/gaming-parties-4.jpg"
-    ]
-  };
 
   const gameTypes = [
     {

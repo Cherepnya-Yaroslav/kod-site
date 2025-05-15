@@ -145,8 +145,8 @@ const EventPage = () => {
                 </Button>
               </div>
               
-              {event.shortDescription && (
-                <div className="short-description">{event.shortDescription}</div>
+              {event.fullDescription && (
+                <div className="short-description">{event.fullDescription}</div>
               )}
               {renderDescription()}
             </div>
@@ -204,13 +204,7 @@ const EventPage = () => {
                 </div>
               </div>
               
-              <div className="meta-item">
-                <span className="event-icon tag-icon"></span>
-                <div className="meta-content">
-                  <div className="meta-label">Тип</div>
-                  <div className="meta-value">{event.type === 'kids' ? 'Детское' : 'Взрослое'}</div>
-                </div>
-              </div>
+             
               
               <div className="meta-item">
                 <span className="event-icon price-icon"></span>

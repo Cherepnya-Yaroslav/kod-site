@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import ProgramDetails from "../components/ProgramDetails";
+import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/pages/ThemePartiesPage.css';
 
 // Базовый URL для API
@@ -13,9 +14,31 @@ const ThemePartiesPage = () => {
   const [themeEvents, setThemeEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [pageData, setPageData] = useState({
+    title: "Тематические вечеринки",
+    description: [
+      "Тематическая вечеринка - это эмоциональный взрыв! Это событие, когда гости целиком погружаются в атмосферу выбранной вами темы или идеи. Наша команда - эксперты в организации тематических вечеринок 'под ключ', а наше пространство позволяет воссоздать любую атмосферу!",
+      "Мы создаем уникальные тематические пространства, где каждая деталь продумана до мелочей. От декораций и костюмов до музыкального сопровождения и специальных эффектов - всё работает на создание полного погружения в выбранную тему.",
+      "Идеально подходит для: детского дня рождения, подросткового праздника, взрослого дня рождения, девичника, гендер-пати, выпускного, корпоратива.",
+      "Сделаем вашу вечеринку эмоциональной до каждой милисекунды!",
+      "- Создадим атмосферу крутым декором!",
+      "- Встретим гостей вэлкам зоной,",
+      "- Озвучим профессиональным диджеем и караоке-баром!",
+      "- Разнообразим яркой дискотекой!",
+      "- Украсим неоновым светом!",
+      "- Дополним тематическим сценарием, проведем с крутым ведущим!"
+    ],
+    mainImage: "/theme-parties-main.jpg",
+    galleryImages: [
+      "/theme-parties-1.jpg",
+      "/theme-parties-2.jpg",
+      "/theme-parties-3.jpg",
+      "/theme-parties-4.jpg"
+    ]
+  });
 
   useEffect(() => {
-    // Загрузка данных из Strapi
+    // Загрузка данных из Strapi для событий
     const fetchThemeEvents = async () => {
       try {
         const response = await fetch(`${API_URL}/api/theme-party-events?populate=*`);
@@ -27,15 +50,39 @@ const ThemePartiesPage = () => {
         const data = await response.json();
         console.log("API response with populate:", data); // Для отладки
         setThemeEvents(data.data || []);
-        setLoading(false);
       } catch (err) {
         console.error("Ошибка при загрузке событий:", err);
         setError(err.message);
+      }
+    };
+
+    // Загрузка галереи из Strapi
+    const fetchThemeGallery = async () => {
+      try {
+        const response = await fetchData('personal-parties-page', { 
+          populate: ['themeGallery'] 
+        });
+        
+        console.log('Theme gallery data from Strapi:', response);
+        
+        if (response && response.data && response.data.themeGallery && response.data.themeGallery.length > 0) {
+          const themeGallery = response.data.themeGallery;
+          
+          // Обновляем pageData с данными из Strapi
+          setPageData(prev => ({
+            ...prev,
+            mainImage: themeGallery.length > 0 ? getMediaUrl(themeGallery[0]) : prev.mainImage,
+            galleryImages: themeGallery.map(img => getMediaUrl(img))
+          }));
+        }
+      } catch (err) {
+        console.error('Error loading theme gallery:', err);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchThemeEvents();
+    Promise.all([fetchThemeEvents(), fetchThemeGallery()]);
   }, []);
 
   // Трансформация данных из формата Strapi в формат, ожидаемый компонентом
@@ -67,29 +114,6 @@ const ThemePartiesPage = () => {
       galleryImages: event.media?.map(img => `${API_URL}${img.url}`) || []
     };
   }).filter(Boolean); // Убираем null из массива
-
-  const pageData = {
-    title: "Тематические вечеринки",
-    description: [
-      "Тематическая вечеринка - это эмоциональный взрыв! Это событие, когда гости целиком погружаются в атмосферу выбранной вами темы или идеи. Наша команда - эксперты в организации тематических вечеринок 'под ключ', а наше пространство позволяет воссоздать любую атмосферу!",
-      "Мы создаем уникальные тематические пространства, где каждая деталь продумана до мелочей. От декораций и костюмов до музыкального сопровождения и специальных эффектов - всё работает на создание полного погружения в выбранную тему.",
-      "Идеально подходит для: детского дня рождения, подросткового праздника, взрослого дня рождения, девичника, гендер-пати, выпускного, корпоратива.",
-      "Сделаем вашу вечеринку эмоциональной до каждой милисекунды!",
-      "- Создадим атмосферу крутым декором!",
-      "- Встретим гостей вэлкам зоной,",
-      "- Озвучим профессиональным диджеем и караоке-баром!",
-      "- Разнообразим яркой дискотекой!",
-      "- Украсим неоновым светом!",
-      "- Дополним тематическим сценарием, проведем с крутым ведущим!"
-    ],
-    mainImage: "/theme-parties-main.jpg",
-    galleryImages: [
-      "/theme-parties-1.jpg",
-      "/theme-parties-2.jpg",
-      "/theme-parties-3.jpg",
-      "/theme-parties-4.jpg"
-    ]
-  };
 
   return (
     <div className="page-container theme-parties-page">

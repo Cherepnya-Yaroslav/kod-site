@@ -282,9 +282,7 @@
   justify-content: center;
   text-align: center;
 }
-.card-header{
-  align-items: center !important;
-}
+
 
 .feature-card .card-title {
   text-align: center;

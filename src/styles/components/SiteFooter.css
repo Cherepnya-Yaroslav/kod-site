@@ -124,6 +124,12 @@
   font-weight: bold;
   font-size: 14px;
 }
+.icon-rutube::before {
+  content: "RU";
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+}
 
 .icon-instagram::before {
   content: "📷";

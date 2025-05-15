@@ -49,6 +49,7 @@
   padding: 1.5rem;
   cursor: pointer;
   user-select: none;
+  justify-content: space-between !important;
 }
 
 .faq-question-container {
