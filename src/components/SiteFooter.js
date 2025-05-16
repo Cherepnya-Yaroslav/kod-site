@@ -205,6 +205,7 @@ const SiteFooter = () => {
         </div>
         <div className="footer-bottom">
           <p className="copyright">© {new Date().getFullYear()} K.O.D. Все права защищены.</p>
+          <p className="copyright">© {new Date().getFullYear()} Made by Cherepnya Yaroslav</p>
         </div>
       </div>
     </footer>
