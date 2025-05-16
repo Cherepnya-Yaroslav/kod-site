@@ -42,7 +42,7 @@ const ProgramDetails = ({
 
   // Обработчик ошибок загрузки изображений
   const handleImageError = (e) => {
-    console.error('Image failed to load:', e.target.src);
+    
     e.target.onerror = null;
     e.target.src = defaultImage;
     

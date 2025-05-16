@@ -40,7 +40,7 @@ const ThemePartyDetailPage = () => {
         }
         
         const data = await response.json();
-        console.log("Event detail API response with populate:", data); // Для отладки
+         // Для отладки
         
         if (data.data && data.data.length > 0) {
           const eventData = data.data[0];
@@ -82,7 +82,7 @@ const ThemePartyDetailPage = () => {
         
         setLoading(false);
       } catch (err) {
-        console.error("Ошибка при загрузке деталей события:", err);
+        
         setError(err.message);
         setLoading(false);
       }

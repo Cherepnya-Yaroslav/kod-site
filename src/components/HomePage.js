@@ -12,18 +12,18 @@ const HomePage = () => {
       try {
         // Добавляем параметр populate=* чтобы получить все связанные данные
         const response = await axios.get(`${API_URL}/api/home-pages?populate=*`);
-        console.log('Raw API Response:', response.data); // Логируем весь ответ
+         // Логируем весь ответ
 
         if (response.data.data && response.data.data.length > 0) {
           const data = response.data.data[0].attributes;
-          console.log('Processed data:', data); // Логируем обработанные данные
+           // Логируем обработанные данные
           setPageData(data);
         } else {
           setError('Данные не найдены');
         }
         setLoading(false);
       } catch (err) {
-        console.error('Error details:', err.response || err); // Логируем детали ошибки
+         // Логируем детали ошибки
         setError('Ошибка при загрузке данных: ' + (err.response?.data?.error?.message || err.message));
         setLoading(false);
       }

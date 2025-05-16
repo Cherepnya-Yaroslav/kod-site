@@ -35,13 +35,8 @@ const OpenPartiesPage = () => {
             faq: true
           }
         });
-        console.log('Raw API response:', response);
-        console.log('Response data structure:', {
-          hasData: !!response?.data,
-          dataKeys: response?.data ? Object.keys(response.data) : [],
-          gallery: response?.data?.gallery,
-          faq: response?.data?.faq
-        });
+        
+        
         
         if (response?.data) {
           setPageData(response.data);
@@ -49,7 +44,7 @@ const OpenPartiesPage = () => {
           throw new Error('Неверный формат данных');
         }
       } catch (err) {
-        console.error('Error loading page data:', err);
+        
         setError(err.message);
       } finally {
         setLoading(false);

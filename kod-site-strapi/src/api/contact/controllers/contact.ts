@@ -13,7 +13,7 @@ export default factories.createCoreController('api::contact.contact' as any, ({ 
       const { body } = ctx.request;
       
       // Log the received data (for debugging purposes)
-      console.log('Received form submission:', body);
+      
       
       // Validate required fields
       if (!body.email && !body.phone) {
@@ -50,9 +50,9 @@ export default factories.createCoreController('api::contact.contact' as any, ({ 
           `,
         });
         
-        console.log('Email sent successfully');
+        
       } catch (emailError) {
-        console.error('Error sending email:', emailError);
+        
         // Continue execution even if email fails
       }
       
@@ -70,9 +70,9 @@ export default factories.createCoreController('api::contact.contact' as any, ({ 
           },
         });
         
-        console.log('Form submission saved in database:', entry);
+        
       } catch (dbError) {
-        console.error('Error saving form submission to database:', dbError);
+        
         // Continue execution even if database save fails
       }
       
@@ -81,7 +81,7 @@ export default factories.createCoreController('api::contact.contact' as any, ({ 
         success: true,
       };
     } catch (error) {
-      console.error('Error in submitForm:', error);
+      
       return ctx.badRequest(error.message || 'An unexpected error occurred');
     }
   },

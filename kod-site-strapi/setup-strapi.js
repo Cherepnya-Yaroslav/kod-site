@@ -29,10 +29,10 @@ async function createContentType(name, fields) {
         },
       }
     );
-    console.log(`Created content type: ${name}`);
+    
     return response.data;
   } catch (error) {
-    console.error(`Error creating content type ${name}:`, error.response?.data || error.message);
+    
     return null;
   }
 }
@@ -59,10 +59,10 @@ async function setupPermissions(contentType) {
         },
       }
     );
-    console.log(`Set up permissions for: ${contentType}`);
+    
     return response.data;
   } catch (error) {
-    console.error(`Error setting up permissions for ${contentType}:`, error.response?.data || error.message);
+    
     return null;
   }
 }
@@ -157,10 +157,10 @@ async function createComponent(name, fields) {
         },
       }
     );
-    console.log(`Created component: ${name}`);
+    
     return response.data;
   } catch (error) {
-    console.error(`Error creating component ${name}:`, error.response?.data || error.message);
+    
     return null;
   }
 }
@@ -184,7 +184,7 @@ const featureFields = {
 
 // Основная функция для настройки Strapi
 async function setupStrapi() {
-  console.log('Starting Strapi setup...');
+  
 
   // Создание компонентов
   await createComponent('Testimonial', testimonialFields);
@@ -205,8 +205,8 @@ async function setupStrapi() {
   await setupPermissions('dances');
   await setupPermissions('online-learning');
 
-  console.log('Strapi setup completed!');
+  
 }
 
 // Запуск настройки
-setupStrapi().catch(console.error); 
+// setupStrapi().catch(console.error); 

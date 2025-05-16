@@ -18,7 +18,7 @@ const testGame = {
 // Function to create a game
 async function createGame(gameData) {
   try {
-    console.log('Attempting to create game with data:', gameData);
+    
     
     const response = await axios.post(
       `${STRAPI_URL}/api/games`,
@@ -31,16 +31,15 @@ async function createGame(gameData) {
       }
     );
     
-    console.log('Game created successfully:', response.data);
+    
     return response.data;
   } catch (error) {
-    console.error('Error creating game:', error.response?.data || error.message);
+    
     throw error;
   }
 }
 
 // Run the script
-console.log('Starting to create test game...');
+
 createGame(testGame)
-  .then(() => console.log('Test game creation completed'))
-  .catch(error => console.error('Failed to create test game:', error)); 
+  .then(() =>  

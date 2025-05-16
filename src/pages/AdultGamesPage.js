@@ -67,10 +67,10 @@ const AdultGamesPage = () => {
       try {
         setLoading(true);
         const response = await fetchData('adult-games-page', { populate: '*' });
-        console.log('Page data:', response);
+        
         setPageData(response.data);
       } catch (err) {
-        console.error('Error loading page data:', err);
+        
         setError(err.message);
       } finally {
         setLoading(false);

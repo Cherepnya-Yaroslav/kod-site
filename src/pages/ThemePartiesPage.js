@@ -48,10 +48,10 @@ const ThemePartiesPage = () => {
         }
         
         const data = await response.json();
-        console.log("API response with populate:", data); // Для отладки
+         // Для отладки
         setThemeEvents(data.data || []);
       } catch (err) {
-        console.error("Ошибка при загрузке событий:", err);
+        
         setError(err.message);
       }
     };
@@ -63,7 +63,7 @@ const ThemePartiesPage = () => {
           populate: ['themeGallery'] 
         });
         
-        console.log('Theme gallery data from Strapi:', response);
+        
         
         if (response && response.data && response.data.themeGallery && response.data.themeGallery.length > 0) {
           const themeGallery = response.data.themeGallery;
@@ -76,7 +76,7 @@ const ThemePartiesPage = () => {
           }));
         }
       } catch (err) {
-        console.error('Error loading theme gallery:', err);
+        
       } finally {
         setLoading(false);
       }
@@ -89,14 +89,14 @@ const ThemePartiesPage = () => {
   const transformedEvents = themeEvents.map(event => {
     // Проверка наличия необходимых данных
     if (!event) {
-      console.warn("Invalid event data:", event);
+      
       return null;
     }
     
     // Проверяем, есть ли хотя бы заголовок для отображения
     const title = event.title;
     if (!title) {
-      console.warn("Event missing title:", event);
+      
       return null;
     }
     

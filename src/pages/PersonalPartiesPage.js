@@ -95,7 +95,7 @@ const PersonalPartiesPage = () => {
           ] 
         });
         
-        console.log('Personal parties page data from Strapi:', response);
+        
         
         setPageData(response.data);
 
@@ -125,7 +125,7 @@ const PersonalPartiesPage = () => {
         
         // Обработка отзывов
         const testimonials = response.data?.testimonial || response.data?.attributes?.testimonial || [];
-        console.log('Testimonials data:', testimonials);
+        
         
         // Преобразуем данные в формат, необходимый для компонента Testimonials
         const formattedTestimonials = testimonials.map(t => ({
@@ -137,7 +137,7 @@ const PersonalPartiesPage = () => {
 
         // Обработка FAQ данных
         const questions = response.data?.questions || response.data?.attributes?.questions || [];
-        console.log('FAQ data:', questions);
+        
         
         // Преобразуем данные в формат, необходимый для компонента FAQ
         const formattedQuestions = questions.map(q => ({
@@ -149,7 +149,7 @@ const PersonalPartiesPage = () => {
 
         // Обработка фишек
         const fishki = response.data?.fishki || response.data?.attributes?.fishki || [];
-        console.log('Fishki data:', fishki);
+        
         
         const formattedFishki = fishki.map(f => ({
           title: f.Title,
@@ -160,21 +160,21 @@ const PersonalPartiesPage = () => {
 
         // Проверка данных о программах
         const programs = response.data?.programs || response.data?.attributes?.programs;
-        console.log('Programs raw data:', programs);
+        
         
         if (programs && Array.isArray(programs) && programs.length > 0) {
-          console.log('Found programs:', programs.length);
+          
           
           // Обрабатываем программы
           const formattedPrograms = programs.map(program => {
-            console.log('Processing program:', program.title);
+            
             
             // Проверяем доступность mainImage
-            console.log('Program mainImage:', program.mainImage);
+            
             
             // Получение URL изображения
             const mainImageUrl = program.mainImage ? getMediaUrl(program.mainImage) : null;
-            console.log('Main image URL:', mainImageUrl);
+            
             
             // Обработка галереи
             let galleryUrls = [];
@@ -182,12 +182,12 @@ const PersonalPartiesPage = () => {
               if (Array.isArray(program.galleryImages)) {
                 galleryUrls = program.galleryImages.map(img => {
                   const url = getMediaUrl(img);
-                  console.log('Gallery image URL:', url);
+                  
                   return url;
                 });
               } else {
                 const url = getMediaUrl(program.galleryImages);
-                console.log('Single gallery image URL:', url);
+                
                 galleryUrls = [url];
               }
             }
@@ -202,23 +202,23 @@ const PersonalPartiesPage = () => {
             };
           });
           
-          console.log('Formatted programs:', formattedPrograms);
+          
           setDynamicPrograms(formattedPrograms);
         } else {
           // Если программы не найдены, попробуем другой формат запроса
-          console.warn('No programs found in the first API response, trying another request format');
+          
           
           const alternativeResponse = await fetchData('personal-parties-page', {
             populate: 'deep'  // Использовать глубокий populate для получения всех связанных данных
           });
           
-          console.log('Alternative response:', alternativeResponse);
+          
           
           const altPrograms = alternativeResponse.data?.programs || 
                              alternativeResponse.data?.attributes?.programs;
           
           if (altPrograms && Array.isArray(altPrograms) && altPrograms.length > 0) {
-            console.log('Found programs in alternative request:', altPrograms.length);
+            
             // Process programs similar to above...
             const formattedPrograms = altPrograms.map(program => ({
               title: program.title,
@@ -235,11 +235,11 @@ const PersonalPartiesPage = () => {
             
             setDynamicPrograms(formattedPrograms);
           } else {
-            console.error('Unable to fetch programs from Strapi API');
+            
           }
         }
       } catch (err) {
-        console.error('Error loading page data:', err);
+        
         setError(err.message);
       } finally {
         setLoading(false);
@@ -401,7 +401,7 @@ const PersonalPartiesPage = () => {
                       src={program.mainImage || '/placeholder.jpg'} 
                       alt={program.title}
                       onError={(e) => {
-                        console.error('Image failed to load:', program.mainImage);
+                        
                         e.target.onerror = null; 
                         e.target.src = '/placeholder.jpg';
                       }}

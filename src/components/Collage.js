@@ -21,7 +21,7 @@ const Collage = ({
 
   // Проверяем, переданы ли все три изображения
   if (!image1 || !image2 || !image3) {
-    console.warn('Collage component requires image1, image2, and image3 props.');
+    
     return null;
   }
 

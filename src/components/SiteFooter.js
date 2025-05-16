@@ -15,17 +15,13 @@ const SiteFooter = () => {
   useEffect(() => {
     const fetchFooterData = async () => {
       try {
-        console.log('Fetching footer data from:', `${API_URL}/api/footer`);
+        
         const response = await axios.get(`${API_URL}/api/footer`);
-        console.log('Footer data received:', response.data);
-        console.log('Social links:', {
-          vk: response.data.data?.vkLink,
-          telegram: response.data.data?.telegramLink,
-          rutube: response.data.data?.rutubeLink
-        });
+        
+        
         setFooterData(response.data.data);
       } catch (error) {
-        console.error('Error fetching footer data:', error);
+        
       }
     };
 
@@ -55,7 +51,7 @@ const SiteFooter = () => {
         consent: consent ? 'Да' : 'Нет'
       });
       
-      console.log('Subscription response:', response.data);
+      
       setSubmitStatus('success');
       
       setEmail("");
@@ -65,7 +61,7 @@ const SiteFooter = () => {
         setSubmitStatus(null);
       }, 3000);
     } catch (error) {
-      console.error('Subscription error:', error);
+      
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);

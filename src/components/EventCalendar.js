@@ -46,10 +46,7 @@ const EventCalendar = ({ eventType }) => {
     nextMonthDate.setMonth(today.getMonth() + 1);
     const nextMonthString = formatMonthYear(nextMonthDate);
     
-    console.log('Initial setup:', { 
-      activeMonth: activeMonthString,
-      nextMonth: nextMonthString
-    });
+    
     
     // Generate calendar for current month and next month
     generateCalendarDays(activeMonthDate);
@@ -94,7 +91,7 @@ const EventCalendar = ({ eventType }) => {
   // Handle month changes - activeMonth
   useEffect(() => {
     if (selectedDate) {
-      console.log('activeMonth changed:', activeMonth);
+      // console.log('activeMonth changed:', activeMonth);
       
       const monthNames = [
         'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
@@ -113,17 +110,17 @@ const EventCalendar = ({ eventType }) => {
       const activeMonthParts = activeMonth.split(' ');
       const activeYear = parseInt(activeMonthParts[activeMonthParts.length - 1]);
       
-      console.log('Parsed active month index:', activeMonthIndex, 'year:', activeYear);
+      // console.log('Parsed active month index:', activeMonthIndex, 'year:', activeYear);
       
       if (activeMonthIndex !== -1) {
         // Create a date for the 1st day of active month
         const activeMonthDate = new Date(activeYear, activeMonthIndex, 1);
-        console.log('Generated activeMonthDate:', activeMonthDate);
+        // console.log('Generated activeMonthDate:', activeMonthDate);
         
         // Generate calendar for the active month
         generateCalendarDays(activeMonthDate);
       } else {
-        console.error('Could not parse active month from:', activeMonth);
+        // console.error('Could not parse active month from:', activeMonth);
       }
     }
   }, [activeMonth]);
@@ -131,7 +128,7 @@ const EventCalendar = ({ eventType }) => {
   // Handle next month changes
   useEffect(() => {
     if (nextMonth) {
-      console.log('nextMonth changed:', nextMonth);
+      // console.log('nextMonth changed:', nextMonth);
       
       const monthNames = [
         'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
@@ -150,17 +147,17 @@ const EventCalendar = ({ eventType }) => {
       const nextMonthParts = nextMonth.split(' ');
       const nextYear = parseInt(nextMonthParts[nextMonthParts.length - 1]);
       
-      console.log('Parsed next month index:', nextMonthIndex, 'year:', nextYear);
+      // console.log('Parsed next month index:', nextMonthIndex, 'year:', nextYear);
       
       if (nextMonthIndex !== -1) {
         // Create a date for the 1st day of next month
         const nextMonthDate = new Date(nextYear, nextMonthIndex, 1);
-        console.log('Generated nextMonthDate:', nextMonthDate);
+        // console.log('Generated nextMonthDate:', nextMonthDate);
         
         // Generate calendar for the next month
         generateNextMonthDays(nextMonthDate);
       } else {
-        console.error('Could not parse next month from:', nextMonth);
+        // console.error('Could not parse next month from:', nextMonth);
       }
     }
   }, [nextMonth]);
@@ -304,8 +301,8 @@ const EventCalendar = ({ eventType }) => {
       endDate.setDate(31);
       endDate.setHours(23, 59, 59, 999);
       
-      console.log('Loading events from', startDate, 'to', endDate);
-      console.log('Event type:', eventType);
+      // console.log('Loading events from', startDate, 'to', endDate);
+      // console.log('Event type:', eventType);
 
       const filters = {
         $and: [
@@ -334,24 +331,24 @@ const EventCalendar = ({ eventType }) => {
       
       if (response) {
         const eventsArray = Array.isArray(response) ? response : (response.data || []);
-        console.log('Received events count:', eventsArray.length);
+        // console.log('Received events count:', eventsArray.length);
         
         const formattedEvents = eventsArray.map(event => {
           if (!event || typeof event !== 'object') {
-            console.error('Invalid event object:', event);
+            // console.error('Invalid event object:', event);
             return null;
           }
 
           const eventData = event.attributes || event;
           
-          if (!eventData.title || !eventData.date) {
-            console.error('Event missing required fields:', {
-              id: event.id,
-              hasTitle: !!eventData.title,
-              hasDate: !!eventData.date
-            });
-            return null;
-          }
+          // if (!eventData.title || !eventData.date) {
+          //   console.error('Event missing required fields:', {
+          //     id: event.id,
+          //     hasTitle: !!eventData.title,
+          //     hasDate: !!eventData.date
+          //   });
+          //   return null;
+          // }
 
           return {
             id: event.id,
@@ -371,14 +368,14 @@ const EventCalendar = ({ eventType }) => {
           };
         }).filter(Boolean);
 
-        console.log('Formatted events count:', formattedEvents.length);
+        // console.log('Formatted events count:', formattedEvents.length);
         setEvents(formattedEvents);
       } else {
-        console.log('No events received from API');
+        // console.log('No events received from API');
         setEvents([]);
       }
     } catch (err) {
-      console.error('Error loading events:', err);
+      // console.error('Error loading events:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -389,13 +386,13 @@ const EventCalendar = ({ eventType }) => {
     if (!date) return '';
     
     try {
-      console.log('Formatting date for month/year:', date);
+      // console.log('Formatting date for month/year:', date);
       const options = { month: 'long', year: 'numeric' };
       const formatted = date.toLocaleDateString('ru-RU', options);
-      console.log('Formatted month/year:', formatted);
+      // console.log('Formatted month/year:', formatted);
       return formatted;
     } catch (err) {
-      console.error("Error formatting date:", err, date);
+      // console.error("Error formatting date:", err, date);
       // Fallback implementation
       const monthNames = [
         'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
@@ -405,10 +402,10 @@ const EventCalendar = ({ eventType }) => {
         const month = monthNames[date.getMonth()];
         const year = date.getFullYear();
         const fallback = `${month} ${year} г.`;
-        console.log('Using fallback format:', fallback);
+        // console.log('Using fallback format:', fallback);
         return fallback;
       } catch (e) {
-        console.error("Critical formatting error:", e);
+        // console.error("Critical formatting error:", e);
         return 'неизвестная дата';
       }
     }
@@ -421,7 +418,7 @@ const EventCalendar = ({ eventType }) => {
       const options = { day: 'numeric', month: 'long' };
       return new Date(dateString).toLocaleDateString('ru-RU', options);
     } catch (err) {
-      console.error("Error formatting date string:", err, dateString);
+      // console.error("Error formatting date string:", err, dateString);
       return 'Ошибка даты';
     }
   };
@@ -437,7 +434,7 @@ const EventCalendar = ({ eventType }) => {
         hour12: false
       });
     } catch (err) {
-      console.error("Error formatting time from date:", err, dateString);
+      // console.error("Error formatting time from date:", err, dateString);
       return '12:00';
     }
   };
@@ -447,7 +444,7 @@ const EventCalendar = ({ eventType }) => {
     try {
       return date.toLocaleDateString('ru-RU', { weekday: 'short' });
     } catch (err) {
-      console.error("Error getting weekday:", err);
+      // console.error("Error getting weekday:", err);
       return '';
     }
   };
@@ -462,12 +459,12 @@ const EventCalendar = ({ eventType }) => {
       targetDate.setHours(0, 0, 0, 0);
       const targetDateString = formatDateForUrl(targetDate);
       
-      console.log('Looking for events on date:', targetDateString);
-      console.log('Available events:', events.map(e => ({ 
-        title: e.title, 
-        date: e.date, 
-        formattedDate: formatDateForUrl(new Date(e.date)) 
-      })));
+      // console.log('Looking for events on date:', targetDateString);
+      // console.log('Available events:', events.map(e => ({ 
+      //   title: e.title, 
+      //   date: e.date, 
+      //   formattedDate: formatDateForUrl(new Date(e.date)) 
+      // })));
       
       const filteredEvents = events.filter(event => {
         // Нормализуем дату события, убирая время
@@ -478,23 +475,23 @@ const EventCalendar = ({ eventType }) => {
         const matches = eventDateString === targetDateString;
         
         if (matches) {
-          console.log(`Event matched: ${event.title} on ${eventDateString}`);
+          // console.log(`Event matched: ${event.title} on ${eventDateString}`);
         }
         
         return matches;
       });
       
-      console.log('Filtered events count:', filteredEvents.length);
+      // console.log('Filtered events count:', filteredEvents.length);
       return filteredEvents;
     } catch (err) {
-      console.error("Error filtering events for date:", err);
+      // console.error("Error filtering events for date:", err);
       return [];
     }
   };
 
   // Handle click on a calendar day
   const handleDayClick = (day) => {
-    console.log('Day clicked:', day.date);
+    // console.log('Day clicked:', day.date);
     
     // Обновляем выбранную дату
     setSelectedDate(day.date);
@@ -508,7 +505,7 @@ const EventCalendar = ({ eventType }) => {
 
   // Handle click on a week day
   const handleWeekDayClick = (day) => {
-    console.log('Week day clicked:', day.date);
+    // console.log('Week day clicked:', day.date);
     setSelectedDate(day.date);
   };
 
@@ -521,8 +518,8 @@ const EventCalendar = ({ eventType }) => {
     // Let's derive it from the first day of the month containing selectedDate
     const currentMonthDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
     
-    console.log('Starting navigation:', direction);
-    console.log('Current month derived from selectedDate:', currentMonthDate);
+    // console.log('Starting navigation:', direction);
+    // console.log('Current month derived from selectedDate:', currentMonthDate);
 
     // Calculate the new active month date
     const newActiveDate = new Date(currentMonthDate);
@@ -532,15 +529,12 @@ const EventCalendar = ({ eventType }) => {
     const newNextDate = new Date(newActiveDate);
     newNextDate.setMonth(newNextDate.getMonth() + 1);
     
-    console.log(`New Active Date: ${newActiveDate}, New Next Date: ${newNextDate}`);
+    // console.log(`New Active Date: ${newActiveDate}, New Next Date: ${newNextDate}`);
 
     const newActiveMonthString = formatMonthYear(newActiveDate);
     const newNextMonthString = formatMonthYear(newNextDate);
     
-    console.log(`Navigating ${direction}:`, { 
-      toActive: newActiveMonthString,
-      toNext: newNextMonthString
-    });
+    
     
     // Generate calendars for the new months
     generateCalendarDays(newActiveDate);

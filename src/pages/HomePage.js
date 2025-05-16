@@ -13,7 +13,7 @@ const HomePage = () => {
     const img = new Image();
     img.src = "/collage-bg/collage-1.png";
     img.onload = () => {
-      console.log("Background image loaded");
+      
       setBgLoaded(true);
     };
   }, []);
@@ -21,13 +21,13 @@ const HomePage = () => {
   const renderHomePageData = (data, getMediaUrl) => {
     const homePageData = data.data?.[0] || {};
     
-    console.log("Background loaded state:", bgLoaded); // Отладочный вывод
+     // Отладочный вывод
 
     // Отладка загрузки изображений
-    console.log("Gallery Images:", homePageData.Gallery_Images);
+    
     if (homePageData.Gallery_Images && homePageData.Gallery_Images.length > 0) {
       homePageData.Gallery_Images.forEach((image, index) => {
-        console.log(`Image ${index} URL:`, getMediaUrl(image));
+        
       });
     }
 
@@ -78,7 +78,7 @@ const HomePage = () => {
         <div className="photo-grid">
               {homePageData.Gallery_Images1?.map((image, index) => {
                 const imageUrl = getMediaUrl(image);
-                console.log(`Rendering image ${index} with URL:`, imageUrl);
+                
                 
                 return (
                   <div key={image.id || index} className="photo-item">
@@ -116,7 +116,7 @@ const HomePage = () => {
             <div className="photo-grid">
               {homePageData.Gallery_Images2?.map((image, index) => {
                 const imageUrl = getMediaUrl(image);
-                console.log(`Rendering image ${index} with URL:`, imageUrl);
+                
                 
                 return (
                   <div key={image.id || index} className="photo-item">

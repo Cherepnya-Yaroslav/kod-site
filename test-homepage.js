@@ -16,7 +16,7 @@ const homePageData = {
 // Функция для создания записи домашней страницы
 async function createHomePage() {
   try {
-    console.log('Creating home page...');
+    // console.log('Creating home page...');
     const response = await axios.post(
       `${STRAPI_URL}/api/home-pages`,
       { data: homePageData },
@@ -27,17 +27,17 @@ async function createHomePage() {
         },
       }
     );
-    console.log('Home page created successfully:');
-    console.log(JSON.stringify(response.data, null, 2));
+    // console.log('Home page created successfully:');
+    // console.log(JSON.stringify(response.data, null, 2));
     return response.data;
   } catch (error) {
     if (error.response) {
-      console.error('Error creating home page:', {
+      // console.error('Error creating home page:', {
         status: error.response.status,
         data: error.response.data
       });
     } else {
-      console.error('Error creating home page:', error.message);
+      // console.error('Error creating home page:', error.message);
     }
     return null;
   }
@@ -46,7 +46,7 @@ async function createHomePage() {
 // Функция для получения данных домашней страницы
 async function getHomePage() {
   try {
-    console.log('Getting home page data...');
+    // console.log('Getting home page data...');
     const response = await axios.get(
       `${STRAPI_URL}/api/home-pages`,
       {
@@ -55,17 +55,17 @@ async function getHomePage() {
         },
       }
     );
-    console.log('Home page data:');
-    console.log(JSON.stringify(response.data, null, 2));
+    // console.log('Home page data:');
+    // console.log(JSON.stringify(response.data, null, 2));
     return response.data;
   } catch (error) {
     if (error.response) {
-      console.error('Error getting home page:', {
+      // console.error('Error getting home page:', {
         status: error.response.status,
         data: error.response.data
       });
     } else {
-      console.error('Error getting home page:', error.message);
+      // console.error('Error getting home page:', error.message);
     }
     return null;
   }
@@ -73,16 +73,16 @@ async function getHomePage() {
 
 // Основная функция
 async function main() {
-  console.log('Testing Home Page API...');
+  // console.log('Testing Home Page API...');
   
   // Создаем запись домашней страницы
   await createHomePage();
   
-  console.log('\n-------------------\n');
+  // console.log('\n-------------------\n');
   
   // Получаем данные домашней страницы
   await getHomePage();
 }
 
 // Запуск
-main().catch(console.error); 
+// main().catch(console.error); 

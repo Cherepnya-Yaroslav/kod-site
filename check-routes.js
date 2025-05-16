@@ -21,32 +21,32 @@ const routes = [
 // Функция для проверки API-маршрута
 async function checkRoute(route) {
   try {
-    console.log(`Checking route: ${route}`);
+    // console.log(`Checking route: ${route}`);
     const response = await axios.get(`${STRAPI_URL}${route}`, {
       headers: {
         Authorization: `Bearer ${ADMIN_TOKEN}`,
       },
     });
-    console.log(`Status: ${response.status}`);
-    console.log(`Data: ${JSON.stringify(response.data, null, 2)}`);
+    // console.log(`Status: ${response.status}`);
+    // console.log(`Data: ${JSON.stringify(response.data, null, 2)}`);
     return true;
   } catch (error) {
-    console.error(`Error checking route ${route}:`, error.response?.data || error.message);
+    // console.error(`Error checking route ${route}:`, error.response?.data || error.message);
     return false;
   }
 }
 
 // Основная функция
 async function main() {
-  console.log('Checking Strapi API routes...');
+  // console.log('Checking Strapi API routes...');
   
   for (const route of routes) {
     await checkRoute(route);
-    console.log('-------------------');
+    // console.log('-------------------');
   }
   
-  console.log('API route check completed!');
+  // console.log('API route check completed!');
 }
 
 // Запуск
-main().catch(console.error); 
+// main().catch(console.error); 

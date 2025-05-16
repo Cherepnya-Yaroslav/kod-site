@@ -20,10 +20,10 @@ async function createContent(contentType, data) {
         },
       }
     );
-    console.log(`Created ${contentType}: ${data.title}`);
+    
     return response.data;
   } catch (error) {
-    console.error(`Error creating ${contentType}:`, error.response?.data || error.message);
+    
     return null;
   }
 }
@@ -67,7 +67,7 @@ const onlineLearningData = {
 
 // Основная функция для создания контента
 async function createAllContent() {
-  console.log('Starting content creation...');
+  
 
   // Создание контента
   await createContent('home-page', homePageData);
@@ -76,8 +76,8 @@ async function createAllContent() {
   await createContent('dances', danceData);
   await createContent('online-learning', onlineLearningData);
 
-  console.log('Content creation completed!');
+  
 }
 
 // Запуск создания контента
-createAllContent().catch(console.error); 
+// createAllContent().catch(console.error); 

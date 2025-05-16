@@ -69,7 +69,7 @@ const DancePage = () => {
 
         // TRAINERS
         const trainers = data.trainer || [];
-        console.log('Raw trainers data:', trainers);
+        
         const formattedTrainers = trainers.map(trainer => {
           // Получаем первое изображение из массива mainImage
           const mainImage = trainer.mainImage?.[0];
@@ -77,7 +77,7 @@ const DancePage = () => {
             ? getMediaUrl(mainImage)
             : "/placeholder.svg";
           
-          console.log('Trainer image URL:', imageUrl);
+          
           
           return {
             name: trainer.name,
@@ -86,7 +86,7 @@ const DancePage = () => {
             image: imageUrl
           };
         });
-        console.log('Formatted trainers:', formattedTrainers);
+        
         setTrainersData(formattedTrainers);
 
         // FAQ
@@ -117,7 +117,7 @@ const DancePage = () => {
           });
         }
       } catch (err) {
-        console.error('Error loading page data:', err);
+        
         setError(err.message);
         setDanceTypesData(defaultDanceStyles);
       } finally {

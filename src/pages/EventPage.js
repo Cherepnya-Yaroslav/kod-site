@@ -48,7 +48,7 @@ const EventPage = () => {
         }
       } catch (err) {
         setError('Ошибка при загрузке события');
-        console.error('Error loading event:', err);
+        
       } finally {
         setLoading(false);
       }

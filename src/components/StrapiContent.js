@@ -10,14 +10,14 @@ const StrapiContent = ({ endpoint, render }) => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        console.log('Fetching data from endpoint:', endpoint);
+        // console.log('Fetching data from endpoint:', endpoint);
         setLoading(true);
         const response = await fetchData(endpoint);
-        console.log('API Response:', response);
+        // console.log('API Response:', response);
         setData(response);
         setError(null);
       } catch (err) {
-        console.error('Error details:', err);
+        // console.error('Error details:', err);
         setError('Ошибка при загрузке данных: ' + (err.message || 'Неизвестная ошибка'));
       } finally {
         setLoading(false);

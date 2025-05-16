@@ -11,15 +11,15 @@ import '../styles/pages/CoffeePage.css';
 const STRAPI_API_URL = process.env.REACT_APP_STRAPI_URL;
 
 // Проверка доступности сервера Strapi
-const checkStrapiAvailable = async () => {
-  try {
-    const response = await fetch(`${STRAPI_API_URL}/api/_health`);
-    return response.ok;
-  } catch (error) {
-    console.error('Strapi server not available:', error);
-    return false;
-  }
-};
+// const checkStrapiAvailable = async () => {
+//   try {
+//     const response = await fetch(`${STRAPI_API_URL}/api/_health`);
+//     return response.ok;
+//   } catch (error) {
+    
+//     return false;
+//   }
+// };
 
 const CoffeePage = () => {
   const [bgLoaded, setBgLoaded] = useState(false);
@@ -114,10 +114,10 @@ const CoffeePage = () => {
 
   useEffect(() => {
     const init = async () => {
-      // Проверяем доступность Strapi
-      const isAvailable = await checkStrapiAvailable();
-      setStrapiAvailable(isAvailable);
-      console.log('Strapi server available:', isAvailable);
+      // // Проверяем доступность Strapi
+      // const isAvailable = await checkStrapiAvailable();
+      // setStrapiAvailable(isAvailable);
+      
       
       loadPageData();
     };
@@ -130,10 +130,10 @@ const CoffeePage = () => {
       setLoading(true);
       // Запрос данных страницы из Strapi
       const response = await fetchData('coffee-page', { populate: '*' });
-      console.log('Coffee page data:', response);
+      
       setPageData(response.data);
     } catch (err) {
-      console.error('Error loading page data:', err);
+      
       setError(err.message);
     } finally {
       setLoading(false);
@@ -195,52 +195,52 @@ const CoffeePage = () => {
   // Parse gallery images from Strapi response
   let galleryImages = [];
   try {
-    console.log('Gallery images data:', content.galleryImages);
+    
     
     if (content.galleryImages) {
       if (Array.isArray(content.galleryImages)) {
         galleryImages = content.galleryImages.map(img => {
           const url = getFullMediaUrl(img);
-          console.log('Processing gallery image:', img, 'URL:', url);
+          
           return url;
         });
       } else {
         const url = getFullMediaUrl(content.galleryImages);
-        console.log('Processing single gallery image:', content.galleryImages, 'URL:', url);
+        
         galleryImages = [url];
       }
     } else {
-      console.log('No gallery images found, using fallback');
+      
       galleryImages = fallbackContent.galleryImages;
     }
     
-    console.log('Final gallery images:', galleryImages);
+    
   } catch (err) {
-    console.error('Error parsing gallery images:', err);
+    
     galleryImages = fallbackContent.galleryImages;
   }
 
   // Get menu PDF files
   let classicMenuPDF = fallbackContent.classicMenuFile.url;
   try {
-    console.log('Classic menu file data:', content.classicMenuFile);
+    
     if (content.classicMenuFile) {
       classicMenuPDF = getFullMediaUrl(content.classicMenuFile);
-      console.log('Classic menu PDF URL:', classicMenuPDF);
+      
     }
   } catch (err) {
-    console.error('Error getting classic menu:', err);
+    
   }
 
   let seasonalMenuPDF = fallbackContent.seasonalMenuFile[0].url;
   try {
-    console.log('Seasonal menu file data:', content.seasonalMenuFile);
+    
     if (content.seasonalMenuFile && content.seasonalMenuFile.length > 0) {
       seasonalMenuPDF = getFullMediaUrl(content.seasonalMenuFile[0]);
-      console.log('Seasonal menu PDF URL:', seasonalMenuPDF);
+      
     }
   } catch (err) {
-    console.error('Error getting seasonal menu:', err);
+    
   }
 
   const handleViewMenu = (menuType) => {

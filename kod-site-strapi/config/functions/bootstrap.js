@@ -37,7 +37,7 @@ module.exports = async ({ strapi }) => {
         ]
       });
 
-      console.log('Created public permissions for Game collection');
+      
     }
 
     // Update permissions for the Event collection
@@ -70,7 +70,7 @@ module.exports = async ({ strapi }) => {
         ]
       });
 
-      console.log('Created public permissions for Event collection');
+      
     }
   }
 }; 

@@ -57,24 +57,24 @@ async function createGame(gameData) {
         },
       }
     );
-    console.log(`Created game: ${gameData.title}`);
+    
     return response.data;
   } catch (error) {
-    console.error(`Error creating game ${gameData.title}:`, error.response?.data || error.message);
+    
     return null;
   }
 }
 
 // Main function to create all sample games
 async function createSampleGames() {
-  console.log('Creating sample games...');
+  
   
   for (const game of sampleGames) {
     await createGame(game);
   }
   
-  console.log('Finished creating sample games');
+  
 }
 
 // Run the script
-createSampleGames().catch(console.error); 
+// createSampleGames().catch(console.error); 

@@ -18,11 +18,11 @@ async function listContentTypes() {
         },
       }
     );
-    console.log('Content Types:');
-    console.log(JSON.stringify(response.data, null, 2));
+    
+    
     return response.data;
   } catch (error) {
-    console.error('Error listing content types:', error.response?.data || error.message);
+    
     return null;
   }
 }
@@ -38,28 +38,28 @@ async function listEntries(contentType) {
         },
       }
     );
-    console.log(`Entries for ${contentType}:`);
-    console.log(JSON.stringify(response.data, null, 2));
+    
+    
     return response.data;
   } catch (error) {
-    console.error(`Error listing entries for ${contentType}:`, error.response?.data || error.message);
+    
     return null;
   }
 }
 
 // Основная функция
 async function main() {
-  console.log('Listing content types...');
+  
   const contentTypes = await listContentTypes();
   
   if (contentTypes && contentTypes.data) {
     for (const contentType of contentTypes.data) {
       const apiId = contentType.attributes.apiID;
-      console.log(`\nListing entries for ${apiId}...`);
+      
       await listEntries(apiId);
     }
   }
 }
 
 // Запуск
-main().catch(console.error); 
+// main().catch(console.error); 

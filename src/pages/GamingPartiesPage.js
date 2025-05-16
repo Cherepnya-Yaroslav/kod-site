@@ -47,7 +47,7 @@ const GamingPartiesPage = () => {
           populate: ['gameGallery'] 
         });
         
-        console.log('Game gallery data from Strapi:', response);
+        
         
         if (response && response.data && response.data.gameGallery && response.data.gameGallery.length > 0) {
           const gameGallery = response.data.gameGallery;
@@ -65,7 +65,7 @@ const GamingPartiesPage = () => {
           });
         }
       } catch (err) {
-        console.error('Error loading game gallery:', err);
+        
       }
     };
 
@@ -94,22 +94,22 @@ const GamingPartiesPage = () => {
         });
         
         // Detailed logging
-        console.log('Full API response:', response);
+        
         if (response && response.data) {
-          console.log('Games data:', response.data);
+          
           if (response.data.length > 0) {
-            console.log('First game structure:', response.data[0]);
-            console.log('First game attributes:', response.data[0].attributes);
+            
+            
           }
           setGames(response.data);
           setError(null);
         } else {
-          console.log('Invalid response structure:', response);
+          
           setError('Неверный формат данных от сервера');
           setGames([]);
         }
       } catch (err) {
-        console.error('Error loading games:', err);
+        
         setError('Не удалось загрузить игры. Пожалуйста, попробуйте позже.');
         setGames([]);
       } finally {
@@ -543,7 +543,7 @@ const GamingPartiesPage = () => {
               ) : games.length > 0 ? (
                 games.map((game) => {
                   // Debug logging for each game
-                  console.log('Rendering game:', game);
+                  
                   
                   // Direct access to game properties since they're not nested in attributes
                   const {
@@ -558,16 +558,7 @@ const GamingPartiesPage = () => {
                   } = game;
 
                   // Debug logging for extracted values
-                  console.log('Game values:', {
-                    id,
-                    title,
-                    ageGroups,
-                    description,
-                    hasPremiumVersion,
-                    premiumDescription,
-                    gameType,
-                    audienceType
-                  });
+                  
 
                   return (
                     <div key={id} className="game-section">

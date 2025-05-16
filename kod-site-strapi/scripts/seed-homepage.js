@@ -18,7 +18,7 @@ const homePageData = {
 
 async function createHomePage() {
   try {
-    console.log('Creating homepage entry...');
+    
     const response = await axios.post(
       `${STRAPI_URL}/api/home-pages`,
       { data: homePageData },
@@ -29,9 +29,9 @@ async function createHomePage() {
         },
       }
     );
-    console.log('Homepage created successfully:', response.data);
+    
   } catch (error) {
-    console.error('Error creating homepage:', error.response?.data || error.message);
+    
   }
 }
 

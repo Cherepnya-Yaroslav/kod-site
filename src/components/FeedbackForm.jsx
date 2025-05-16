@@ -70,12 +70,12 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
       if (phoneField) formData.phone = answers[phoneField.id];
       if (messageField) formData.message = answers[messageField.id];
       
-      console.log('Submitting form data:', formData);
+      // console.log('Submitting form data:', formData);
       
       // Send data to the API
       const response = await axios.post(`${API_URL}/api/contact/submit`, formData);
       
-      console.log('Form submission response:', response.data);
+      // console.log('Form submission response:', response.data);
       
       setSubmitSuccess(true);
       
@@ -85,7 +85,7 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
       }, 2000);
       
     } catch (error) {
-      console.error('Error submitting form:', error);
+      // console.error('Error submitting form:', error);
       setSubmitError(error.response?.data?.message || 'Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.');
     } finally {
       setIsSubmitting(false);
