@@ -492,7 +492,7 @@ const GamingPartiesPage = () => {
 
             {/* Заголовок для фильтров */}
             <div className="filters-header">
-              <h2 className="section-title filter-title">Выберете, что вам интересно</h2>
+              <h2 className="section-title filter-title">Показали вам наши топовые игры</h2>
               <h3 className="third-title filter-title"> Чтобы посмотреть все игры, используйте фильтры</h3>
 
               <button className={`filters-toggle-button ${filtersVisible ? 'active' : ''}`} onClick={toggleFilters}>

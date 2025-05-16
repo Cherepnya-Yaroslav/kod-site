@@ -527,8 +527,8 @@
   grid-area: image;
   margin: 0;
   justify-self: end;
-  width: 120px !important;
-  height: 120px !important;
+  width: 160px !important;
+  height: 160px !important;
   overflow: hidden;
   border-radius: 8px;
   align-self: center;
@@ -570,7 +570,6 @@
   width: 100%;
   overflow: hidden;
   aspect-ratio: 1/1;
-  max-width: 180px;
 }
 
 .event-image img {
@@ -847,8 +846,8 @@
   }
 
   .events-list .event-content .event-image {
-    width: 100px !important;
-    height: 100px !important;
+    width: 150px !important;
+    height: 150px !important;
     margin-bottom: 0;
     justify-self: end;
     border-radius: 6px;
@@ -895,8 +894,8 @@
   }
 
   .calendar-event-image {
-    width: 90px !important;
-    height: 90px !important;
+    width: 150px !important;
+    height: 150px !important;
   }
 }
 
@@ -996,8 +995,8 @@
 }
 
 .event-calendar .events-list .calendar-event-image {
-  width: 100px !important;
-  height: 100px !important;
+  width: 200px !important;
+  height: 200px !important;
   overflow: hidden;
   border-radius: 8px;
   flex-shrink: 0;
@@ -1022,8 +1021,8 @@
 
 @media (max-width: 768px) {
   .event-calendar .events-list .calendar-event-image {
-    width: 90px !important;
-    height: 90px !important;
+    width: 150px !important;
+    height: 150px !important;
   }
 }
 
