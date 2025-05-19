@@ -23,14 +23,10 @@ const GamingPartiesPage = () => {
     description: [
       "Игровые вечеринки в KOD - это особое удовольствие! В нашей коллекции более 50 патигеймов для детских, взрослых и смешанных компаний! Задумали вечеринку, но не знаете как ее обыграть? Мы знаем все правила, поэтому с легкостью организуем для вас игру в День рождения, корпоратив, тимбилдинг или семейную встречу! Сделаем вашу игропати эмоциональной до каждой милисекунды!"
     ],
-    mainImage: "/gaming-parties-main.jpg",
-    galleryImages: [
-      "/gaming-parties-1.jpg",
-      "/gaming-parties-2.jpg",
-      "/gaming-parties-3.jpg",
-      "/gaming-parties-4.jpg"
-    ]
+    mainImage: null,
+    galleryImages: []
   });
+  const [loadedImages, setLoadedImages] = useState({});
 
   useEffect(() => {
     // Set initial current image when component mounts
@@ -47,8 +43,6 @@ const GamingPartiesPage = () => {
           populate: ['gameGallery'] 
         });
         
-        
-        
         if (response && response.data && response.data.gameGallery && response.data.gameGallery.length > 0) {
           const gameGallery = response.data.gameGallery;
           
@@ -56,7 +50,7 @@ const GamingPartiesPage = () => {
           setPageData(prev => {
             const updatedData = {
               ...prev,
-              mainImage: gameGallery.length > 0 ? getMediaUrl(gameGallery[0]) : prev.mainImage,
+              mainImage: gameGallery.length > 0 ? getMediaUrl(gameGallery[0]) : null,
               galleryImages: gameGallery.map(img => getMediaUrl(img))
             };
             // Устанавливаем текущее изображение как первое из галереи
@@ -65,7 +59,7 @@ const GamingPartiesPage = () => {
           });
         }
       } catch (err) {
-        
+        console.error('Error fetching game gallery:', err);
       }
     };
 
@@ -421,6 +415,11 @@ const GamingPartiesPage = () => {
     setIsBookingFormOpen(true);
   };
 
+  // Function to handle image load for blur-up
+  const handleImageLoad = (index) => {
+    setLoadedImages(prev => ({ ...prev, [index]: true }));
+  };
+
   return (
     <div className="page-container gaming-parties-page">
       <SiteHeader />
@@ -439,6 +438,12 @@ const GamingPartiesPage = () => {
                   src={currentImage || pageData.mainImage} 
                   alt={pageData.title} 
                   className="program-main-image"
+                  loading="lazy"
+                  style={{
+                    filter: loadedImages['main'] ? 'none' : 'blur(16px)',
+                    transition: 'filter 0.5s ease'
+                  }}
+                  onLoad={() => handleImageLoad('main')}
                 />
               </div>
               
@@ -465,13 +470,24 @@ const GamingPartiesPage = () => {
 
             {pageData.galleryImages.length > 0 && (
               <div className="program-gallery">
-                {[pageData.mainImage, ...pageData.galleryImages].map((image, index) => (
+                {pageData.galleryImages.map((image, index) => (
                   <div 
                     key={index} 
                     className={`gallery-thumbnail ${currentImage === image ? 'active' : ''}`}
                     onClick={() => handleThumbnailClick(image)}
+                    style={{ background: '#222', position: 'relative' }}
                   >
-                    <img src={image} alt={`${pageData.title} - фото ${index + 1}`} />
+                    <img 
+                      src={image} 
+                      alt={`${pageData.title} - фото ${index + 1}`} 
+                      loading="lazy"
+                      style={{
+                        filter: loadedImages[index] ? 'none' : 'blur(16px)',
+                        transition: 'filter 0.5s ease',
+                        background: '#222'
+                      }}
+                      onLoad={() => handleImageLoad(index)}
+                    />
                   </div>
                 ))}
               </div>

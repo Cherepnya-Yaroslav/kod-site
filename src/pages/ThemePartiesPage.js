@@ -14,6 +14,7 @@ const ThemePartiesPage = () => {
   const [themeEvents, setThemeEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentImage, setCurrentImage] = useState(null);
   const [pageData, setPageData] = useState({
     title: "Тематические вечеринки",
     description: [
@@ -28,13 +29,8 @@ const ThemePartiesPage = () => {
       "- Украсим неоновым светом!",
       "- Дополним тематическим сценарием, проведем с крутым ведущим!"
     ],
-    mainImage: "/theme-parties-main.jpg",
-    galleryImages: [
-      "/theme-parties-1.jpg",
-      "/theme-parties-2.jpg",
-      "/theme-parties-3.jpg",
-      "/theme-parties-4.jpg"
-    ]
+    mainImage: null,
+    galleryImages: []
   });
 
   useEffect(() => {
@@ -48,10 +44,9 @@ const ThemePartiesPage = () => {
         }
         
         const data = await response.json();
-         // Для отладки
         setThemeEvents(data.data || []);
       } catch (err) {
-        
+        console.error('Error fetching theme events:', err);
         setError(err.message);
       }
     };
@@ -63,20 +58,22 @@ const ThemePartiesPage = () => {
           populate: ['themeGallery'] 
         });
         
-        
-        
         if (response && response.data && response.data.themeGallery && response.data.themeGallery.length > 0) {
           const themeGallery = response.data.themeGallery;
+          const galleryUrls = themeGallery.map(img => getMediaUrl(img));
           
           // Обновляем pageData с данными из Strapi
           setPageData(prev => ({
             ...prev,
-            mainImage: themeGallery.length > 0 ? getMediaUrl(themeGallery[0]) : prev.mainImage,
-            galleryImages: themeGallery.map(img => getMediaUrl(img))
+            mainImage: galleryUrls[0],
+            galleryImages: galleryUrls
           }));
+          
+          // Устанавливаем текущее изображение как первое из галереи
+          setCurrentImage(galleryUrls[0]);
         }
       } catch (err) {
-        
+        console.error('Error fetching theme gallery:', err);
       } finally {
         setLoading(false);
       }
@@ -85,18 +82,21 @@ const ThemePartiesPage = () => {
     Promise.all([fetchThemeEvents(), fetchThemeGallery()]);
   }, []);
 
+  // Функция для обработки клика по миниатюре
+  const handleThumbnailClick = (image) => {
+    setCurrentImage(image);
+  };
+
   // Трансформация данных из формата Strapi в формат, ожидаемый компонентом
   const transformedEvents = themeEvents.map(event => {
     // Проверка наличия необходимых данных
     if (!event) {
-      
       return null;
     }
     
     // Проверяем, есть ли хотя бы заголовок для отображения
     const title = event.title;
     if (!title) {
-      
       return null;
     }
     
@@ -122,9 +122,10 @@ const ThemePartiesPage = () => {
         <ProgramDetails
           title={pageData.title}
           description={pageData.description}
-          mainImage={pageData.mainImage}
+          mainImage={currentImage || pageData.mainImage}
           galleryImages={pageData.galleryImages}
           returnPath="/"
+          onThumbnailClick={handleThumbnailClick}
         />
 
         {/* Программы */}

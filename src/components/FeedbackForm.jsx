@@ -10,6 +10,8 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [agreementAccepted, setAgreementAccepted] = useState(false);
+  const [agreementError, setAgreementError] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -47,9 +49,16 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    if (!agreementAccepted) {
+      setAgreementError(true);
+      setSubmitError('Пожалуйста, примите условия пользовательского соглашения');
+      return;
+    }
+    
     // Reset submission states
     setIsSubmitting(true);
     setSubmitError(null);
+    setAgreementError(false);
     setSubmitSuccess(false);
     
     try {
@@ -277,6 +286,32 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
               >
                 {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
               </button>
+
+              <div className="agreement-checkbox">
+                <label className={`agreement-label ${agreementError ? 'error' : ''}`}>
+                  <input
+                    type="checkbox"
+                    checked={agreementAccepted}
+                    onChange={(e) => {
+                      setAgreementAccepted(e.target.checked);
+                      setAgreementError(false);
+                      setSubmitError(null);
+                    }}
+                    required
+                  />
+                  <span>
+                    Я прочитал и принимаю{' '}
+                    <a href="/user-agreement.docx" target="_blank" rel="noopener noreferrer">пользовательское соглашение</a>
+                    {' '}и{' '}
+                    <a href="/privacy-policy.pdf" target="_blank" rel="noopener noreferrer">политику конфиденциальности</a>
+                  </span>
+                </label>
+                {agreementError && (
+                  <div className="agreement-error">
+                    Необходимо принять условия пользовательского соглашения
+                  </div>
+                )}
+              </div>
             </form>
           )}
         </div>

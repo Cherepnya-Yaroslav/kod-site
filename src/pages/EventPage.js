@@ -38,7 +38,8 @@ const EventPage = () => {
             id: response.data[0].id,
             ...eventData,
             coverImage: coverImageUrl,
-            gallery: galleryImages
+            gallery: galleryImages,
+            eventLink: eventData.eventLink || null
           };
           
           setEvent(formattedEvent);
@@ -62,7 +63,11 @@ const EventPage = () => {
   };
 
   const handleRegister = () => {
-    alert('Функция регистрации/оплаты будет добавлена позже');
+    if (event && event.eventLink) {
+      window.open(event.eventLink, '_blank');
+    } else {
+      alert('Функция регистрации/оплаты будет добавлена позже');
+    }
   };
   
   const handleThumbnailClick = (image) => {

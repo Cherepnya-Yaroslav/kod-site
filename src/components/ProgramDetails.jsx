@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from './Button';
 import FeedbackForm from './FeedbackForm';
@@ -15,6 +15,14 @@ const ProgramDetails = ({
   // Устанавливаем дефолтное изображение, если основное изображение не предоставлено
   const defaultImage = '/placeholder.jpg';
   const [currentImage, setCurrentImage] = useState(mainImage || defaultImage);
+
+  // Обновляем currentImage при изменении mainImage
+  useEffect(() => {
+    if (mainImage) {
+      setCurrentImage(mainImage);
+    }
+  }, [mainImage]);
+
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   // Фильтруем изображения галереи, удаляя null и undefined
@@ -144,7 +152,7 @@ const ProgramDetails = ({
                 size="lg"
                 onClick={() => setIsFormOpen(true)}
               >
-                ВЫБРАТЬ ПРОГРАММУ
+                {/аренда/i.test(title) ? 'УЗНАТЬ ПОДРОБНЕЕ' : 'ВЫБРАТЬ ПРОГРАММУ'}
               </Button>
             </div>
             

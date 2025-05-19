@@ -364,7 +364,8 @@ const EventCalendar = ({ eventType }) => {
             maxParticipants: eventData.maxParticipants,
             currentParticipants: eventData.currentParticipants,
             registrationRequired: eventData.registrationRequired || false,
-            type: eventType // Добавляем тип события из props для фильтрации
+            type: eventType, // Добавляем тип события из props для фильтрации
+            eventLink: eventData.eventLink || null
           };
         }).filter(Boolean);
 
@@ -587,6 +588,9 @@ const EventCalendar = ({ eventType }) => {
     };
   };
 
+  // Utility to detect mobile
+  const isMobile = () => window.innerWidth <= 768;
+
   if (loading) {
     return <div className="calendar-loading">Загрузка событий...</div>;
   }
@@ -776,6 +780,11 @@ const EventCalendar = ({ eventType }) => {
                   </div>
                   <div className="event-content">
                     <h3 className="event-title">{event.title}</h3>
+                    {event.shortDescription && (
+                      <div className="event-short-description" >
+                        {event.shortDescription}
+                      </div>
+                    )}
                   
                     {event.coverImage && (
                       <div className="event-image calendar-event-image">
@@ -787,6 +796,17 @@ const EventCalendar = ({ eventType }) => {
                       <Link to={`/events/${event.slug}`} className="details-button">
                         Подробнее
                       </Link>
+                      {event.eventLink && (
+                        !isMobile() && (
+                          <button
+                            className="register-button"
+                            style={{ marginLeft: 12 }}
+                            onClick={() => window.open(event.eventLink, '_blank')}
+                          >
+                            Забронировать место
+                          </button>
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
