@@ -460,12 +460,9 @@ const EventCalendar = ({ eventType }) => {
       targetDate.setHours(0, 0, 0, 0);
       const targetDateString = formatDateForUrl(targetDate);
       
-      // console.log('Looking for events on date:', targetDateString);
-      // console.log('Available events:', events.map(e => ({ 
-      //   title: e.title, 
-      //   date: e.date, 
-      //   formattedDate: formatDateForUrl(new Date(e.date)) 
-      // })));
+      // Получаем текущую дату без времени для сравнения
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
       
       const filteredEvents = events.filter(event => {
         // Нормализуем дату события, убирая время
@@ -473,19 +470,18 @@ const EventCalendar = ({ eventType }) => {
         eventDate.setHours(0, 0, 0, 0);
         const eventDateString = formatDateForUrl(eventDate);
         
+        // Проверяем, что событие не в прошлом
+        const isNotPast = eventDate >= now;
+        
+        // Проверяем совпадение даты
         const matches = eventDateString === targetDateString;
         
-        if (matches) {
-          // console.log(`Event matched: ${event.title} on ${eventDateString}`);
-        }
-        
-        return matches;
+        return matches && isNotPast;
       });
       
-      // console.log('Filtered events count:', filteredEvents.length);
       return filteredEvents;
     } catch (err) {
-      // console.error("Error filtering events for date:", err);
+      console.error("Error filtering events for date:", err);
       return [];
     }
   };
