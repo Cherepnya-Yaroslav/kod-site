@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import YandexMetrikaContainer from './components/YandexMetrikaContainer';
 import HomePage from './pages/HomePage';
 import OpenPartiesPage from './pages/OpenPartiesPage';
 import PersonalPartiesPage from './pages/PersonalPartiesPage';
@@ -22,6 +23,7 @@ import "./App.css"
 function App() {
   return (
     <Router>
+      <YandexMetrikaContainer />
       <PageTransition>
         <ScrollToTop />
         {/* <SiteHeader></SiteHeader> */}
