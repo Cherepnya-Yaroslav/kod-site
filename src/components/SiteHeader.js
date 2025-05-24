@@ -67,7 +67,7 @@ const SiteHeader = () => {
         <div className="container header-container">
           <div className="logo">
             <Link to="/" className="logo-text">
-              K.O.D.
+              K.O.D
             </Link>
           </div>
           <nav className="desktop-nav">
