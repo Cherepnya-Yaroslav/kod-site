@@ -1,30 +1,21 @@
 "use client";
 
-import Router from "next/router";
-import React, { useCallback, useEffect } from "react";
-import ym, { YMInitializer } from "react-yandex-metrika";
+import React, { useEffect } from "react";
+import { YMInitializer } from "react-yandex-metrika";
+import { useLocation } from "react-router-dom";
 
 const YM_COUNTER_ID = 102137639;
 const analyticsEnabled = process.env.NODE_ENV === "production";
 
 const YandexMetrikaContainer = () => {
-  const hit = useCallback(
-    (url) => {
-      if (analyticsEnabled) {
-        ym("hit", url);
-      }
-    },
-    []
-  );
+  const location = useLocation();
 
   useEffect(() => {
     if (!analyticsEnabled) return;
-    hit(window.location.pathname + window.location.search);
-    Router.events.on("routeChangeComplete", hit);
-    return () => {
-      Router.events.off("routeChangeComplete", hit);
-    };
-  }, [hit]);
+    if (window.ym) {
+      window.ym(YM_COUNTER_ID, "hit", location.pathname + location.search);
+    }
+  }, [location]);
 
   if (!analyticsEnabled) return null;
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import SiteHeader from "../components/SiteHeader"
 import SiteFooter from "../components/SiteFooter"
 import StrapiContent from "../components/StrapiContent"
+import YandexMetrikaContainer from "../components/YandexMetrikaContainer"
 import "../styles/components/Card.css"
 import "../styles/components/Tabs.css"
 import "../styles/pages/HomePage.css"
@@ -33,6 +34,7 @@ const HomePage = () => {
 
     return (
       <>
+      <YandexMetrikaContainer />
       <SiteHeader />
         <section className="hero-section">
           <div className={`hero-background home-page ${bgLoaded ? 'loaded' : ''}`}>
