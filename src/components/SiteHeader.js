@@ -7,7 +7,7 @@ import "../styles/components/PromoBanner.css"
 import PromoBanner from "./PromoBanner"
 import { getMediaUrl } from "../api/strapi"
 
-const API_URL = "http://89.111.152.178:1337"
+const API_URL = "https://89.111.152.178"
 
 const SiteHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)

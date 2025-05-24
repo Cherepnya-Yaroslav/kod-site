@@ -2,9 +2,7 @@ import axios from 'axios';
 
 // Базовый URL для API Strapi
 const API_URL = process.env.REACT_APP_STRAPI_URL
-// || 'http://localhost:1337';
 
-// console.log('Strapi API URL:', API_URL);
 
 // Создаем экземпляр axios для работы с API
 const strapiAPI = axios.create({
