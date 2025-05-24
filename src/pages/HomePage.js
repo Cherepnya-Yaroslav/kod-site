@@ -34,7 +34,6 @@ const HomePage = () => {
 
     return (
       <>
-      <YandexMetrikaContainer />
       <SiteHeader />
         <section className="hero-section">
           <div className={`hero-background home-page ${bgLoaded ? 'loaded' : ''}`}>
