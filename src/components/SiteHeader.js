@@ -22,13 +22,13 @@ const SiteHeader = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Full API response:', data);
+        // console.log('Full API response:', data);
         if (data.data) {
           const coverImageUrl = data.data.CoverImage?.url 
             ? `${API_URL}${data.data.CoverImage.url}`
             : null;
-          console.log('Cover Image URL:', coverImageUrl);
-          console.log('Raw coverImage data:', data.data.CoverImage);
+          // console.log('Cover Image URL:', coverImageUrl);
+          // console.log('Raw coverImage data:', data.data.CoverImage);
           setPromoBannerData({
             ...data.data,
             coverImage: coverImageUrl
@@ -96,95 +96,93 @@ const SiteHeader = () => {
               Онлайн-обучение
             </Link>
           </nav>
-          
           <button className="mobile-menu-button" onClick={toggleMobileMenu}>
             <i className="icon-menu"></i>
           </button>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="mobile-menu">
-            <div className="mobile-menu-container">
-              <nav className="mobile-nav">
-                <Link 
-                  to="/" 
-                  className={`mobile-nav-link ${isActive('/') ? 'active' : ''}`} 
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  О нас
-                </Link>
-                <Link 
-                  to="/personal-parties" 
-                  className={`mobile-nav-link ${isActive('/personal-parties') ? 'active' : ''}`} 
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Персональные вечеринки
-                </Link>
-                <Link 
-                  to="/open-parties" 
-                  className={`mobile-nav-link ${isActive('/open-parties') ? 'active' : ''}`} 
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Открытые вечеринки
-                </Link>
-                <Link 
-                  to="/kids-games" 
-                  className={`mobile-nav-link ${isActive('/kids-games') ? 'active' : ''}`} 
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Игры для детей
-                </Link>
-                <Link 
-                  to="/adult-games" 
-                  className={`mobile-nav-link ${isActive('/adult-games') ? 'active' : ''}`} 
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Игры для взрослых
-                </Link>
-                <Link 
-                  to="/dance" 
-                  className={`mobile-nav-link ${isActive('/dance') ? 'active' : ''}`} 
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Танцы
-                </Link>
-                <Link 
-                  to="/coffee" 
-                  className={`mobile-nav-link ${isActive('/coffee') ? 'active' : ''}`} 
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Кофе
-                </Link>
-                <Link 
-                  to="/online-learning" 
-                  className={`mobile-nav-link ${isActive('/online-learning') ? 'active' : ''}`} 
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Онлайн-обучение
-                </Link>
-              </nav>
-              <div className="mobile-contact">
-                <a href="tel:+71234567890" className="mobile-phone-link">
-                  <i className="icon-phone"></i>
-                  <span>+7 (123) 456-7890</span>
-                </a>
-                <div className="mobile-social-links">
-                  <a
-                    href="https://instagram.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mobile-social-link"
+          {mobileMenuOpen && (
+            <div className="mobile-menu">
+              <div className="mobile-menu-container">
+                <nav className="mobile-nav">
+                  <Link 
+                    to="/" 
+                    className={`mobile-nav-link ${isActive('/') ? 'active' : ''}`} 
+                    onClick={() => setMobileMenuOpen(false)}
                   >
-                    <i className="icon-instagram"></i>
+                    О нас
+                  </Link>
+                  <Link 
+                    to="/personal-parties" 
+                    className={`mobile-nav-link ${isActive('/personal-parties') ? 'active' : ''}`} 
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Персональные вечеринки
+                  </Link>
+                  <Link 
+                    to="/open-parties" 
+                    className={`mobile-nav-link ${isActive('/open-parties') ? 'active' : ''}`} 
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Открытые вечеринки
+                  </Link>
+                  <Link 
+                    to="/kids-games" 
+                    className={`mobile-nav-link ${isActive('/kids-games') ? 'active' : ''}`} 
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Игры для детей
+                  </Link>
+                  <Link 
+                    to="/adult-games" 
+                    className={`mobile-nav-link ${isActive('/adult-games') ? 'active' : ''}`} 
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Игры для взрослых
+                  </Link>
+                  <Link 
+                    to="/dance" 
+                    className={`mobile-nav-link ${isActive('/dance') ? 'active' : ''}`} 
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Танцы
+                  </Link>
+                  <Link 
+                    to="/coffee" 
+                    className={`mobile-nav-link ${isActive('/coffee') ? 'active' : ''}`} 
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Кофе
+                  </Link>
+                  <Link 
+                    to="/online-learning" 
+                    className={`mobile-nav-link ${isActive('/online-learning') ? 'active' : ''}`} 
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Онлайн-обучение
+                  </Link>
+                </nav>
+                <div className="mobile-contact">
+                  <a href="tel:+71234567890" className="mobile-phone-link">
+                    <i className="icon-phone"></i>
+                    <span>+7 (123) 456-7890</span>
                   </a>
-                  <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
-                    <i className="icon-facebook"></i>
-                  </a>
+                  <div className="mobile-social-links">
+                    <a
+                      href="https://instagram.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mobile-social-link"
+                    >
+                      <i className="icon-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
+                      <i className="icon-facebook"></i>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </header>
       {/* Spacer for header and promo banner */}
       <div style={{

@@ -13,7 +13,7 @@ const PromoBanner = ({ title, buttonText, buttonLink, isExternalLink, coverImage
     backgroundRepeat: 'no-repeat'
   } : {};
 
-  console.log('Banner style:', bannerStyle);
+  // console.log('Banner style:', bannerStyle);
 
   return (
     <div className="promo-banner" style={bannerStyle}>

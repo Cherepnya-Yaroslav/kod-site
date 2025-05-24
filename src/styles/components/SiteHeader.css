@@ -142,11 +142,12 @@
 }
 
 .mobile-menu {
-  position: fixed;
-  top: 4rem;
+  position: absolute;
+  top: 100%;
   right: 0;
-  width: 100%;
-  max-width: 300px;
+  left: auto;
+  width: 300px;
+  max-width: 90vw;
   height: calc(100vh - 4rem);
   background-color: rgba(0, 0, 0, 0.9);
   border-left: 1px solid var(--border);
