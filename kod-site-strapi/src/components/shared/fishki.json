@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_fishkis",
+  "info": {
+    "displayName": "fishki"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    }
+  }
+}

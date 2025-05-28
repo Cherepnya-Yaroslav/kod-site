@@ -1,0 +1,40 @@
+{
+    "kind": "singleType",
+    "collectionName": "promo_banners",
+    "info": {
+        "singularName": "promo-banner",
+        "pluralName": "promo-banners",
+        "displayName": "Promo Banner",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "title": {
+            "type": "string"
+        },
+        "buttonText": {
+            "type": "string"
+        },
+        "buttonLink": {
+            "type": "string"
+        },
+        "isExternalLink": {
+            "type": "boolean"
+        },
+        "isActive": {
+            "type": "boolean"
+        },
+        "CoverImage": {
+            "allowedTypes": [
+                "images",
+                "files",
+                "videos",
+                "audios"
+            ],
+            "type": "media",
+            "multiple": false
+        }
+    }
+}

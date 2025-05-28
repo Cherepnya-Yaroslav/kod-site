@@ -7,7 +7,7 @@ import "../styles/components/PromoBanner.css"
 import PromoBanner from "./PromoBanner"
 import { getMediaUrl } from "../api/strapi"
 
-const API_URL = "https://89.111.152.178"
+const API_URL = "https://kodspace.art/api"
 
 const SiteHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -17,7 +17,7 @@ const SiteHeader = () => {
   useEffect(() => {
     const fetchPromoBanner = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/promo-banner?populate=*`);
+        const response = await fetch(`${API_URL}/promo-banner?populate=*`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

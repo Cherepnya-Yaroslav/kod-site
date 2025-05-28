@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_prices",
+  "info": {
+    "displayName": "prices",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "shortDescription": {
+      "type": "string"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "points": {
+      "displayName": "points",
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.points"
+    }
+  }
+}

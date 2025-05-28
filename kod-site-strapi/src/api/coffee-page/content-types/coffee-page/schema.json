@@ -4,7 +4,8 @@
   "info": {
     "singularName": "coffee-page",
     "pluralName": "coffee-pages",
-    "displayName": "coffee-page"
+    "displayName": "coffee-page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -26,34 +27,40 @@
       "type": "string"
     },
     "galleryImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     },
     "classicMenuFile": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "seasonalMenuFile": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
+    },
+    "jopa": {
+      "type": "text"
     }
   }
 }

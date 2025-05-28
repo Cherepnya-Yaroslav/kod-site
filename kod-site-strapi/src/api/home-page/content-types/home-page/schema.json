@@ -4,7 +4,8 @@
   "info": {
     "singularName": "home-page",
     "pluralName": "home-pages",
-    "displayName": "Home page"
+    "displayName": "Home page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -18,15 +19,6 @@
       "type": "richtext",
       "required": true
     },
-    "Video_URL": {
-      "type": "string"
-    },
-    "Contact_Phone": {
-      "type": "string"
-    },
-    "Contact_Email": {
-      "type": "string"
-    },
     "About_Title": {
       "type": "string"
     },
@@ -36,10 +28,13 @@
     "About_Full_Description": {
       "type": "richtext"
     },
-    "Gallery_Images": {
+    "Gallery_Images1": {
       "type": "media",
       "multiple": true,
-      "allowedTypes": ["images"]
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "Founder_Quote": {
       "type": "text"
@@ -50,7 +45,21 @@
     "Founder_Images": {
       "type": "media",
       "multiple": true,
-      "allowedTypes": ["images"]
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Gallery_Images2": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

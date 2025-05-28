@@ -408,6 +408,7 @@ export interface ApiAdultGamesPageAdultGamesPage
 export interface ApiCoffeePageCoffeePage extends Struct.SingleTypeSchema {
   collectionName: 'coffee_pages';
   info: {
+    description: '';
     displayName: 'coffee-page';
     pluralName: 'coffee-pages';
     singularName: 'coffee-page';
@@ -430,6 +431,7 @@ export interface ApiCoffeePageCoffeePage extends Struct.SingleTypeSchema {
     galleryTitle: Schema.Attribute.String;
     heroSubtitle: Schema.Attribute.Text;
     heroTitle: Schema.Attribute.String;
+    jopa: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -487,6 +489,7 @@ export interface ApiContactContact extends Struct.CollectionTypeSchema {
 export interface ApiDancePageDancePage extends Struct.SingleTypeSchema {
   collectionName: 'dance_pages';
   info: {
+    description: '';
     displayName: 'Dance Page';
     pluralName: 'dance-pages';
     singularName: 'dance-page';
@@ -495,9 +498,11 @@ export interface ApiDancePageDancePage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    aboutUs: Schema.Attribute.Component<'shared.page-header', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    danceTypes: Schema.Attribute.Component<'shared.dance-types', true>;
     Description: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -505,8 +510,11 @@ export interface ApiDancePageDancePage extends Struct.SingleTypeSchema {
       'api::dance-page.dance-page'
     > &
       Schema.Attribute.Private;
+    prices: Schema.Attribute.Component<'shared.prices', true>;
     publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Component<'shared.faq-item', true>;
     Title: Schema.Attribute.String;
+    trainer: Schema.Attribute.Component<'shared.trainers', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -539,6 +547,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<0>;
     date: Schema.Attribute.DateTime & Schema.Attribute.Required;
     duration: Schema.Attribute.String & Schema.Attribute.Required;
+    eventLink: Schema.Attribute.String;
     fullDescription: Schema.Attribute.RichText & Schema.Attribute.Required;
     gallery: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -577,7 +586,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
 export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   collectionName: 'footers';
   info: {
-    description: '';
+    description: 'Footer configuration with contact information and social media links';
     displayName: 'footer';
     pluralName: 'footers';
     singularName: 'footer';
@@ -604,6 +613,7 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    vkLink: Schema.Attribute.String;
   };
 }
 
@@ -647,6 +657,7 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
 export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
   collectionName: 'home_pages';
   info: {
+    description: '';
     displayName: 'Home page';
     pluralName: 'home-pages';
     singularName: 'home-page';
@@ -658,8 +669,6 @@ export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
     About_Description: Schema.Attribute.Text;
     About_Full_Description: Schema.Attribute.RichText;
     About_Title: Schema.Attribute.String;
-    Contact_Email: Schema.Attribute.String;
-    Contact_Phone: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -667,7 +676,11 @@ export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
     Founder_Images: Schema.Attribute.Media<'images', true>;
     Founder_Name: Schema.Attribute.String;
     Founder_Quote: Schema.Attribute.Text;
-    Gallery_Images: Schema.Attribute.Media<'images', true>;
+    Gallery_Images1: Schema.Attribute.Media<'images', true>;
+    Gallery_Images2: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -679,7 +692,6 @@ export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Video_URL: Schema.Attribute.String;
   };
 }
 
@@ -768,12 +780,15 @@ export interface ApiPersonalPartiesPagePersonalPartiesPage
     draftAndPublish: true;
   };
   attributes: {
-    CoverImage: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Description: Schema.Attribute.Text & Schema.Attribute.Required;
-    Gallery: Schema.Attribute.Media<'images', true>;
+    fishki: Schema.Attribute.Component<'shared.fishki', true>;
+    gameGallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -791,7 +806,50 @@ export interface ApiPersonalPartiesPagePersonalPartiesPage
         number
       >;
     publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Component<'shared.faq-item', true>;
+    rentGallery: Schema.Attribute.Media<'images', true>;
+    testimonial: Schema.Attribute.Component<'shared.testimonial', true>;
+    themeGallery: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPromoBannerPromoBanner extends Struct.SingleTypeSchema {
+  collectionName: 'promo_banners';
+  info: {
+    description: '';
+    displayName: 'Promo Banner';
+    pluralName: 'promo-banners';
+    singularName: 'promo-banner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    buttonLink: Schema.Attribute.String;
+    buttonText: Schema.Attribute.String;
+    CoverImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    isActive: Schema.Attribute.Boolean;
+    isExternalLink: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::promo-banner.promo-banner'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1356,6 +1414,7 @@ declare module '@strapi/strapi' {
       'api::kids-games-page.kids-games-page': ApiKidsGamesPageKidsGamesPage;
       'api::open-parties-page.open-parties-page': ApiOpenPartiesPageOpenPartiesPage;
       'api::personal-parties-page.personal-parties-page': ApiPersonalPartiesPagePersonalPartiesPage;
+      'api::promo-banner.promo-banner': ApiPromoBannerPromoBanner;
       'api::theme-party-event.theme-party-event': ApiThemePartyEventThemePartyEvent;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

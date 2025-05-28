@@ -22,6 +22,20 @@ export interface ProgramsProgram extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedDanceTypes extends Struct.ComponentSchema {
+  collectionName: 'components_shared_dance_types';
+  info: {
+    displayName: 'danceTypes';
+  };
+  attributes: {
+    CoverImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    description: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedFaqItem extends Struct.ComponentSchema {
   collectionName: 'components_shared_faq_items';
   info: {
@@ -31,6 +45,17 @@ export interface SharedFaqItem extends Struct.ComponentSchema {
   attributes: {
     answer: Schema.Attribute.Text & Schema.Attribute.Required;
     question: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedFishki extends Struct.ComponentSchema {
+  collectionName: 'components_shared_fishkis';
+  info: {
+    displayName: 'fishki';
+  };
+  attributes: {
+    Description: Schema.Attribute.Text;
+    Title: Schema.Attribute.String;
   };
 }
 
@@ -46,6 +71,30 @@ export interface SharedPageHeader extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedPoints extends Struct.ComponentSchema {
+  collectionName: 'components_shared_points';
+  info: {
+    displayName: 'points';
+  };
+  attributes: {
+    point: Schema.Attribute.String;
+  };
+}
+
+export interface SharedPrices extends Struct.ComponentSchema {
+  collectionName: 'components_shared_prices';
+  info: {
+    description: '';
+    displayName: 'prices';
+  };
+  attributes: {
+    points: Schema.Attribute.Component<'shared.points', true>;
+    price: Schema.Attribute.Integer;
+    shortDescription: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedTestimonial extends Struct.ComponentSchema {
   collectionName: 'components_shared_testimonials';
   info: {
@@ -58,13 +107,33 @@ export interface SharedTestimonial extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedTrainers extends Struct.ComponentSchema {
+  collectionName: 'components_shared_trainers';
+  info: {
+    displayName: 'trainers';
+  };
+  attributes: {
+    description: Schema.Attribute.String;
+    mainImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    name: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'programs.program': ProgramsProgram;
+      'shared.dance-types': SharedDanceTypes;
       'shared.faq-item': SharedFaqItem;
+      'shared.fishki': SharedFishki;
       'shared.page-header': SharedPageHeader;
+      'shared.points': SharedPoints;
+      'shared.prices': SharedPrices;
       'shared.testimonial': SharedTestimonial;
+      'shared.trainers': SharedTrainers;
     }
   }
 }

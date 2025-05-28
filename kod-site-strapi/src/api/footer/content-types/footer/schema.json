@@ -1,36 +1,36 @@
 {
-  "kind": "singleType",
-  "collectionName": "footers",
-  "info": {
-    "singularName": "footer",
-    "pluralName": "footers",
-    "displayName": "footer",
-    "description": "Footer configuration with contact information and social media links"
-  },
-  "options": {
-    "draftAndPublish": true
-  },
-  "attributes": {
-    "number": {
-      "type": "string"
+    "kind": "singleType",
+    "collectionName": "footers",
+    "info": {
+        "singularName": "footer",
+        "pluralName": "footers",
+        "displayName": "footer",
+        "description": "Footer configuration with contact information and social media links"
     },
-    "email": {
-      "type": "string"
+    "options": {
+        "draftAndPublish": true
     },
-    "adress": {
-      "type": "string"
-    },
-    "vkLink": {
-      "type": "string",
-      "description": "Full URL to VK page (e.g. https://vk.com/...)"
-    },
-    "telegramLink": {
-      "type": "string",
-      "description": "Full URL to Telegram channel (e.g. https://t.me/...)"
-    },
-    "rutubeLink": {
-      "type": "string",
-      "description": "Full URL to Rutube channel (e.g. https://rutube.ru/...)"
+    "attributes": {
+        "number": {
+            "type": "string"
+        },
+        "email": {
+            "type": "string"
+        },
+        "adress": {
+            "type": "string"
+        },
+        "vkLink": {
+            "type": "string",
+            "description": "Full URL to VK page (e.g. https://vk.com/...)"
+        },
+        "telegramLink": {
+            "type": "string",
+            "description": "Full URL to Telegram channel (e.g. https://t.me/...)"
+        },
+        "rutubeLink": {
+            "type": "string",
+            "description": "Full URL to Rutube channel (e.g. https://rutube.ru/...)"
+        }
     }
-  }
 }

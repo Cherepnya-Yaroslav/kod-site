@@ -1,20 +1,48 @@
 {
-  "kind": "singleType",
-  "collectionName": "dance_pages",
-  "info": {
-    "singularName": "dance-page",
-    "pluralName": "dance-pages",
-    "displayName": "Dance Page"
-  },
-  "options": {
-    "draftAndPublish": true
-  },
-  "attributes": {
-    "Title": {
-      "type": "string"
+    "kind": "singleType",
+    "collectionName": "dance_pages",
+    "info": {
+        "singularName": "dance-page",
+        "pluralName": "dance-pages",
+        "displayName": "Dance Page",
+        "description": ""
     },
-    "Description": {
-      "type": "text"
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "Title": {
+            "type": "string"
+        },
+        "Description": {
+            "type": "text"
+        },
+        "questions": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.faq-item"
+        },
+        "danceTypes": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.dance-types"
+        },
+        "aboutUs": {
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.page-header"
+        },
+        "prices": {
+            "displayName": "prices",
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.prices"
+        },
+        "trainer": {
+            "displayName": "trainers",
+            "type": "component",
+            "repeatable": true,
+            "component": "shared.trainers"
+        }
     }
-  }
 }

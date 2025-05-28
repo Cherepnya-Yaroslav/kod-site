@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_trainers",
+  "info": {
+    "displayName": "trainers"
+  },
+  "options": {},
+  "attributes": {
+    "mainImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}
