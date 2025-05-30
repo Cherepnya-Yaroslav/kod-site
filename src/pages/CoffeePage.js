@@ -302,20 +302,22 @@ const CoffeePage = () => {
         />
       )}
       <main className="main-content">
-        {/* Hero Section with Collage Background */}
-        <section className="coffee-hero-section">
-          <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
+        {/* Hero Section в стиле HomePage */}
+        <section className="hero-section">
+          <div className={`hero-background coffee-page ${bgLoaded ? 'loaded' : ''}`}>
             <img
-              src="/collage-bg/collage-coffee.png"
+              src="/collage-bg/collage-34-1.webp"
               alt={content.heroTitle}
               loading="eager"
               onLoad={() => setBgLoaded(true)}
             />
           </div>
           <div className="hero-overlay" />
-          <div className="hero-content">
-            <h1 className="hero-title">{content.heroTitle}</h1>
-            <p className="hero-description">{content.heroSubtitle}</p>
+          <div className="hero-container">
+            <div className="hero-content">
+              <h1 className="hero-title">{content.heroTitle}</h1>
+              <p className="hero-description">{content.heroSubtitle}</p>
+            </div>
           </div>
         </section>
 

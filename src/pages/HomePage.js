@@ -38,7 +38,7 @@ const HomePage = () => {
         <section className="hero-section">
           <div className={`hero-background home-page ${bgLoaded ? 'loaded' : ''}`}>
             <img
-              src="/collage-bg/collage-1.png"
+              src="/collage-bg/collage-1-1.webp"
               alt=""
               loading="eager"
             />

@@ -349,7 +349,7 @@ const DancePage = () => {
         <section className="dance-hero-section">
           <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
             <img
-              src="/collage-bg/collage-22.png"
+              src="/collage-bg/collage-22-1.webp"
               alt=""
               loading="eager"
               onLoad={() => setBgLoaded(true)}

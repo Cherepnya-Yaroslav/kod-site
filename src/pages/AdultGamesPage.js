@@ -124,7 +124,7 @@ const AdultGamesPage = () => {
         <section className="adult-games-hero">
           <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
             <img
-              src="/collage-bg/collage-19.png"
+              src="/collage-bg/collage-19-1.webp"
               alt=""
               loading="eager"
               onLoad={() => setBgLoaded(true)}

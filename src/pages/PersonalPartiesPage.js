@@ -305,7 +305,7 @@ const PersonalPartiesPage = () => {
         <section className="personal-parties-hero">
           <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
             <img
-              src="/collage-bg/collage-13.png"
+              src="/collage-bg/collage-13-1.webp"
               alt=""
               loading="eager"
               onLoad={() => setBgLoaded(true)}
