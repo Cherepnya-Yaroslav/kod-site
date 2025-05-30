@@ -68,7 +68,15 @@ export const fetchData = async (endpoint, options = {}) => {
       const addFilters = (filters, parentKey = 'filters') => {
         Object.entries(filters).forEach(([key, value]) => {
           const filterKey = `${parentKey}[${key}]`;
-          if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+          if (Array.isArray(value)) {
+            value.forEach((item, idx) => {
+              if (typeof item === 'object' && item !== null) {
+                addFilters(item, `${filterKey}[${idx}]`);
+              } else {
+                queryParams.append(`${filterKey}[${idx}]`, item);
+              }
+            });
+          } else if (typeof value === 'object' && value !== null) {
             addFilters(value, filterKey);
           } else {
             queryParams.append(filterKey, value);
