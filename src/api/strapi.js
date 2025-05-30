@@ -65,10 +65,17 @@ export const fetchData = async (endpoint, options = {}) => {
 
     // Добавляем фильтры
     if (options.filters) {
-      // console.log('Incoming filters:', options.filters);
-      const filters = options.filters;
-      // console.log('Processed filters:', filters);
-      queryParams.append('filters', JSON.stringify(filters));
+      const addFilters = (filters, parentKey = 'filters') => {
+        Object.entries(filters).forEach(([key, value]) => {
+          const filterKey = `${parentKey}[${key}]`;
+          if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+            addFilters(value, filterKey);
+          } else {
+            queryParams.append(filterKey, value);
+          }
+        });
+      };
+      addFilters(options.filters);
     }
 
     // Добавляем сортировку
