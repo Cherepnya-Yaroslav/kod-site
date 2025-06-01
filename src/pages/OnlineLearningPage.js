@@ -70,7 +70,7 @@ const OnlineLearningPage = () => {
         <section className="online-hero-section">
           <div className={`hero-background collage-course-bg`}>
             <img
-              src="/collage-bg/collage-course.webp"
+              src="/collage-bg/collage-course-1.webp"
               alt="Коллаж онлайн-обучения"
               loading="eager"
             />

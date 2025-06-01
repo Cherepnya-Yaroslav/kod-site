@@ -306,7 +306,7 @@ const CoffeePage = () => {
         <section className="hero-section">
           <div className={`hero-background coffee-page ${bgLoaded ? 'loaded' : ''}`}>
             <img
-              src="/collage-bg/collage-34-1.webp"
+              src="/collage-bg/collage-34-1-2.webp"
               alt={content.heroTitle}
               loading="eager"
               onLoad={() => setBgLoaded(true)}
