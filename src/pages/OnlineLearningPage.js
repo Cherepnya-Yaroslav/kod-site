@@ -66,22 +66,28 @@ const OnlineLearningPage = () => {
     <div className="page-container">
       <SiteHeader />
       <main className="main-content">
-        {/* Hero Section */}
+        {/* Hero Section (collage background, overlay, title, description) */}
         <section className="online-hero-section">
-          <div className="container">
-            <div className="online-hero-content">
-              <h1 className="online-hero-title">Онлайн-обучение</h1>
-              <p className="online-hero-description">Профессиональные курсы по организации игр и мероприятий</p>
-              <div className="online-hero-cta">
-                <Button asChild size="large">
-                  <a href="#courses">Смотреть курсы</a>
-                </Button>
-              </div>
+          <div className={`hero-background collage-course-bg`}>
+            <img
+              src="/collage-bg/collage-course.webp"
+              alt="Коллаж онлайн-обучения"
+              loading="eager"
+            />
+          </div>
+          <div className="hero-overlay" />
+          <div className="hero-content">
+            {/* <h1>Онлайн-обучение</h1>
+            <p>Профессиональные курсы по организации игр и мероприятий</p> */}
+            <div className="online-hero-cta">
+              {/* <Button asChild size="large">
+                <a href="#courses">Смотреть курсы</a>
+              </Button> */}
             </div>
           </div>
         </section>
 
-        {/* Features Section */}
+        {/* Features Section
         <section className="features-section">
           <div className="container">
             <div className="features-grid">
@@ -126,7 +132,7 @@ const OnlineLearningPage = () => {
         </section>
 
         {/* Courses Section */}
-        <section id="courses" className="courses-section">
+        {/* <section id="courses" className="courses-section">
           <div className="container">
             <div className="courses-header">
               <h2 className="section-title">Наши курсы</h2>
@@ -186,10 +192,10 @@ const OnlineLearningPage = () => {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* How It Works Section */}
-        <section className="how-it-works-section">
+        {/* <section className="how-it-works-section">
           <div className="container">
             <div className="how-it-works-header">
               <h2 className="section-title">Как проходит обучение</h2>
@@ -226,10 +232,10 @@ const OnlineLearningPage = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Testimonials */}
-        <section className="testimonials-section">
+        {/* <section className="testimonials-section">
           <div className="container">
             <div className="testimonials-header">
               <h2 className="section-title">Отзывы студентов</h2>
@@ -269,10 +275,10 @@ const OnlineLearningPage = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
-        <section className="cta-section">
+        {/* <section className="cta-section">
           <div className="container">
             <div className="cta-content">
               <h2 className="section-title">Готовы начать обучение?</h2>
@@ -289,7 +295,7 @@ const OnlineLearningPage = () => {
               </div>
             </div>
           </div>
-        </section>
+        </section> */} 
       </main>
       <SiteFooter />
     </div>

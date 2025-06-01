@@ -431,7 +431,6 @@ export interface ApiCoffeePageCoffeePage extends Struct.SingleTypeSchema {
     galleryTitle: Schema.Attribute.String;
     heroSubtitle: Schema.Attribute.Text;
     heroTitle: Schema.Attribute.String;
-    jopa: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

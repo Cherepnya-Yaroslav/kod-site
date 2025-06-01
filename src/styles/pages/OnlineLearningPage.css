@@ -10,26 +10,88 @@
 
 /* Hero Section */
 .online-hero-section {
-  padding: 5rem 0;
-  background-color: rgba(241, 245, 249, 0.3);
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   text-align: center;
+  overflow: hidden;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  margin-bottom: 0;
 }
 
-.online-hero-content {
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.hero-background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  margin: 0;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 35%,
+    rgba(0, 0, 0, 0.2) 80%,
+    transparent 100%
+  );
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
   max-width: 800px;
-  margin: 0 auto;
+  padding: 2rem;
 }
 
-.online-hero-title {
-  font-size: 2.5rem;
+.hero-content h1 {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.online-hero-description {
-  font-size: 1.25rem;
-  color: var(--muted-foreground);
+.hero-content p {
+  font-size: 1.5rem;
+  line-height: 1.6;
   margin-bottom: 2rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .hero-content p {
+    font-size: 1.1rem;
+  }
 }
 
 /* Features Section */

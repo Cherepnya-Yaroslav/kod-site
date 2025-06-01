@@ -19,12 +19,14 @@ const PromoBanner = ({ title, buttonText, buttonLink, isExternalLink, coverImage
     <div className="promo-banner" style={bannerStyle}>
       <div className="container promo-banner-container">
         <h2 className="promo-banner-title">{title}</h2>
-        <ButtonComponent 
-          {...buttonProps} 
+        <a 
+          href={buttonLink}
+          target="_blank"
+          rel="noopener noreferrer"
           className="promo-banner-button"
         >
           {buttonText}
-        </ButtonComponent>
+        </a>
       </div>
     </div>
   );

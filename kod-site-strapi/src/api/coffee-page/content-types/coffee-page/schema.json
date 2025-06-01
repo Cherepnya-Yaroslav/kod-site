@@ -58,9 +58,6 @@
         "videos",
         "audios"
       ]
-    },
-    "jopa": {
-      "type": "text"
     }
   }
 }
