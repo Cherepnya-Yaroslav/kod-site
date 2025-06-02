@@ -18,6 +18,7 @@ import PageTransition from './components/PageTransition';
 import './styles/globals.css';
 import EventCalendar from './components/EventCalendar';
 import ScrollToTop from './components/ScrollToTop';
+import CookieNotice from './components/CookieNotice';
 import "./App.css"
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/events/kids" element={<EventCalendar eventType="kids" />} />
           <Route path="/events/:slug" element={<EventPage />} />
         </Routes>
+        <CookieNotice />
       </PageTransition>
     </Router>
   );
