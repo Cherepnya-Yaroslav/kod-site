@@ -146,58 +146,7 @@ const SiteFooter = () => {
               </Link>
             </nav>
           </div>
-          <div className="footer-section subscription-section">
-            <h3 className="footer-title">Подписаться на рассылку:</h3>
-            <form className="subscription-form" onSubmit={handleSubmit}>
-              <div className="email-input-container">
-                <input 
-                  type="email" 
-                  className="email-input" 
-                  placeholder="Email" 
-                  value={email}
-                  onChange={handleEmailChange}
-                  required
-                  disabled={isSubmitting}
-                />
-                <button 
-                  type="submit" 
-                  className="submit-arrow"
-                  disabled={isSubmitting}
-                >
-                  <i className="icon-arrow-right"></i>
-                </button>
-              </div>
-              
-              {submitStatus === 'success' && (
-                <div className="subscription-success">
-                  Спасибо за подписку!
-                </div>
-              )}
-              
-              {submitStatus === 'error' && (
-                <div className="subscription-error">
-                  Произошла ошибка. Пожалуйста, попробуйте еще раз.
-                </div>
-              )}
-              
-              <div className="consent-checkbox">
-                <input 
-                  type="checkbox" 
-                  id="newsletter-consent" 
-                  checked={consent}
-                  onChange={handleConsentChange}
-                  required
-                  disabled={isSubmitting}
-                />
-                <label htmlFor="newsletter-consent">
-                  Оставляя адрес своей электронной почты, я даю согласие на получение рассылки и принимаю условия{" "}
-                  <Link to="/privacy-policy" className="policy-link">
-                    Политики обработки и защиты персональных данных
-                  </Link>
-                </label>
-              </div>
-            </form>
-          </div>
+         
         </div>
         <div className="footer-bottom">
           <p className="copyright">© {new Date().getFullYear()} K.O.D. Все права защищены.</p>

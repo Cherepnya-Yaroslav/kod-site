@@ -3,12 +3,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999;
+  z-index: 99999;
   background: rgba(30, 30, 30, 0.98);
   color: #fff;
-  box-shadow: 0 -2px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 -4px 32px 0 rgba(0,0,0,0.25), 0 -1.5px 8px 0 rgba(0,0,0,0.10);
   padding: 0;
   font-size: 16px;
+  pointer-events: auto;
 }
 
 .cookie-notice__container {

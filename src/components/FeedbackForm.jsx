@@ -62,28 +62,35 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
     setSubmitSuccess(false);
     
     try {
-      // Extract basic form data (name, email, phone, message)
-      const formData = {
-        formType: formType || title,
-        ...answers
-      };
+      // Формируем только допустимые поля для Strapi
+      const allowedFields = ['name', 'email', 'phone', 'message', 'formType'];
+      const formData = {};
+      const additionalData = {};
       
-      // Get name, email, and phone from appropriate form fields
-      const nameField = questions.find(q => q.id === 'name' || q.id === 'contactName');
-      const emailField = questions.find(q => q.id === 'email');
-      const phoneField = questions.find(q => q.id === 'phone');
-      const messageField = questions.find(q => q.id === 'message' || q.id === 'comments');
+      // Собираем только разрешённые поля
+      allowedFields.forEach((field) => {
+        if (answers[field]) {
+          formData[field] = answers[field];
+        }
+      });
+      // formType всегда должен быть
+      formData.formType = formType || title;
       
-      if (nameField) formData.name = answers[nameField.id];
-      if (emailField) formData.email = answers[emailField.id];
-      if (phoneField) formData.phone = answers[phoneField.id];
-      if (messageField) formData.message = answers[messageField.id];
+      // Всё остальное — в additionalData
+      Object.keys(answers).forEach((key) => {
+        if (!allowedFields.includes(key)) {
+          additionalData[key] = answers[key];
+        }
+      });
+      if (Object.keys(additionalData).length > 0) {
+        formData.additionalData = additionalData;
+      }
       
-      // console.log('Submitting form data:', formData);
+      // Логируем отправляемые данные
+      console.log('formData:', formData);
       
       // Send data to the API
-      const response = await axios.post(`${API_URL}/api/contact/submit`, formData);
-      
+      const response = await axios.post(`${API_URL}/api/contacts`, { data: formData });      
       // console.log('Form submission response:', response.data);
       
       setSubmitSuccess(true);
@@ -94,7 +101,8 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
       }, 2000);
       
     } catch (error) {
-      // console.error('Error submitting form:', error);
+      // Логируем ошибку от Strapi
+      console.log('Ошибка Strapi:', error.response?.data);
       setSubmitError(error.response?.data?.message || 'Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.');
     } finally {
       setIsSubmitting(false);
