@@ -94,7 +94,7 @@ const SiteHeader = () => {
               О нас
             </Link>
             <Link to="/personal-parties" className={`nav-link ${isActive('/personal-parties') ? 'active' : ''}`}>
-              Персональные вечеринки
+              Организация мероприятий
             </Link>
             <Link to="/open-parties" className={`nav-link ${isActive('/open-parties') ? 'active' : ''}`}>
               Открытые вечеринки
@@ -134,7 +134,7 @@ const SiteHeader = () => {
                     className={`mobile-nav-link ${isActive('/personal-parties') ? 'active' : ''}`} 
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Персональные вечеринки
+                    Организация мероприятий 
                   </Link>
                   <Link 
                     to="/open-parties" 

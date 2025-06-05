@@ -127,7 +127,7 @@ const SiteFooter = () => {
                 О нас
               </Link>
               <Link to="/personal-parties" className="footer-link">
-                Персональные вечеринки
+                Организация мероприятий 
               </Link>
               <Link to="/open-parties" className="footer-link">
                 Открытые вечеринки
