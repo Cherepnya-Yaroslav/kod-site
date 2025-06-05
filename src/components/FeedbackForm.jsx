@@ -54,59 +54,43 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
       setSubmitError('Пожалуйста, примите условия пользовательского соглашения');
       return;
     }
-    
-    // Reset submission states
+    // Показываем успех сразу
+    setSubmitSuccess(true);
     setIsSubmitting(true);
     setSubmitError(null);
     setAgreementError(false);
-    setSubmitSuccess(false);
-    
-    try {
-      // Формируем только допустимые поля для Strapi
-      const allowedFields = ['name', 'phone', 'message', 'formType'];
-      const formData = {};
-      const additionalData = {};
-      
-      // Собираем только разрешённые поля
-      allowedFields.forEach((field) => {
-        if (answers[field]) {
-          formData[field] = answers[field];
-        }
-      });
-      // formType всегда должен быть
-      formData.formType = formType || title;
-      
-      // Всё остальное — в additionalData
-      Object.keys(answers).forEach((key) => {
-        if (!allowedFields.includes(key)) {
-          additionalData[key] = answers[key];
-        }
-      });
-      if (Object.keys(additionalData).length > 0) {
-        formData.additionalData = additionalData;
+    // Закрываем форму через 2 сек
+    setTimeout(() => {
+      onClose();
+    }, 2000);
+
+    // Формируем только допустимые поля для Strapi
+    const allowedFields = ['name', 'phone', 'message', 'formType'];
+    const formData = {};
+    const additionalData = {};
+    allowedFields.forEach((field) => {
+      if (answers[field]) {
+        formData[field] = answers[field];
       }
-      
-      // Логируем отправляемые данные
-      console.log('formData:', formData);
-      
-      // Send data to the API
-      const response = await axios.post(`${API_URL}/api/contacts`, { data: formData });      
-      // console.log('Form submission response:', response.data);
-      
-      setSubmitSuccess(true);
-      
-      // Close the form after success (optional - can also show success message)
-      setTimeout(() => {
-        onClose();
-      }, 2000);
-      
-    } catch (error) {
-      // Логируем ошибку от Strapi
-      console.log('Ошибка Strapi:', error.response?.data);
-      setSubmitError(error.response?.data?.message || 'Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.');
-    } finally {
-      setIsSubmitting(false);
+    });
+    formData.formType = formType || title;
+    Object.keys(answers).forEach((key) => {
+      if (!allowedFields.includes(key)) {
+        additionalData[key] = answers[key];
+      }
+    });
+    if (Object.keys(additionalData).length > 0) {
+      formData.additionalData = additionalData;
     }
+    // Отправляем запрос в фоне
+    axios.post(`${API_URL}/api/contacts`, { data: formData })
+      .catch(error => {
+        // Логируем ошибку, но не мешаем UX
+        console.log('Ошибка Strapi:', error.response?.data);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   const handleBackdropClick = (e) => {
