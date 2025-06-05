@@ -1,50 +1,55 @@
 {
-    "kind": "singleType",
-    "collectionName": "adult_games_pages",
-    "info": {
-        "singularName": "adult-games-page",
-        "pluralName": "adult-games-pages",
-        "displayName": "Adult Games Page",
-        "description": "Adult games page content"
+  "kind": "singleType",
+  "collectionName": "adult_games_pages",
+  "info": {
+    "singularName": "adult-games-page",
+    "pluralName": "adult-games-pages",
+    "displayName": "Adult Games Page",
+    "description": "Adult games page content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "required": true
     },
-    "options": {
-        "draftAndPublish": true
+    "Description": {
+      "type": "text",
+      "required": true
     },
-    "pluginOptions": {},
-    "attributes": {
-        "Title": {
-            "type": "string",
-            "required": true
-        },
-        "Description": {
-            "type": "text",
-            "required": true
-        },
-        "CoverImage": {
-            "type": "media",
-            "multiple": false,
-            "required": true,
-            "allowedTypes": [
-                "images"
-            ]
-        },
-        "Gallery": {
-            "type": "media",
-            "multiple": true,
-            "required": false,
-            "allowedTypes": [
-                "images"
-            ]
-        },
-        "pageHeader": {
-            "type": "component",
-            "component": "shared.page-header",
-            "required": true
-        },
-        "faq": {
-            "type": "component",
-            "component": "shared.faq-item",
-            "repeatable": true
-        }
+    "CoverImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "pageHeader": {
+      "type": "component",
+      "component": "shared.page-header",
+      "required": true
+    },
+    "faq": {
+      "type": "component",
+      "component": "shared.faq-item",
+      "repeatable": true
+    },
+    "testimonial": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.testimonial"
     }
+  }
 }

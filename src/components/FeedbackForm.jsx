@@ -63,7 +63,7 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
     
     try {
       // Формируем только допустимые поля для Strapi
-      const allowedFields = ['name', 'email', 'phone', 'message', 'formType'];
+      const allowedFields = ['name', 'phone', 'message', 'formType'];
       const formData = {};
       const additionalData = {};
       
@@ -131,17 +131,17 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
           />
         );
       
-      case 'email':
-        return (
-          <input
-            type="email"
-            className="form-input"
-            value={answers[question.id] || ''}
-            onChange={(e) => handleAnswerChange(question.id, e.target.value)}
-            placeholder={question.placeholder || ''}
-            required={question.required}
-          />
-        );
+      // case 'email':
+        // return (
+        //   <input
+        //     type="email"
+        //     className="form-input"
+        //     value={answers[question.id] || ''}
+        //     onChange={(e) => handleAnswerChange(question.id, e.target.value)}
+        //     placeholder={question.placeholder || ''}
+        //     required={question.required}
+        //   />
+        // );
       
       case 'tel':
         return (

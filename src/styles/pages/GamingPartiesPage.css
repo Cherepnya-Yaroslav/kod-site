@@ -856,4 +856,14 @@
   .gallery-thumbnail {
     border-width: 1px;
   }
+}
+
+.theme-parties-page .program-gallery .gallery-thumbnail img {
+  object-fit: cover !important;
+  background: #111;
+}
+
+.theme-parties-page .program-image-container .program-main-image {
+  object-fit: contain !important;
+  background: #111;
 } 

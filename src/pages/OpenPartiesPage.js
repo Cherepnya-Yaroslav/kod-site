@@ -13,7 +13,6 @@ import FAQ from "../components/FAQ"
 
 // Константы
 const STRAPI_URL = process.env.REACT_APP_STRAPI_URL
-const months = ["Июнь 2025", "Июль 2025", "Август 2025"];
 
 const OpenPartiesPage = () => {
   // Состояния для данных страницы

@@ -166,13 +166,13 @@ const DancePage = () => {
       required: true,
       placeholder: '+7 (___) ___-__-__'
     },
-    {
-      id: 'email',
-      text: 'Email',
-      type: 'email',
-      required: true,
-      placeholder: 'your@email.com'
-    },
+    // {
+    //   id: 'email',
+    //   text: 'Email',
+    //   type: 'email',
+    //   required: true,
+    //   placeholder: 'your@email.com'
+    // },
     {
       id: 'age',
       text: 'Возраст танцора',

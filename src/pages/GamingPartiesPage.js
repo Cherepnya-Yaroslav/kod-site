@@ -367,13 +367,13 @@ const GamingPartiesPage = () => {
       required: true,
       placeholder: 'Как к вам обращаться'
     },
-    {
-      id: 'email',
-      text: 'Ваш Email',
-      type: 'email',
-      required: true,
-      placeholder: 'example@email.com'
-    },
+    // {
+    //   id: 'email',
+    //   text: 'Ваш Email',
+    //   type: 'email',
+    //   required: true,
+    //   placeholder: 'example@email.com'
+    // },
     {
       id: 'phone',
       text: 'Номер телефона',
@@ -447,6 +447,31 @@ const GamingPartiesPage = () => {
                 />
               </div>
               
+              {pageData.galleryImages.length > 0 && (
+                <div className="program-gallery">
+                  {pageData.galleryImages.map((image, index) => (
+                    <div 
+                      key={index} 
+                      className={`gallery-thumbnail ${currentImage === image ? 'active' : ''}`}
+                      onClick={() => handleThumbnailClick(image)}
+                      style={{ background: '#222', position: 'relative' }}
+                    >
+                      <img 
+                        src={image} 
+                        alt={`${pageData.title} - фото ${index + 1}`} 
+                        loading="lazy"
+                        style={{
+                          filter: loadedImages[index] ? 'none' : 'blur(16px)',
+                          transition: 'filter 0.5s ease',
+                          background: '#222'
+                        }}
+                        onLoad={() => handleImageLoad(index)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+              
               <div className="program-info">
                 <h1 className="program-title">{pageData.title}</h1>
                 
@@ -467,31 +492,6 @@ const GamingPartiesPage = () => {
                 </div>
               </div>
             </div>
-
-            {pageData.galleryImages.length > 0 && (
-              <div className="program-gallery">
-                {pageData.galleryImages.map((image, index) => (
-                  <div 
-                    key={index} 
-                    className={`gallery-thumbnail ${currentImage === image ? 'active' : ''}`}
-                    onClick={() => handleThumbnailClick(image)}
-                    style={{ background: '#222', position: 'relative' }}
-                  >
-                    <img 
-                      src={image} 
-                      alt={`${pageData.title} - фото ${index + 1}`} 
-                      loading="lazy"
-                      style={{
-                        filter: loadedImages[index] ? 'none' : 'blur(16px)',
-                        transition: 'filter 0.5s ease',
-                        background: '#222'
-                      }}
-                      onLoad={() => handleImageLoad(index)}
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
 
             {/* Карточки с типами игр */}
             <section className="game-types-section">

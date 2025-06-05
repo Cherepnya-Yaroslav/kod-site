@@ -398,6 +398,7 @@ export interface ApiAdultGamesPageAdultGamesPage
     pageHeader: Schema.Attribute.Component<'shared.page-header', false> &
       Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    testimonial: Schema.Attribute.Component<'shared.testimonial', true>;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

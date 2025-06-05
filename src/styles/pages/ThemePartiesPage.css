@@ -374,6 +374,37 @@
 }
 
 @media (max-width: 768px) {
+  .program-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+      "image"
+      "gallery"
+      "info";
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .program-image-container {
+    grid-area: image;
+    width: 100%;
+  }
+
+  .program-gallery {
+    grid-area: gallery;
+    width: 100%;
+  }
+
+  .program-info {
+    grid-area: info;
+    width: 100%;
+  }
+
+  .program-info .program-title,
+  .program-info .program-description {
+    text-align: left;
+  }
+
   .theme-parties-page .programs-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;

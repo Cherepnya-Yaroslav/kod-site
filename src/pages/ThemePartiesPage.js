@@ -139,7 +139,7 @@ const ThemePartiesPage = () => {
             ) : transformedEvents.length === 0 ? (
               <div className="no-events">
                 <p>События пока не добавлены</p>
-                <p>Когда вы добавите события в Strapi, они появятся здесь</p>
+                {/* <p>Когда вы добавите события в Strapi, они появятся здесь</p> */}
               </div>
             ) : (
               <div className="programs-grid">

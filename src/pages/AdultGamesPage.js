@@ -6,6 +6,7 @@ import PhotoGallery from "../components/PhotoGallery"
 import EventCalendar from "../components/EventCalendar"
 import PageHeaderSection from '../components/PageHeaderSection';
 import FAQ from '../components/FAQ';
+import Testimonials from "../components/Testimonials";
 import { fetchData, getMediaUrl } from '../api/strapi'
 // Обновляем импорт CSS
 import "../styles/pages/AdultGamesPage.css"
@@ -113,7 +114,8 @@ const AdultGamesPage = () => {
     Gallery = [], 
     CoverImage,
     pageHeader = {},
-    faq = []
+    faq = [],
+    testimonial = []
   } = pageData || {};
 
 
@@ -167,6 +169,9 @@ const AdultGamesPage = () => {
 
         {/* FAQ Section */}
         <FAQ questions={faq} />
+
+        {/* Testimonials */}
+        <Testimonials testimonials={testimonial} />
       </main>
       <SiteFooter />
     </div>

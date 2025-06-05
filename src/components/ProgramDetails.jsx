@@ -90,13 +90,13 @@ const ProgramDetails = ({
       placeholder: 'Ваше имя',
       required: true
     },
-    {
-      id: 'email',
-      text: 'Ваш Email',
-      type: 'email',
-      placeholder: 'example@email.com',
-      required: true
-    },
+    // {
+    //   id: 'email',
+    //   text: 'Ваш Email',
+    //   type: 'email',
+    //   placeholder: 'example@email.com',
+    //   required: true
+    // },
     {
       id: 'phone',
       text: 'Укажите ваш номер телефона',
@@ -142,24 +142,6 @@ const ProgramDetails = ({
               onError={handleImageError}
             />
           </div>
-          
-          <div className="program-description">
-            <h1 className="program-title">{title}</h1>
-            
-            <div className="program-action">
-              <Button 
-                variant="primary" 
-                size="lg"
-                onClick={() => setIsFormOpen(true)}
-              >
-                {/аренда/i.test(title) ? 'УЗНАТЬ ПОДРОБНЕЕ' : 'ВЫБРАТЬ ПРОГРАММУ'}
-              </Button>
-            </div>
-            
-            {paragraphs.map((paragraph, index) => (
-              <p key={index}>{paragraph}</p>
-            ))}
-          </div>
 
           {validGalleryImages.length > 0 && (
             <div className="program-gallery">
@@ -184,6 +166,24 @@ const ProgramDetails = ({
               }
             </div>
           )}
+          
+          <div className="program-description">
+            <h1 className="program-title">{title}</h1>
+            
+            <div className="program-action">
+              <Button 
+                variant="primary" 
+                size="lg"
+                onClick={() => setIsFormOpen(true)}
+              >
+                {/аренда/i.test(title) ? 'УЗНАТЬ ПОДРОБНЕЕ' : 'ВЫБРАТЬ ПРОГРАММУ'}
+              </Button>
+            </div>
+            
+            {paragraphs.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
         </div>
 
         <FeedbackForm 
