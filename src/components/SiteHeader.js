@@ -12,6 +12,7 @@ const API_URL = process.env.REACT_APP_STRAPI_URL
 const SiteHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [promoBannerData, setPromoBannerData] = useState(null)
+  const [footerData, setFooterData] = useState(null)
   const location = useLocation()
 
   useEffect(() => {
@@ -40,7 +41,25 @@ const SiteHeader = () => {
       }
     };
 
+    const fetchFooterData = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/footer?populate=*`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Footer data:', data);
+        if (data.data) {
+          setFooterData(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching footer data:', error.message);
+        setFooterData(null);
+      }
+    };
+
     fetchPromoBanner();
+    fetchFooterData();
   }, []);
 
   const toggleMobileMenu = () => {
@@ -160,25 +179,46 @@ const SiteHeader = () => {
                     Онлайн-обучение
                   </Link>
                 </nav>
-                {/* <div className="mobile-contact">
-                  <a href="tel:+71234567890" className="mobile-phone-link">
-                    <i className="icon-phone"></i>
-                    <span>+7 (123) 456-7890</span>
-                  </a>
+                <div className="mobile-contact">
+                  {footerData && footerData.number && (
+                    <a href={`tel:${footerData.number}`} className="mobile-phone-link">
+                      <i className="icon-phone"></i>
+                      <span>{footerData.number}</span>
+                    </a>
+                  )}
                   <div className="mobile-social-links">
-                    <a
-                      href="https://instagram.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mobile-social-link"
-                    >
-                      <i className="icon-instagram"></i>
-                    </a>
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="mobile-social-link">
-                      <i className="icon-facebook"></i>
-                    </a>
+                    {footerData && footerData.vkLink && (
+                      <a
+                        href={footerData.vkLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mobile-social-link"
+                      >
+                        <i className="icon-vk"></i>
+                      </a>
+                    )}
+                    {footerData && footerData.telegramLink && (
+                      <a
+                        href={footerData.telegramLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mobile-social-link"
+                      >
+                        <i className="icon-telegram"></i>
+                      </a>
+                    )}
+                    {footerData && footerData.rutubeLink && (
+                      <a
+                        href={footerData.rutubeLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mobile-social-link"
+                      >
+                        <i className="icon-rutube"></i>
+                      </a>
+                    )}
                   </div>
-                </div> */}
+                </div>
               </div>
             </div>
           )}
