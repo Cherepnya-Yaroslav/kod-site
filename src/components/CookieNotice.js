@@ -24,7 +24,7 @@ const CookieNotice = () => {
     <div className="cookie-notice">
       <div className="cookie-notice__container">
         <span className="cookie-notice__text">
-          Мы используем файлы cookie для улучшения работы сайта. Продолжая пользоваться сайтом, вы соглашаетесь с нашей <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="cookie-notice__link">политикой</a> использования cookie.
+          Мы используем файлы cookie для улучшения работы сайта. Продолжая пользоваться сайтом, вы соглашаетесь с <a href="/politics.pdf" target="_blank" rel="noopener noreferrer" className="cookie-notice__link">политикой конфиденциальности</a>.
         </span>
         <button className="cookie-notice__button" onClick={handleAccept}>
           Понятно

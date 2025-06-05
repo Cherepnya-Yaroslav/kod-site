@@ -62,7 +62,7 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
     // Закрываем форму через 2 сек
     setTimeout(() => {
       onClose();
-    }, 2000);
+    }, 20000);
 
     // Формируем только допустимые поля для Strapi
     const allowedFields = ['name', 'phone', 'message', 'formType'];
