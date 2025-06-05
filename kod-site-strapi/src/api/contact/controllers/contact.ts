@@ -29,7 +29,7 @@ export default factories.createCoreController('api::contact.contact', ({ strapi 
     // 4. Формируем письмо
     await transporter.sendMail({
       from: 'meetingm@bk.ru',
-      to: 'cherepnya.yar@mail.ru',
+      to: 'kodspace@mail.ru',
       subject: `Новая заявка с сайта (${formType || 'Обратная связь'})`,
       text: `
         Имя: ${name || '—'}
@@ -38,7 +38,7 @@ export default factories.createCoreController('api::contact.contact', ({ strapi 
         Дополнительно:
         ${formatAdditionalData(additionalData)}
         `,
-      replyTo: 'kodspace@yandex.ru',
+      replyTo: 'kodspace@mail.ru',
     });
 
     return response;

@@ -21,6 +21,7 @@ const Testimonials = ({ testimonials = [] }) => {
             </Card>
           ))}
         </div>
+        <div className="scroll-indicator">←→</div>
       </div>
     </section>
   );
