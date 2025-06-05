@@ -14,6 +14,7 @@ module.exports = (config) => {
         'kodspace.art',
         'localhost',
         '127.0.0.1',
+        'kodspace-admin.ru',
       ],
     },
   });
