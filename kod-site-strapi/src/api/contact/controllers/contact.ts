@@ -38,7 +38,7 @@ export default factories.createCoreController('api::contact.contact', ({ strapi 
         Дополнительно:
         ${formatAdditionalData(additionalData)}
         `,
-      replyTo: 'Kodspace@yandex.ru',
+      replyTo: 'kodspace@yandex.ru',
     });
 
     return response;
