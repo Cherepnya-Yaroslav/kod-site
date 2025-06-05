@@ -160,7 +160,7 @@ const SiteHeader = () => {
                     Онлайн-обучение
                   </Link>
                 </nav>
-                <div className="mobile-contact">
+                {/* <div className="mobile-contact">
                   <a href="tel:+71234567890" className="mobile-phone-link">
                     <i className="icon-phone"></i>
                     <span>+7 (123) 456-7890</span>
@@ -178,7 +178,7 @@ const SiteHeader = () => {
                       <i className="icon-facebook"></i>
                     </a>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           )}
