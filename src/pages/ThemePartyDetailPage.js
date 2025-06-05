@@ -157,19 +157,19 @@ const ThemePartyDetailPage = () => {
                 />
               </div>
               
-              {event.galleryImages.length > 0 && (
-                <div className="program-gallery">
-                  {event.galleryImages.map((image, index) => (
-                    <div 
-                      key={index} 
-                      className={`gallery-thumbnail ${activeImage === image ? 'active' : ''}`}
-                      onClick={() => handleThumbnailClick(image)}
-                    >
-                      <img src={image} alt={`${event.title} - фото ${index + 1}`} />
-                    </div>
-                  ))}
-                </div>
-              )}
+            {event.galleryImages.length > 0 && (
+              <div className="program-gallery">
+                {event.galleryImages.map((image, index) => (
+                  <div 
+                    key={index} 
+                    className={`gallery-thumbnail ${activeImage === image ? 'active' : ''}`}
+                    onClick={() => handleThumbnailClick(image)}
+                  >
+                    <img src={image} alt={`${event.title} - фото ${index + 1}`} />
+                  </div>
+                ))}
+              </div>
+            )}
               
               <div className="program-info">
                 <h1 className="program-title">{event.title}</h1>

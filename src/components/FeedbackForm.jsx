@@ -309,9 +309,9 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
                   />
                   <span>
                     Я прочитал и принимаю{' '}
-                    <a href="/user-agreement.docx" target="_blank" rel="noopener noreferrer">пользовательское соглашение</a>
+                    <a href="/user-agreement.pdf" target="_blank" rel="noopener noreferrer">пользовательское соглашение</a>
                     {' '}и{' '}
-                    <a href="/privacy-policy.pdf" target="_blank" rel="noopener noreferrer">политику конфиденциальности</a>
+                    <a href="/politics.pdf" target="_blank" rel="noopener noreferrer">политику конфиденциальности</a>
                   </span>
                 </label>
                 {agreementError && (

@@ -856,7 +856,7 @@
   .gallery-thumbnail {
     border-width: 1px;
   }
-}
+} 
 
 .theme-parties-page .program-gallery .gallery-thumbnail img {
   object-fit: cover !important;

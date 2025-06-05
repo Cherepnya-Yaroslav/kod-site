@@ -142,7 +142,7 @@ const ProgramDetails = ({
               onError={handleImageError}
             />
           </div>
-
+          
           {validGalleryImages.length > 0 && (
             <div className="program-gallery">
               {[mainImage || defaultImage, ...validGalleryImages]

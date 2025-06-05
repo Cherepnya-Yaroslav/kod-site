@@ -149,10 +149,10 @@ const SiteFooter = () => {
           <div className="footer-section">
             <h3 className="footer-title">Документы</h3>
             <nav className="footer-nav">
-              <a href="privacy-policy.docx" className="footer-link" target="_blank" rel="noopener noreferrer" >
+              <a href="/politics.pdf" className="footer-link" target="_blank" rel="noopener noreferrer" >
                 Политика конфиденциальности
               </a>
-              <a href="/user-agreement.docx" className="footer-link" target="_blank" rel="noopener noreferrer">
+              <a href="/user-agreement.pdf" className="footer-link" target="_blank" rel="noopener noreferrer">
               Пользовательское соглашение
               </a>
             </nav>

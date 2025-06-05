@@ -56,6 +56,48 @@
   }
 }
 
+@media (max-width: 768px) {
+  .program-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "image"
+      "gallery"
+      "action"
+      "desc";
+    gap: 1rem;
+  }
+  .program-title {
+    grid-area: title;
+    margin-bottom: 0;
+    text-align: left;
+  }
+  .program-image-container {
+    grid-area: image;
+    width: 100%;
+  }
+  .program-gallery {
+    grid-area: gallery;
+    width: 100%;
+  }
+  .program-action {
+    grid-area: action;
+    width: 100%;
+    margin: 0 0 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .program-description {
+    grid-area: desc;
+    width: 100%;
+    text-align: left;
+  }
+  .program-info {
+    display: contents;
+  }
+}
+
 .program-image-container {
   position: relative;
   width: 100%;
