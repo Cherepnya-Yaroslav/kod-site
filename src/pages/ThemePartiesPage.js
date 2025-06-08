@@ -124,7 +124,7 @@ const ThemePartiesPage = () => {
           description={pageData.description}
           mainImage={currentImage || pageData.mainImage}
           galleryImages={pageData.galleryImages}
-          returnPath="/"
+          returnPath="/personal-parties"
           onThumbnailClick={handleThumbnailClick}
         />
 

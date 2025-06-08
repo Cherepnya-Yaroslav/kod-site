@@ -427,7 +427,7 @@ const GamingPartiesPage = () => {
         <div className="program-details">
           <div className="container">
             <div className="program-header">
-              <Link to="/" className="back-button">
+              <Link to="/personal-parties" className="back-button">
                 ← НАЗАД
               </Link>
             </div>
