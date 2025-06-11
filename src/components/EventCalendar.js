@@ -301,8 +301,9 @@ const EventCalendar = ({ eventType }) => {
       endDate.setDate(31);
       endDate.setHours(23, 59, 59, 999);
       
-      // console.log('Loading events from', startDate, 'to', endDate);
-      // console.log('Event type:', eventType);
+      // console.log('=== Event Calendar Debug ===');
+      // console.log('Loading events for type:', eventType);
+      // console.log('Date range:', startDate.toISOString(), 'to', endDate.toISOString());
 
       const filters = {
         $and: [
@@ -324,31 +325,34 @@ const EventCalendar = ({ eventType }) => {
         ]
       };
 
+      console.log('Applied filters:', JSON.stringify(filters, null, 2));
+
       const response = await fetchData('events', { 
         filters,
-        populate: ['coverImage']
+        populate: ['coverImage'],
+        pageSize: 100
       });
+      
+      console.log('Raw API response:', response);
       
       if (response) {
         const eventsArray = Array.isArray(response) ? response : (response.data || []);
-        // console.log('Received events count:', eventsArray.length);
+        console.log('Received events count:', eventsArray.length);
         
         const formattedEvents = eventsArray.map(event => {
           if (!event || typeof event !== 'object') {
-            // console.error('Invalid event object:', event);
+            console.error('Invalid event object:', event);
             return null;
           }
 
           const eventData = event.attributes || event;
           
-          // if (!eventData.title || !eventData.date) {
-          //   console.error('Event missing required fields:', {
-          //     id: event.id,
-          //     hasTitle: !!eventData.title,
-          //     hasDate: !!eventData.date
-          //   });
-          //   return null;
-          // }
+          // console.log('Processing event:', {
+          //   id: event.id,
+          //   title: eventData.title,
+          //   date: eventData.date,
+          //   type: eventData.type
+          // });
 
           return {
             id: event.id,
@@ -364,19 +368,26 @@ const EventCalendar = ({ eventType }) => {
             maxParticipants: eventData.maxParticipants,
             currentParticipants: eventData.currentParticipants,
             registrationRequired: eventData.registrationRequired || false,
-            type: eventType, // Добавляем тип события из props для фильтрации
+            type: eventType,
             eventLink: eventData.eventLink || null
           };
         }).filter(Boolean);
 
         // console.log('Formatted events count:', formattedEvents.length);
+        // console.log('Final events list:', formattedEvents.map(e => ({
+        //   id: e.id,
+        //   title: e.title,
+        //   date: e.date,
+        //   type: e.type
+        // })));
+        
         setEvents(formattedEvents);
       } else {
-        // console.log('No events received from API');
+        console.log('No events received from API');
         setEvents([]);
       }
     } catch (err) {
-      // console.error('Error loading events:', err);
+      console.error('Error loading events:', err);
       setError(err.message);
     } finally {
       setLoading(false);
