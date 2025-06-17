@@ -19,6 +19,7 @@ import './styles/globals.css';
 import EventCalendar from './components/EventCalendar';
 import ScrollToTop from './components/ScrollToTop';
 import CookieNotice from './components/CookieNotice';
+import WhatsAppButton from './components/WhatsAppButton';
 import "./App.css"
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         </Routes>
         <CookieNotice />
       </PageTransition>
+      <WhatsAppButton />
     </Router>
   );
 }
