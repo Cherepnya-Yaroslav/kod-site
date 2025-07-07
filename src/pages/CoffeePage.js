@@ -6,6 +6,7 @@ import PageHeaderSection from '../components/PageHeaderSection';
 import FeedbackForm from "../components/FeedbackForm.jsx"
 import { fetchData, getMediaUrl } from '../api/strapi';
 import '../styles/pages/CoffeePage.css';
+import AnimatedHeroBackground from "../components/AnimatedHeroBackground"
 
 // Определим URL Strapi API
 const STRAPI_API_URL = process.env.REACT_APP_STRAPI_URL;
@@ -304,14 +305,12 @@ const CoffeePage = () => {
       <main className="main-content">
         {/* Hero Section в стиле HomePage */}
         <section className="hero-section">
-          <div className={`hero-background coffee-page ${bgLoaded ? 'loaded' : ''}`}>
-            <img
-              src="/collage-bg/collage-34-1-2.webp"
-              alt={content.heroTitle}
-              loading="eager"
-              onLoad={() => setBgLoaded(true)}
-            />
-          </div>
+          <AnimatedHeroBackground
+            imageSrc="/collage-bg/collage-34-1-2.webp"
+            alt={content.heroTitle}
+            className="coffee-page"
+            onLoad={() => setBgLoaded(true)}
+          />
           <div className="hero-overlay" />
           <div className="hero-container">
             <div className="hero-content">

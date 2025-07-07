@@ -9,6 +9,7 @@ import ProgramDetails from "../components/ProgramDetails"
 import PageHeaderSection from "../components/PageHeaderSection"
 import Testimonials from "../components/Testimonials"
 import FAQ from "../components/FAQ"
+import AnimatedHeroBackground from "../components/AnimatedHeroBackground"
 
 // Обновляем импорт CSS
 import "../styles/pages/PersonalPartiesPage.css"
@@ -303,14 +304,11 @@ const PersonalPartiesPage = () => {
       <SiteHeader />
       <main className="main-content">
         <section className="personal-parties-hero">
-          <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
-            <img
-              src="/collage-bg/collage-13-1-2.webp"
-              alt=""
-              loading="eager"
-              onLoad={() => setBgLoaded(true)}
-            />
-          </div>
+          <AnimatedHeroBackground
+            imageSrc="/collage-bg/collage-13-1-2.webp"
+            alt=""
+            onLoad={() => setBgLoaded(true)}
+          />
           <div className="hero-overlay" />
           <div className="hero-content">
             <h1>{pageData?.Title || "Личные вечеринки"}</h1>
@@ -445,7 +443,7 @@ const PersonalPartiesPage = () => {
                     <ul className="conditions-list" style={{ listStyle: 'none', padding: 0 }}>
                       <li className="conditions-item">
                         <span className="check-icon">✓</span>
-                        <span>Предоплата 50% для фиксации даты</span>
+                        Предоплата 50% для фиксации даты
                       </li>
                       <li className="conditions-item">
                         <span className="check-icon">✓</span>

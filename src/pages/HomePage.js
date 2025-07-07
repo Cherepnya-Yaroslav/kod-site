@@ -3,6 +3,7 @@ import SiteHeader from "../components/SiteHeader"
 import SiteFooter from "../components/SiteFooter"
 import StrapiContent from "../components/StrapiContent"
 import YandexMetrikaContainer from "../components/YandexMetrikaContainer"
+import AnimatedHeroBackground from "../components/AnimatedHeroBackground"
 import "../styles/components/Card.css"
 import "../styles/components/Tabs.css"
 import "../styles/pages/HomePage.css"
@@ -36,13 +37,12 @@ const HomePage = () => {
       <>
       <SiteHeader />
         <section className="hero-section">
-          <div className={`hero-background home-page ${bgLoaded ? 'loaded' : ''}`}>
-            <img
-              src="/collage-bg/collage-1-1-2.webp"
-              alt=""
-              loading="eager"
-            />
-          </div>
+          <AnimatedHeroBackground
+            imageSrc="/collage-bg/collage-1-1-2.webp"
+            alt=""
+            className="home-page"
+            onLoad={() => setBgLoaded(true)}
+          />
           <div className="hero-overlay" />
           <div className="hero-container">
             <div className="hero-content">

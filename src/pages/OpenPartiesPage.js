@@ -10,6 +10,7 @@ import EventCalendar from '../components/EventCalendar'
 import PhotoGallery from "../components/PhotoGallery"
 import PageHeaderSection from "../components/PageHeaderSection"
 import FAQ from "../components/FAQ"
+import AnimatedHeroBackground from "../components/AnimatedHeroBackground"
 
 // Константы
 const STRAPI_URL = process.env.REACT_APP_STRAPI_URL
@@ -114,14 +115,11 @@ const OpenPartiesPage = () => {
       <SiteHeader />
       <main className="main-content">
         <section className="open-parties-hero">
-          <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
-            <img
-              src="/collage-bg/collage-10.png"
-              alt=""
-              loading="eager"
-              onLoad={() => setBgLoaded(true)}
-            />
-          </div>
+          <AnimatedHeroBackground
+            imageSrc="/collage-bg/collage-10.png"
+            alt=""
+            onLoad={() => setBgLoaded(true)}
+          />
           <div className="hero-overlay" />
           <div className="hero-content">
             <h1>{title || "Открытые игры"}</h1>

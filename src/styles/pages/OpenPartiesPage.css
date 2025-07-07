@@ -148,11 +148,6 @@
   gap: 0.5rem;
 }
 
-.check-icon::before {
-  content: "✓";
-  color: var(--primary);
-}
-
 /* Schedule Section */
 .schedule-section {
   padding: 6rem 0;

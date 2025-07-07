@@ -7,6 +7,7 @@ import EventCalendar from "../components/EventCalendar"
 import PageHeaderSection from '../components/PageHeaderSection';
 import FAQ from '../components/FAQ';
 import Testimonials from "../components/Testimonials";
+import AnimatedHeroBackground from "../components/AnimatedHeroBackground"
 import { fetchData, getMediaUrl } from '../api/strapi'
 // Обновляем импорт CSS
 import "../styles/pages/AdultGamesPage.css"
@@ -124,14 +125,11 @@ const AdultGamesPage = () => {
       <SiteHeader />
       <main className="main-content">
         <section className="adult-games-hero">
-          <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
-            <img
-              src="/collage-bg/collage-19-1-2.webp"
-              alt=""
-              loading="eager"
-              onLoad={() => setBgLoaded(true)}
-            />
-          </div>
+          <AnimatedHeroBackground
+            imageSrc="/collage-bg/collage-19-1-2.webp"
+            alt=""
+            onLoad={() => setBgLoaded(true)}
+          />
           <div className="hero-overlay" />
           <div className="hero-content">
             <h1>{Title || "Игры для взрослых"}</h1>

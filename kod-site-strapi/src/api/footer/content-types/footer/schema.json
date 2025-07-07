@@ -20,6 +20,14 @@
         "adress": {
             "type": "string"
         },
+        "mapLatitude": {
+            "type": "decimal",
+            "description": "Latitude coordinate for map widget"
+        },
+        "mapLongitude": {
+            "type": "decimal",
+            "description": "Longitude coordinate for map widget"
+        },
         "vkLink": {
             "type": "string",
             "description": "Full URL to VK page (e.g. https://vk.com/...)"

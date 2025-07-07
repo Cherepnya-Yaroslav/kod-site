@@ -126,6 +126,59 @@ img:not([data-lazy="true"]) {
               transform 0.3s ease-in-out;
 }
 
+/* Анимация разжатия фона hero-section */
+@keyframes heroBackgroundExpand {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Класс для анимации разжатия фона */
+.hero-background-expand {
+  animation: heroBackgroundExpand 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  transform-origin: center center;
+}
+
+/* Обновляем базовые стили для hero-background */
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #000;
+  z-index: 1;
+  transform-origin: center center;
+}
+
+.hero-background img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Убираем старые стили loaded, так как теперь используем новую анимацию */
+.hero-background.loaded img {
+  opacity: 1;
+}
+
 /* Стили для скроллбара */
 ::-webkit-scrollbar {
   width: 8px;

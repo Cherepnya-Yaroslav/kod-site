@@ -54,17 +54,14 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
       setSubmitError('Пожалуйста, примите условия пользовательского соглашения');
       return;
     }
-    // Показываем успех сразу
-    setSubmitSuccess(true);
+    setSubmitSuccess(false);
     setIsSubmitting(true);
     setSubmitError(null);
     setAgreementError(false);
-    // Закрываем форму через 2 сек
-    setTimeout(() => {
-      onClose();
-    }, 20000);
+    // Закрываем форму через 2 сек после успеха
+    const closeTimeout = () => setTimeout(() => { onClose(); }, 20000);
 
-    // Формируем только допустимые поля для Strapi
+    // Формируем только допустимые поля для письма и Strapi
     const allowedFields = ['name', 'phone', 'message', 'formType'];
     const formData = {};
     const additionalData = {};
@@ -82,15 +79,31 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
     if (Object.keys(additionalData).length > 0) {
       formData.additionalData = additionalData;
     }
-    // Отправляем запрос в фоне
-    axios.post(`${API_URL}/api/contacts`, { data: formData })
-      .catch(error => {
-        // Логируем ошибку, но не мешаем UX
-        console.log('Ошибка Strapi:', error.response?.data);
-      })
-      .finally(() => {
-        setIsSubmitting(false);
+
+    // Отправляем данные и в Strapi, и на мини-бэкенд для email
+    try {
+      const strapiPromise = fetch('http://localhost:1337/api/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: formData }),
       });
+      const emailPromise = fetch('http://localhost:4001/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const [strapiRes, emailRes] = await Promise.all([strapiPromise, emailPromise]);
+      if (strapiRes.ok && emailRes.ok) {
+        setSubmitSuccess(true);
+        closeTimeout();
+      } else {
+        setSubmitError('Ошибка при отправке данных. Попробуйте позже.');
+      }
+    } catch (error) {
+      setSubmitError('Ошибка при отправке данных. Попробуйте позже.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleBackdropClick = (e) => {

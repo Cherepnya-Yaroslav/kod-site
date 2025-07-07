@@ -1,7 +1,9 @@
+import React from "react"
 import SiteHeader from "../components/SiteHeader"
 import SiteFooter from "../components/SiteFooter"
 import Button from "../components/Button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "../components/Card"
+import AnimatedHeroBackground from "../components/AnimatedHeroBackground"
 // Обновляем импорт CSS
 import "../styles/pages/OnlineLearningPage.css"
 
@@ -68,13 +70,11 @@ const OnlineLearningPage = () => {
       <main className="main-content">
         {/* Hero Section (collage background, overlay, title, description) */}
         <section className="online-hero-section">
-          <div className={`hero-background collage-course-bg`}>
-            <img
-              src="/collage-bg/collage-course-1.webp"
-              alt="Коллаж онлайн-обучения"
-              loading="eager"
-            />
-          </div>
+          <AnimatedHeroBackground
+            imageSrc="/collage-bg/collage-course-1.webp"
+            alt="Коллаж онлайн-обучения"
+            className="collage-course-bg"
+          />
           <div className="hero-overlay" />
           <div className="hero-content">
             {/* <h1>Онлайн-обучение</h1>

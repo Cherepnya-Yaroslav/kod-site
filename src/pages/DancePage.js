@@ -6,6 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import FAQ from "../components/FAQ"
 import FeedbackForm from "../components/FeedbackForm"
 import { fetchData, getMediaUrl } from '../api/strapi'
+import StrapiContent from "../components/StrapiContent"
+import YandexMetrikaContainer from "../components/YandexMetrikaContainer"
+import AnimatedHeroBackground from "../components/AnimatedHeroBackground"
 // Обновляем импорт CSS
 import "../styles/pages/DancePage.css"
 
@@ -347,14 +350,11 @@ const DancePage = () => {
       )}
       <main className="main-content">
         <section className="dance-hero-section">
-          <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
-            <img
-              src="/collage-bg/collage-22-1-2.webp"
-              alt=""
-              loading="eager"
-              onLoad={() => setBgLoaded(true)}
-            />
-          </div>
+          <AnimatedHeroBackground
+            imageSrc="/collage-bg/collage-22-1-2.webp"
+            alt=""
+            onLoad={() => setBgLoaded(true)}
+          />
           <div className="hero-overlay" />
           <div className="dance-hero-content">
             <h1 className="dance-hero-title">{pageData?.Title || "Танцы в K.O.D"}</h1>

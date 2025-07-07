@@ -8,6 +8,7 @@ import PageHeaderSection from "../components/PageHeaderSection"
 import { fetchData, getMediaUrl } from '../api/strapi'
 import Testimonials from "../components/Testimonials"
 import FAQ from "../components/FAQ"
+import AnimatedHeroBackground from "../components/AnimatedHeroBackground"
 // Обновляем импорт CSS
 import "../styles/pages/KidsGamesPage.css"
 
@@ -148,14 +149,11 @@ const KidsGamesPage = () => {
       <main className="main-content">
         {/* Hero Section */}
         <section className="kids-hero-section">
-          <div className={`hero-background ${bgLoaded ? 'loaded' : ''}`}>
-            <img
-              src="/collage-bg/collage-16.png"
-              alt=""
-              loading="eager"
-              onLoad={() => setBgLoaded(true)}
-            />
-          </div>
+          <AnimatedHeroBackground
+            imageSrc="/collage-bg/collage-16.png"
+            alt=""
+            onLoad={() => setBgLoaded(true)}
+          />
           <div className="hero-overlay" />
           <div className="container">
             <div className="kids-hero-content">

@@ -157,6 +157,19 @@ const SiteFooter = () => {
               </a>
             </nav>
           </div>
+          <div className="footer-section map-section">
+            <h3 className="footer-title">Как нас найти</h3>
+                          <div className="map-container">
+                <iframe 
+                  src="https://yandex.ru/map-widget/v1/?ll=30.357397%2C59.838607&amp;z=15&amp;l=map&amp;pt=30.357397%2C59.838607%2Cpm2rdm&amp;source=constructor"
+                  width="100%" 
+                  height="200" 
+                  frameBorder="0"
+                  title="Яндекс Карта - K.O.D."
+                  className="yandex-map"
+                ></iframe>
+              </div>
+          </div>
         </div>
         <div className="footer-bottom">
           <p className="copyright">© {new Date().getFullYear()} K.O.D. Все права защищены.</p>
