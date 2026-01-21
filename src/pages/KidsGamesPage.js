@@ -151,9 +151,9 @@ const KidsGamesPage = () => {
         <section className="kids-hero-section">
           <AnimatedHeroBackground
             imageSrc="/collage-bg/collage-16.png"
-            alt=""
-            onLoad={() => setBgLoaded(true)}
-          />
+              alt=""
+              onLoad={() => setBgLoaded(true)}
+            />
           <div className="hero-overlay" />
           <div className="container">
             <div className="kids-hero-content">

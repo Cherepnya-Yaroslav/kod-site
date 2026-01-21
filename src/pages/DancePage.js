@@ -352,9 +352,9 @@ const DancePage = () => {
         <section className="dance-hero-section">
           <AnimatedHeroBackground
             imageSrc="/collage-bg/collage-22-1-2.webp"
-            alt=""
-            onLoad={() => setBgLoaded(true)}
-          />
+              alt=""
+              onLoad={() => setBgLoaded(true)}
+            />
           <div className="hero-overlay" />
           <div className="dance-hero-content">
             <h1 className="dance-hero-title">{pageData?.Title || "Танцы в K.O.D"}</h1>

@@ -307,10 +307,10 @@ const CoffeePage = () => {
         <section className="hero-section">
           <AnimatedHeroBackground
             imageSrc="/collage-bg/collage-34-1-2.webp"
-            alt={content.heroTitle}
+              alt={content.heroTitle}
             className="coffee-page"
-            onLoad={() => setBgLoaded(true)}
-          />
+              onLoad={() => setBgLoaded(true)}
+            />
           <div className="hero-overlay" />
           <div className="hero-container">
             <div className="hero-content">

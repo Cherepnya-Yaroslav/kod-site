@@ -72,9 +72,9 @@ const OnlineLearningPage = () => {
         <section className="online-hero-section">
           <AnimatedHeroBackground
             imageSrc="/collage-bg/collage-course-1.webp"
-            alt="Коллаж онлайн-обучения"
+              alt="Коллаж онлайн-обучения"
             className="collage-course-bg"
-          />
+            />
           <div className="hero-overlay" />
           <div className="hero-content">
             {/* <h1>Онлайн-обучение</h1>

@@ -117,9 +117,9 @@ const OpenPartiesPage = () => {
         <section className="open-parties-hero">
           <AnimatedHeroBackground
             imageSrc="/collage-bg/collage-10.png"
-            alt=""
-            onLoad={() => setBgLoaded(true)}
-          />
+              alt=""
+              onLoad={() => setBgLoaded(true)}
+            />
           <div className="hero-overlay" />
           <div className="hero-content">
             <h1>{title || "Открытые игры"}</h1>

@@ -46,7 +46,7 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     
     if (!agreementAccepted) {
@@ -58,8 +58,8 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
     setIsSubmitting(true);
     setSubmitError(null);
     setAgreementError(false);
-    // Закрываем форму через 2 сек после успеха
-    const closeTimeout = () => setTimeout(() => { onClose(); }, 20000);
+    // Закрываем форму через 20 сек после успеха
+    setTimeout(() => { onClose(); }, 20000);
 
     // Формируем только допустимые поля для письма и Strapi
     const allowedFields = ['name', 'phone', 'message', 'formType'];
@@ -80,30 +80,27 @@ const FeedbackForm = ({ questions, title, description, isOpen, onClose, formType
       formData.additionalData = additionalData;
     }
 
-    // Отправляем данные и в Strapi, и на мини-бэкенд для email
-    try {
-      const strapiPromise = fetch('http://localhost:1337/api/contacts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: formData }),
-      });
-      const emailPromise = fetch('http://localhost:4001/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const [strapiRes, emailRes] = await Promise.all([strapiPromise, emailPromise]);
-      if (strapiRes.ok && emailRes.ok) {
-        setSubmitSuccess(true);
-        closeTimeout();
-      } else {
-        setSubmitError('Ошибка при отправке данных. Попробуйте позже.');
-      }
-    } catch (error) {
-      setSubmitError('Ошибка при отправке данных. Попробуйте позже.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Fire-and-forget: отправляем запросы, не дожидаясь ответа
+    fetch('https://kodspace-admin.ru/api/contacts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: formData }),
+    }).catch((err) => {
+      // Можно залогировать ошибку, если нужно
+      // console.error('Strapi send error:', err);
+    });
+
+    fetch('http://localhost:4001/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    }).catch((err) => {
+      // Можно залогировать ошибку, если нужно
+      // console.error('Email send error:', err);
+    });
+
+    setSubmitSuccess(true);
+    setIsSubmitting(false);
   };
 
   const handleBackdropClick = (e) => {

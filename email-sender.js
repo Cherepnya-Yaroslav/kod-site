@@ -12,12 +12,12 @@ app.use(cors());
 
 // SMTP-конфиг (Mail.ru)
 const transporter = nodemailer.createTransport({
-  host: 'smtp.mail.ru',
+  host: 'smtp.yandex.ru',
   port: 465,
   secure: true,
   auth: {
-    user: 'meetingm@bk.ru',
-    pass: 'TCNwNSdhLX769bNZta4S',
+    user: 'Sesor8888@yandex.ru',
+    pass: 'ifjnegjxrzslpihr',
   },
 });
 
@@ -34,11 +34,11 @@ app.post('/send-email', async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: 'meetingm@bk.ru',
-      to: 'cherepnya.yar@mail.ru',
+      from: 'Sesor8888@yandex.ru',
+      to: 'kodspace@mail.ru',
       subject: `Новая заявка с сайта (${formType || 'Обратная связь'})`,
       text: `\nИмя: ${name || '—'}\nТелефон: ${phone || '—'}\nСообщение: ${message || '—'}\nДополнительно:\n${formatAdditionalData(additionalData)}\n`,
-      replyTo: 'cherepnya.yar@mail.ru',
+      replyTo: 'kodspace@mail.ru',
     });
     console.log('[EMAIL-SENDER] Письмо успешно отправлено!');
     res.status(200).json({ success: true });

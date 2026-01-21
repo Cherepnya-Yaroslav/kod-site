@@ -127,9 +127,9 @@ const AdultGamesPage = () => {
         <section className="adult-games-hero">
           <AnimatedHeroBackground
             imageSrc="/collage-bg/collage-19-1-2.webp"
-            alt=""
-            onLoad={() => setBgLoaded(true)}
-          />
+              alt=""
+              onLoad={() => setBgLoaded(true)}
+            />
           <div className="hero-overlay" />
           <div className="hero-content">
             <h1>{Title || "Игры для взрослых"}</h1>

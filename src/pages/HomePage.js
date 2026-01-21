@@ -39,10 +39,10 @@ const HomePage = () => {
         <section className="hero-section">
           <AnimatedHeroBackground
             imageSrc="/collage-bg/collage-1-1-2.webp"
-            alt=""
+              alt=""
             className="home-page"
             onLoad={() => setBgLoaded(true)}
-          />
+            />
           <div className="hero-overlay" />
           <div className="hero-container">
             <div className="hero-content">
